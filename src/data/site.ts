@@ -1,0 +1,25 @@
+export const heroCopy = {
+  introScript: "hello",
+  headline: "I design unique user experiences with care.",
+  headlineLines: ["I design unique user", "experiences with care."],
+  description:
+    "Alexander Murashka is a UI/UX designer shaping immersive, story-driven interfaces that respect the craft and the people who use them.",
+  ctaLabel: "Discover projects",
+};
+
+export const contact = {
+  email: "hello@murashka.studio",
+  location: "made in Eindhoven",
+  socials: [
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/alexander-murashka-097752298/" },
+    { label: "Dribbble", href: "https://dribbble.com/san9com" },
+    { label: "Email", href: "mailto:santiaga.by@gmail.com" },
+  ],
+};
+
+export const profile = {
+  name: "Alexander Murashka",
+  title: "UI/UX Designer",
+  portrait: "/hero-image-alex-final.png",
+};
+

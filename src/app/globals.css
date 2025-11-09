@@ -1,26 +1,212 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+  --background: #000000;
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-strong: rgba(40, 50, 70, 0.55);
+  --foreground: #f7f4ec;
+  --muted: rgba(235, 232, 225, 0.64);
+  --accent: #f6c58f;
+  --accent-strong: #ffddab;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --shadow-soft: 0 20px 60px rgba(4, 7, 16, 0.6);
+  --font-sans-base: "Rmneue", "Futura PT", "Avenir Next", "Avenir", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-size-base: 22px;
+  --font-letter-spacing: -0.5px;
+  --body-padding-y: 5px;
+  --body-padding-x: 40px;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-border-subtle: var(--border-subtle);
+  --shadow-soft: var(--shadow-soft);
+  --font-sans: var(--font-sans-base);
+  --font-serif: var(--font-serif-display);
+  --font-script: var(--font-script-display);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+html {
+  scrollbar-width: none;
 }
 
 body {
-  background: var(--background);
+  margin: 0;
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(
+    --font-sans-base,
+    "Rmneue",
+    "Futura PT",
+    "Avenir Next",
+    "Avenir",
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    sans-serif
+  );
+  font-size: var(--font-size-base);
+  font-weight: 300;
+  letter-spacing: var(--font-letter-spacing);
+  padding: var(--body-padding-y) var(--body-padding-x);
+  text-rendering: optimizeLegibility;
+  -ms-overflow-style: none;
+}
+
+[class~="text-xs"],
+[class~="text-sm"],
+[class~="text-base"],
+[class*="text-[0.7rem]"],
+[class*="text-[0.8rem]"],
+[class*="text-[0.875rem]"],
+[class*="text-[14px]"],
+[class*="text-[16px]"] {
+  font-size: var(--font-size-base) !important;
+  line-height: 1.4;
+  letter-spacing: var(--font-letter-spacing);
+  font-weight: 300;
+}
+
+[class~="px-6"],
+[class~="px-10"],
+[class~="px-12"],
+[class~="px-16"] {
+  padding-left: var(--body-padding-x) !important;
+  padding-right: var(--body-padding-x) !important;
+}
+
+[class~="py-5"],
+[class~="py-12"],
+[class~="py-16"],
+[class~="py-24"],
+[class~="py-32"] {
+  padding-top: calc(var(--body-padding-y) * 2) !important;
+  padding-bottom: calc(var(--body-padding-y) * 2) !important;
+}
+
+header,
+section,
+footer {
+  padding-left: var(--body-padding-x);
+  padding-right: var(--body-padding-x);
+}
+
+header > div,
+section > div,
+footer > div {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+[class~="max-w-6xl"] {
+  max-width: min(1100px, 100%) !important;
+}
+
+[class~="max-w-sm"],
+[class~="max-w-md"] {
+  max-width: 44ch !important;
+}
+
+[class~="gap-6"],
+[class~="gap-10"],
+[class~="gap-12"] {
+  gap: 16px !important;
+}
+
+[class~="rounded"],
+[class~="rounded-xl"],
+[class~="rounded-2xl"],
+[class~="rounded-3xl"] {
+  border-radius: 4px !important;
+}
+
+.text-xs,
+.text-sm,
+.text-base,
+.text-\[0\.7rem\],
+.text-\[0\.8rem\],
+.text-\[0\.875rem\],
+.text-\[14px\],
+.text-\[16px\] {
+  font-size: var(--font-size-base) !important;
+  line-height: 1.4;
+  letter-spacing: var(--font-letter-spacing);
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 0;
+  }
+
+  header,
+  section,
+  footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  [class~="px-6"],
+  [class~="px-10"],
+  [class~="px-12"],
+  [class~="px-16"] {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  [class~="py-5"],
+  [class~="py-12"],
+  [class~="py-16"],
+  [class~="py-24"],
+  [class~="py-32"] {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+  }
+
+  [class~="gap-6"],
+  [class~="gap-10"],
+  [class~="gap-12"] {
+    gap: 12px !important;
+  }
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: rgba(246, 197, 143, 0.32);
+  color: var(--foreground);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
