@@ -8,7 +8,7 @@ export const heroCopy = {
 };
 
 export const contact = {
-  email: "hello@murashka.studio",
+  email: "santiaga.by@gmail.com",
   location: "made in Eindhoven",
   socials: [
     { label: "LinkedIn", href: "https://www.linkedin.com/in/alexander-murashka-097752298/" },

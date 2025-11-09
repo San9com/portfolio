@@ -10,6 +10,16 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    id: "elvou",
+    year: "2025",
+    title: "Elvou App Concept",
+    description:
+      "Crafting a wellness companion that pairs restorative soundscapes with predictive rituals to ease decision fatigue throughout the day.",
+    image: "/Case-Elvou-app-concept.png",
+    slug: "elvou-app-concept",
+    accent: "#b6c5ff",
+  },
+  {
     id: "iotspot",
     year: "2024",
     title: "iotSpot",

@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { HeroCanvas } from "@/components/hero/hero-canvas";
 import { heroCopy, profile } from "@/data/site";
@@ -8,10 +7,6 @@ import { heroCopy, profile } from "@/data/site";
 const heroMotion = {
   canvas: {
     initial: { opacity: 0, y: 32 },
-    animate: { opacity: 1, y: 0 },
-  },
-  cta: {
-    initial: { opacity: 0, y: 12 },
     animate: { opacity: 1, y: 0 },
   },
 };
@@ -46,24 +41,9 @@ export function HeroSection() {
       </motion.div>
 
       <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(177,165,167,0.12),transparent_65%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_-45%,rgba(177,165,167,0.06),transparent_85%)]"
         aria-hidden="true"
       />
-
-      <motion.div
-        variants={heroMotion.cta}
-        initial="initial"
-        animate="animate"
-        transition={{ delay: 0.6, duration: 0.6, ease: "easeOut" }}
-        className="relative z-10 flex w-full items-center justify-start gap-3 px-3 text-muted sm:px-0"
-      >
-        <Link href="#work" className="group inline-flex items-center gap-2 text-sm font-normal transition-colors hover:text-foreground">
-          <span>{heroCopy.ctaLabel.charAt(0).toUpperCase() + heroCopy.ctaLabel.slice(1)}</span>
-          <span aria-hidden="true" className="transition-transform group-hover:translate-y-1">
-            ↓
-          </span>
-        </Link>
-      </motion.div>
     </section>
   );
 }

@@ -4,7 +4,7 @@ import { Suspense, useMemo } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { ContactShadows, Environment, Float, Lightformer, Text, useTexture } from "@react-three/drei";
 import { EffectComposer, Bloom, Noise, Vignette } from "@react-three/postprocessing";
-import { SRGBColorSpace } from "three";
+import { CanvasTexture, SRGBColorSpace } from "three";
 import { GlassCubeMesh } from "./glass-cube";
 
 type HeroCanvasProps = {
@@ -16,14 +16,56 @@ type HeroCanvasProps = {
 
 function HeroScene({ headlineLines, portraitSrc }: HeroCanvasProps) {
   const { viewport, size } = useThree();
-  const portraitTexture = useTexture(portraitSrc, (texture) => {
+  const basePortraitTexture = useTexture(portraitSrc, (texture) => {
     texture.anisotropy = 8;
     texture.colorSpace = SRGBColorSpace;
+    texture.flipY = false;
   });
   const helloTexture = useTexture("/hello.svg", (texture) => {
     texture.anisotropy = 4;
     texture.colorSpace = SRGBColorSpace;
   });
+
+  const portraitTexture = useMemo(() => {
+    const sourceImage = basePortraitTexture.image as HTMLImageElement | HTMLCanvasElement | undefined;
+
+    if (!sourceImage || !("width" in sourceImage) || !("height" in sourceImage) || sourceImage.width === 0) {
+      return basePortraitTexture;
+    }
+
+    const canvas = document.createElement("canvas");
+    canvas.width = sourceImage.width;
+    canvas.height = sourceImage.height;
+
+    const context = canvas.getContext("2d");
+    if (!context) {
+      return basePortraitTexture;
+    }
+
+    context.drawImage(sourceImage, 0, 0, canvas.width, canvas.height);
+    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    const { data } = imageData;
+
+    for (let i = 0; i < data.length; i += 4) {
+      const r = data[i];
+      const g = data[i + 1];
+      const b = data[i + 2];
+      const gray = r * 0.299 + g * 0.587 + b * 0.114;
+      data[i] = gray;
+      data[i + 1] = gray;
+      data[i + 2] = gray;
+    }
+
+    context.putImageData(imageData, 0, 0);
+
+    const grayscaleTexture = new CanvasTexture(canvas);
+    grayscaleTexture.anisotropy = basePortraitTexture.anisotropy;
+    grayscaleTexture.colorSpace = basePortraitTexture.colorSpace;
+    grayscaleTexture.flipY = basePortraitTexture.flipY;
+    grayscaleTexture.needsUpdate = true;
+
+    return grayscaleTexture;
+  }, [basePortraitTexture]);
 
   const headline = useMemo(() => headlineLines.join("\n"), [headlineLines]);
   const layout = useMemo(() => {
