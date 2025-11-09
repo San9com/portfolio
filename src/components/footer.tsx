@@ -3,18 +3,18 @@ import { contact, heroCopy, profile } from "@/data/site";
 
 export function Footer() {
   return (
-    <footer id="contact" className="border-t border-white/10 bg-[#050505] px-3 py-16 sm:px-10 sm:py-24">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-12">
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
-          <div className="flex flex-col gap-2 text-foreground/80">
+    <footer id="contact" className="border-t border-white/10 bg-[#050505] px-3 py-20 sm:px-12 sm:py-28">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-16">
+        <div className="flex flex-col gap-8 sm:flex-row sm:items-start sm:justify-between sm:gap-16">
+          <div className="flex flex-col gap-3 text-foreground/80">
             <span>{profile.name}</span>
             <span className="text-foreground/60">{profile.title}</span>
           </div>
 
-          <div className="flex flex-col gap-4 sm:flex-row sm:gap-10">
-            <div className="flex flex-col gap-2 text-foreground/60">
+          <div className="flex flex-col gap-6 sm:flex-row sm:gap-14">
+            <div className="flex flex-col gap-3 text-foreground/60">
               <span className="text-foreground/80">Connect</span>
-              <div className="flex flex-col gap-2 sm:flex-row sm:gap-3">
+              <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
                 {contact.socials.map((social) => (
                   <Link
                     key={social.label}
@@ -29,7 +29,7 @@ export function Footer() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-2 text-foreground/60">
+            <div className="flex flex-col gap-3 text-foreground/60">
               <span className="text-foreground/80">Write</span>
               <Link
                 href={`mailto:${contact.email}`}
@@ -43,14 +43,14 @@ export function Footer() {
 
         <div className="h-px w-full bg-white/12" />
 
-        <div className="flex flex-col gap-3 text-foreground/70 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex flex-col gap-4 text-foreground/70 sm:flex-row sm:items-end sm:justify-between">
           <p className="max-w-3xl text-foreground/80">{heroCopy.description}</p>
           <span className="text-foreground/60">{contact.location.toUpperCase()}</span>
         </div>
 
         <div className="h-px w-full bg-white/12" />
 
-        <div className="flex flex-col gap-2 text-foreground/50 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-3 text-foreground/50 sm:flex-row sm:items-center sm:justify-between">
           <span>© {new Date().getFullYear()} {profile.name}</span>
           <span>All rights reserved.</span>
         </div>
