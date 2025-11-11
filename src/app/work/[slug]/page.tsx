@@ -59,25 +59,22 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
 
           <section className="w-full bg-black px-6 pb-24 pt-16 sm:px-10 sm:pt-20">
             <div className="mx-auto flex w-full max-w-5xl flex-col gap-12">
-              <div className="flex items-start justify-between gap-8 text-white/70">
+              <div className="flex items-center justify-between gap-8 text-foreground">
                 <Link
                   href="/"
-                  className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.4em] text-white/50 transition-colors hover:text-white/80"
+                  className="inline-flex items-center gap-2 text-sm font-normal text-foreground/70 transition-colors hover:text-foreground"
                 >
-                  ← Back Home
+                  ← Back home
                 </Link>
-                <span className="text-sm font-light text-white/60">{project.year}</span>
+                <span className="text-[clamp(2.8rem,6vw,5rem)] font-light leading-[0.9] text-foreground">
+                  {project.year}
+                </span>
               </div>
 
-              <div className="grid gap-12 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-end">
-                <div className="space-y-6">
-                  <h1 className="text-[clamp(2.8rem,6vw,5rem)] font-light leading-[0.9] text-foreground">
-                    {project.title}
-                  </h1>
-                </div>
-                <p className="text-base leading-relaxed text-white/60 lg:text-lg">
-                  {project.description}
-                </p>
+              <div className="flex items-end justify-between gap-10">
+                <h1 className="text-[clamp(2.8rem,6vw,5rem)] font-light leading-[0.9] text-foreground">
+                  {project.title}
+                </h1>
               </div>
 
               <div className="grid gap-14 text-sm leading-relaxed text-white/65 md:grid-cols-2 md:gap-20 md:text-base">
