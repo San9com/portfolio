@@ -16,6 +16,7 @@ type HeroCanvasProps = {
 
 function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasProps) {
   const { viewport, size } = useThree();
+  const isMobile = size.width <= 768;
   void _headlineLines;
 
   const basePortraitTexture = useTexture(portraitSrc, (texture) => {
@@ -24,7 +25,12 @@ function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasPro
     texture.flipY = false;
   });
 
-  const titleTexture = useTexture("/hero-title-2.svg", (texture) => {
+  const desktopTitleTexture = useTexture("/hero-title-2.svg", (texture) => {
+    texture.anisotropy = 2;
+    texture.colorSpace = SRGBColorSpace;
+  });
+
+  const mobileTitleTexture = useTexture("/hero-title-mobile.svg", (texture) => {
     texture.anisotropy = 2;
     texture.colorSpace = SRGBColorSpace;
   });
@@ -77,23 +83,25 @@ function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasPro
   }, [basePortraitTexture]);
 
   const layout = useMemo(() => {
-    const isMobile = size.width <= 768;
-
     if (isMobile) {
       const titleAspect = 1398 / 295;
-      const sideMargin = Math.max(0.5, viewport.width * 0.08);
+      const sideMargin = Math.max(0.4, viewport.width * 0.06);
       const availableWidth = Math.max(3, viewport.width - sideMargin * 2);
-      const titleWidth = Math.min(availableWidth, viewport.width - sideMargin * 0.6);
+      const titleWidth = Math.min(availableWidth, viewport.width - sideMargin * 0.4);
       const titleHeight = titleWidth / titleAspect;
-      const titleCenterX = -viewport.width / 2 + sideMargin + titleWidth / 2;
-      const titleCenterY = Math.min(0.28, viewport.height * 0.16);
+      const leftEdge = -viewport.width / 2 + sideMargin;
+      const topBound = viewport.height / 2;
+      const topPadding = Math.max(0.45, viewport.height * 0.08);
+      const titleTop = topBound - topPadding;
+      const titleCenterY = titleTop - titleHeight / 2;
+      const titleCenterX = leftEdge + titleWidth / 2;
       const titleBottom = titleCenterY - titleHeight / 2;
-      const cubeScale = Math.min(0.88, Math.max(0.66, viewport.width * 0.24));
+      const cubeScale = Math.min(0.84, Math.max(0.64, viewport.width * 0.24));
       const cubeHeight = CUBE_SIZE * cubeScale;
 
       return {
-        isMobile,
-        cubePosition: [titleCenterX + titleWidth * 0.05, titleBottom - cubeHeight * 0.18, 0.15] as [
+        isMobile: true,
+        cubePosition: [titleCenterX + titleWidth * 0.05, titleBottom - cubeHeight * 0.32, 0.15] as [
           number,
           number,
           number
@@ -129,7 +137,9 @@ function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasPro
       ],
       titlePlane: [titleWidth, titleHeight] as [number, number],
     };
-  }, [size.width, viewport.width, viewport.height]);
+  }, [isMobile, viewport.height, viewport.width]);
+
+  const titleTexture = isMobile ? mobileTitleTexture : desktopTitleTexture;
 
   const [cx, cy, cz] = layout.cubePosition;
 
