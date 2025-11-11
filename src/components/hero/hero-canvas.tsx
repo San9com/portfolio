@@ -81,14 +81,14 @@ function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasPro
 
     if (isMobile) {
       const titleAspect = 1398 / 295;
-      const maxWidth = viewport.width * 1.4;
-      const titleWidth = Math.max(4.2, Math.min(maxWidth, viewport.width * 1.2));
+      const sideMargin = Math.max(0.5, viewport.width * 0.08);
+      const availableWidth = Math.max(3, viewport.width - sideMargin * 2);
+      const titleWidth = Math.min(availableWidth, viewport.width - sideMargin * 0.6);
       const titleHeight = titleWidth / titleAspect;
-      const leftMargin = Math.max(0.6, viewport.width * 0.08);
-      const titleCenterX = -viewport.width / 2 + leftMargin + titleWidth / 2;
+      const titleCenterX = -viewport.width / 2 + sideMargin + titleWidth / 2;
       const titleCenterY = Math.min(0.28, viewport.height * 0.16);
       const titleBottom = titleCenterY - titleHeight / 2;
-      const cubeScale = Math.min(0.9, Math.max(0.68, viewport.width * 0.26));
+      const cubeScale = Math.min(0.88, Math.max(0.66, viewport.width * 0.24));
       const cubeHeight = CUBE_SIZE * cubeScale;
 
       return {
