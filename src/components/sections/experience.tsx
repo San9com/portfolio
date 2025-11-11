@@ -8,7 +8,7 @@ import { experience } from "@/data/experience";
 export function ExperienceSection() {
   return (
     <section id="experience" className="px-6 pb-24 sm:px-10 sm:pb-32">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-14">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-14">
         <div className="flex flex-wrap items-end justify-between gap-6 pt-10">
           <h2 className="text-[2.2rem] leading-tight text-foreground sm:text-[2.4rem]">Craft Through The Years</h2>
           <p className="max-w-sm text-sm leading-relaxed text-muted sm:text-base">

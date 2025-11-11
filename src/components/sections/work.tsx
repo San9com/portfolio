@@ -12,7 +12,7 @@ export function WorkSection() {
 
   return (
     <section id="work" className="px-6 pb-24 sm:px-10 sm:pb-32">
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-12">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-12">
         <div className="flex flex-col items-center gap-2 pt-[7vh] pb-6 text-center">
           <p className="flex items-center gap-2 text-sm text-foreground/70">
             <span>Discover projects</span>

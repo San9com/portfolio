@@ -50,7 +50,7 @@ export function Header({ overlay = false }: HeaderProps) {
 
   return (
     <header className={clsx("z-30 flex w-full justify-center", positionClasses, backgroundClasses)}>
-      <div className="pointer-events-auto relative flex w-full max-w-6xl items-center justify-between px-6 py-6 sm:px-10">
+      <div className="pointer-events-auto relative flex w-full max-w-7xl items-center justify-between px-6 py-6 sm:px-10">
         <Link href="/" className="text-sm text-foreground/80 transition-colors hover:text-foreground">
           <motion.span
             initial={{ opacity: 0, y: -12 }}
