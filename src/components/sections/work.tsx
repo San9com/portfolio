@@ -115,7 +115,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
       </motion.div>
       <div
         className={clsx(
-          "pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent transition-opacity duration-300",
+          "pointer-events-none absolute inset-x-0 bottom-0 h-full bg-gradient-to-t from-black via-black/30 to-transparent transition-opacity duration-300 md:bg-gradient-to-t md:from-black md:via-black/20 md:to-transparent",
           isActive ? "opacity-100" : "opacity-60 lg:opacity-30"
         )}
       />
