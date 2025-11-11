@@ -8,7 +8,7 @@ export function Footer() {
   return (
     <footer id="contact" className="relative isolate overflow-hidden border-t border-white/10 bg-[#050505]">
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-white/[0.08] via-transparent to-transparent" />
-      <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-20 px-6 py-32 sm:px-16 sm:py-44">
+      <div className="relative mx-auto flex w-full max-w-6xl flex-col gap-24 px-6 py-72 sm:px-20 sm:py-96">
         <div className="grid gap-14 text-sm text-foreground/70 sm:grid-cols-3">
           <div className="space-y-3">
             <p className="text-foreground/80">{profile.name}</p>
@@ -17,7 +17,6 @@ export function Footer() {
           </div>
 
           <div className="space-y-3">
-            <span className="text-foreground/80">Stay in touch</span>
             <div className="flex flex-col gap-2">
               {contact.socials.map((social) => (
                 <motion.a
@@ -35,7 +34,6 @@ export function Footer() {
           </div>
 
           <div className="space-y-3">
-            <span className="text-foreground/80">Navigate</span>
             <div className="flex flex-col gap-2 text-foreground/70">
               <Link href="#work" className="transition-colors hover:text-foreground">
                 Work
