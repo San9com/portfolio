@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import clsx from "clsx";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useMotionTemplate, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
 import { projects } from "@/data/projects";
 
 export function WorkSection() {
@@ -56,20 +56,49 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
     offset: ["start end", "end start"],
   });
   const translateY = useTransform(scrollYProgress, [0, 1], [-40, 40]);
+  const glowX = useMotionValue(0);
+  const glowY = useMotionValue(0);
+  const glowSpringX = useSpring(glowX, { stiffness: 220, damping: 28, mass: 0.3 });
+  const glowSpringY = useSpring(glowY, { stiffness: 220, damping: 28, mass: 0.3 });
+  const hoverGlow = useMotionTemplate`radial-gradient(260px at ${glowSpringX}px ${glowSpringY}px, rgba(255,255,255,0.16), transparent 70%)`;
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.article
       ref={ref}
-      onMouseEnter={() => onActivate(index)}
+      onMouseEnter={(event) => {
+        onActivate(index);
+        setIsHovered(true);
+        const bounds = ref.current?.getBoundingClientRect();
+        if (!bounds) return;
+        glowX.set(event.clientX - bounds.left);
+        glowY.set(event.clientY - bounds.top);
+      }}
+      onMouseMove={(event) => {
+        const bounds = ref.current?.getBoundingClientRect();
+        if (!bounds) return;
+        glowX.set(event.clientX - bounds.left);
+        glowY.set(event.clientY - bounds.top);
+      }}
+      onMouseLeave={() => setIsHovered(false)}
       onFocus={() => onActivate(index)}
       initial={false}
       animate={{
         flex: isActive ? 1.5 : 0.55,
       }}
+      whileHover={{ y: -14, rotateX: 2, rotateY: -2 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
       className="group relative flex min-h-[33rem] flex-1 flex-col justify-end overflow-hidden rounded bg-black/40 transition-colors"
       tabIndex={0}
     >
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300"
+        style={{
+          background: hoverGlow,
+          opacity: isHovered ? 1 : 0,
+        }}
+      />
       <motion.div className="absolute inset-0" style={{ y: translateY }}>
         <Image
           src={project.image}
@@ -95,18 +124,22 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         <div className="text-xs text-white/80">{project.year}</div>
         <h3 className="text-3xl text-foreground lg:text-[2.4rem]">{project.title}</h3>
         <p className="text-sm leading-relaxed text-muted">{project.description}</p>
-        <Link
-          href={`/work/${project.slug}`}
-          className="inline-flex items-center gap-3 text-sm text-foreground transition-colors hover:text-accent"
-        >
-          Read case
-          <span
+        <motion.div whileHover={{ x: 6 }} className="inline-flex items-center gap-3">
+          <Link
+            href={`/work/${project.slug}`}
+            className="text-sm text-foreground transition-colors hover:text-accent"
+          >
+            Read case
+          </Link>
+          <motion.span
             aria-hidden="true"
             className="inline-flex h-8 w-8 items-center justify-center rounded bg-white/10"
+            animate={{ rotate: isHovered ? 45 : 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
           >
             ↘
-          </span>
-        </Link>
+          </motion.span>
+        </motion.div>
       </div>
     </motion.article>
   );
