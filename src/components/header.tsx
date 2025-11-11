@@ -108,7 +108,7 @@ export function Header({ overlay = false }: HeaderProps) {
 
         <button
           type="button"
-          className="flex items-center gap-2 rounded px-4 py-2 text-sm text-foreground/80 transition-colors hover:text-foreground md:hidden"
+          className="flex scale-125 items-center gap-2 rounded px-4 py-2 text-base text-foreground/80 transition-colors hover:text-foreground md:hidden"
           onClick={() => setMenuOpen((prev) => !prev)}
           aria-expanded={menuOpen}
           aria-controls="mobile-nav"
