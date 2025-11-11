@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { contact, profile } from "@/data/site";
 
 const MotionLink = motion(Link);
+const MotionSpan = motion.span;
 
 export function Footer() {
   return (
@@ -37,30 +38,41 @@ export function Footer() {
 
           <div className="space-y-3">
             <div className="flex flex-col gap-2 text-foreground/70">
-              <MotionLink
-                href="#work"
-                className="transition-colors hover:text-foreground"
-                whileHover={{ rotate: [0, 1.6, -1.2, 0], scale: [1, 1.05, 0.98, 1] }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
-              >
-                Work
-              </MotionLink>
-              <MotionLink
-                href="#experience"
-                className="transition-colors hover:text-foreground"
-                whileHover={{ rotate: [0, 1.6, -1.2, 0], scale: [1, 1.05, 0.98, 1] }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
-              >
-                Experience
-              </MotionLink>
-              <MotionLink
-                href="#contact"
-                className="transition-colors hover:text-foreground"
-                whileHover={{ rotate: [0, 1.6, -1.2, 0], scale: [1, 1.05, 0.98, 1] }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
-              >
-                Contact
-              </MotionLink>
+              {["Work", "Experience", "Contact"].map((label) => {
+                const href = `#${label.toLowerCase()}`;
+                const characters = Array.from(label);
+                return (
+                  <MotionLink
+                    key={label}
+                    href={href}
+                    className="transition-colors hover:text-foreground"
+                  >
+                    <motion.span initial="rest" animate="rest" whileHover="hover" className="inline-flex">
+                      {characters.map((char, charIndex) => (
+                        <MotionSpan
+                          key={`${label}-${char}-${charIndex}`}
+                          variants={{
+                            rest: { y: 0, rotate: 0 },
+                            hover: {
+                              y: -2,
+                              rotate: charIndex % 2 === 0 ? 2 : -2,
+                              transition: {
+                                duration: 0.28,
+                                ease: "easeInOut",
+                                delay: charIndex * 0.025,
+                                repeat: 1,
+                                repeatType: "reverse",
+                              },
+                            },
+                          }}
+                        >
+                          {char}
+                        </MotionSpan>
+                      ))}
+                    </motion.span>
+                  </MotionLink>
+                );
+              })}
             </div>
           </div>
         </div>

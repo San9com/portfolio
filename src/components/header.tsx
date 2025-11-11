@@ -8,6 +8,7 @@ import { navigationLinks } from "@/data/navigation";
 import { usePathname } from "next/navigation";
 
 const MotionLink = motion(Link);
+const MotionSpan = motion.span;
 
 type HeaderProps = {
   overlay?: boolean;
@@ -100,22 +101,47 @@ export function Header({ overlay = false }: HeaderProps) {
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm font-normal md:flex">
-          {navigationLinks.map((link) => (
-            <MotionLink
-              key={link.href}
-              href={link.href}
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
-              whileHover={{
-                rotate: [0, 1.6, -1.2, 0],
-                scale: [1, 1.05, 0.98, 1],
-              }}
-              transition={{ duration: 0.6, ease: "easeInOut" }}
-              className={clsx("text-sm text-foreground/70 transition-colors hover:text-foreground")}
-            >
-              {link.label}
-            </MotionLink>
-          ))}
+          {navigationLinks.map((link) => {
+            const characters = Array.from(link.label);
+            return (
+              <MotionLink
+                key={link.href}
+                href={link.href}
+                initial={{ opacity: 0, y: -12 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={clsx("text-sm text-foreground/70 transition-colors hover:text-foreground")}
+              >
+                <motion.span
+                  initial="rest"
+                  animate="rest"
+                  whileHover="hover"
+                  className="inline-flex"
+                >
+                  {characters.map((char, charIndex) => (
+                    <MotionSpan
+                      key={`${link.href}-${char}-${charIndex}`}
+                      variants={{
+                        rest: { y: 0, rotate: 0 },
+                        hover: {
+                          y: -2,
+                          rotate: charIndex % 2 === 0 ? 2 : -2,
+                          transition: {
+                            duration: 0.28,
+                            ease: "easeInOut",
+                            delay: charIndex * 0.025,
+                            repeat: 1,
+                            repeatType: "reverse",
+                          },
+                        },
+                      }}
+                    >
+                      {char}
+                    </MotionSpan>
+                  ))}
+                </motion.span>
+              </MotionLink>
+            );
+          })}
         </nav>
 
         <button
