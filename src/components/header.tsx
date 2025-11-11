@@ -16,9 +16,7 @@ type HeaderProps = {
 
 export function Header({ overlay = false }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [hasScrolled, setHasScrolled] = useState(() =>
-    typeof window !== "undefined" ? window.scrollY > 24 : false
-  );
+  const [hasScrolled, setHasScrolled] = useState(false);
   const { scrollY } = useScroll();
   const pathname = usePathname();
 
@@ -36,6 +34,11 @@ export function Header({ overlay = false }: HeaderProps) {
       document.body.style.overflow = "";
     };
   }, [menuOpen]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    window.requestAnimationFrame(() => setHasScrolled(window.scrollY > 24));
+  }, []);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setHasScrolled(latest > 24);
