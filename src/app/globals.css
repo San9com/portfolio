@@ -14,8 +14,8 @@
   --font-sans-base: "Rmneue", "Futura PT", "Avenir Next", "Avenir", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-size-base: 22px;
   --font-letter-spacing: -0.5px;
-  --body-padding-y: 5px;
-  --body-padding-x: 40px;
+  --body-padding-y: 0px;
+  --body-padding-x: 0px;
 }
 
 @theme inline {

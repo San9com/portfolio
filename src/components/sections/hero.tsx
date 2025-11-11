@@ -17,7 +17,7 @@ export function HeroSection() {
   return (
     <section
       id="top"
-      className="relative isolate flex min-h-[100svh] w-full items-end justify-center overflow-hidden bg-[#050505] px-3 pb-16 pt-28 sm:px-10 sm:pb-20 lg:pb-24"
+      className="relative isolate flex min-h-[100svh] w-full items-end justify-center overflow-hidden bg-black px-3 pb-16 pt-28 sm:px-10 sm:pb-20 lg:pb-24"
     >
       <div className="sr-only">
         <p>{heroCopy.introScript}</p>
@@ -39,11 +39,6 @@ export function HeroSection() {
           introScript={heroCopy.introScript}
         />
       </motion.div>
-
-      <div
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_-45%,rgba(177,165,167,0.06),transparent_85%)]"
-        aria-hidden="true"
-      />
     </section>
   );
 }

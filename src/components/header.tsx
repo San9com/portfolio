@@ -2,12 +2,23 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import clsx from "clsx";
 import { navigationLinks } from "@/data/navigation";
+import { usePathname } from "next/navigation";
 
-export function Header() {
+type HeaderProps = {
+  overlay?: boolean;
+};
+
+export function Header({ overlay = false }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const { scrollY } = useScroll();
+  const pathname = usePathname();
+
+  const isCaseDetail =
+    pathname?.startsWith("/work/") && pathname !== "/work";
 
   useEffect(() => {
     if (menuOpen) {
@@ -21,9 +32,23 @@ export function Header() {
     };
   }, [menuOpen]);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setHasScrolled(window.scrollY > 24);
+    }
+  }, []);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setHasScrolled(latest > 24);
+  });
+
+  const positionClasses = overlay ? "fixed inset-x-0 top-0" : "sticky top-0 transition-colors duration-500";
+  const backgroundClasses =
+    overlay || isCaseDetail || !hasScrolled ? "bg-transparent" : "bg-black/85 backdrop-blur";
+
   return (
-    <header className="sticky top-0 z-30 flex w-full justify-center bg-black/85 backdrop-blur">
-      <div className="relative flex w-full max-w-6xl items-center justify-between px-6 py-4 sm:px-10">
+    <header className={clsx("z-30 flex w-full justify-center", positionClasses, backgroundClasses)}>
+      <div className="pointer-events-auto relative flex w-full max-w-6xl items-center justify-between px-6 py-6 sm:px-10">
         <motion.div
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}

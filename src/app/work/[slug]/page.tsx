@@ -2,19 +2,22 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
 import { projects } from "@/data/projects";
 
 type WorkPageProps = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 };
 
 export async function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.slug }));
+  return projects.map((project) => ({ slug: project.slug.toLowerCase() }));
 }
 
 export async function generateMetadata({ params }: WorkPageProps): Promise<Metadata> {
-  const { slug } = params;
-  const project = projects.find((item) => item.slug === slug);
+  const { slug } = await params;
+  const normalizedSlug = decodeURIComponent(slug).trim().toLowerCase();
+  const project = projects.find((item) => item.slug.toLowerCase() === normalizedSlug);
 
   if (!project) {
     return {
@@ -28,54 +31,89 @@ export async function generateMetadata({ params }: WorkPageProps): Promise<Metad
   };
 }
 
-export default function WorkCasePage({ params }: WorkPageProps) {
-  const { slug } = params;
-  const project = projects.find((item) => item.slug === slug);
+export default async function WorkCasePage({ params }: WorkPageProps) {
+  const { slug } = await params;
+  const normalizedSlug = decodeURIComponent(slug).trim().toLowerCase();
+  const project = projects.find((item) => item.slug.toLowerCase() === normalizedSlug);
 
   if (!project) {
     notFound();
   }
 
   return (
-    <div className="px-6 pb-24 pt-28 sm:px-10">
-      <div className="mx-auto flex w-full max-w-4xl flex-col gap-10">
-        <div className="flex items-center justify-between text-sm text-muted">
-          <Link href="/" className="inline-flex items-center gap-2 text-muted transition-colors hover:text-foreground">
-            ← Back home
-          </Link>
-          <span>{project.year}</span>
-        </div>
-
-        <div className="space-y-6">
-          <h1 className="font-serif text-4xl text-foreground sm:text-5xl">{project.title}</h1>
-          <p className="text-base leading-relaxed text-muted sm:text-lg">{project.description}</p>
-        </div>
-
-        <div className="overflow-hidden border border-white/10 p-4">
-          <div className="relative aspect-[3/2] w-full overflow-hidden border border-white/15">
+    <>
+      <main className="bg-black text-foreground">
+        <Header overlay />
+        <article className="mx-auto flex min-h-screen w-full flex-col">
+          <div className="relative h-[68vh] min-h-[540px] w-full overflow-hidden">
             <Image
               src={project.image}
-              alt={`${project.title} mockup`}
+              alt={`${project.title} case hero`}
               fill
-              className="object-cover"
               priority
+              className="object-cover"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black via-black/80 to-transparent" />
           </div>
-        </div>
 
-        <div className="space-y-4 text-sm text-muted">
-          <p>
-            This case study page is a placeholder scaffold. Replace the narrative and imagery inside
-            <code className="mx-1 border border-white/20 bg-black/30 px-1 py-0.5 text-[0.75rem] text-foreground">src/app/work/[slug]/page.tsx</code>
-            once the full story is ready.
-          </p>
-          <p>
-            All hero data for the listing is sourced from <code className="mx-1 border border-white/20 bg-black/30 px-1 py-0.5 text-[0.75rem] text-foreground">src/data/projects.ts</code>
-            so you can adjust copy, colors, and assets without touching components.
-          </p>
-        </div>
-      </div>
-    </div>
+          <section className="w-full bg-black px-6 pb-24 pt-16 sm:px-10 sm:pt-20">
+            <div className="mx-auto flex w-full max-w-5xl flex-col gap-12">
+              <div className="flex items-start justify-between gap-8 text-white/70">
+                <Link
+                  href="/"
+                  className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.4em] text-white/50 transition-colors hover:text-white/80"
+                >
+                  ← Back Home
+                </Link>
+                <span className="text-sm font-light text-white/60">{project.year}</span>
+              </div>
+
+              <div className="grid gap-12 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-end">
+                <div className="space-y-6">
+                  <h1 className="text-[clamp(2.8rem,6vw,5rem)] font-light leading-[0.9] text-foreground">
+                    {project.title}
+                  </h1>
+                </div>
+                <p className="text-base leading-relaxed text-white/60 lg:text-lg">
+                  {project.description}
+                </p>
+              </div>
+
+              <div className="grid gap-14 text-sm leading-relaxed text-white/65 md:grid-cols-2 md:gap-20 md:text-base">
+                <div className="space-y-6">
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed cursus, sapien ut
+                    tincidunt gravida, arcu risus luctus odio, vel accumsan lorem nulla vel nibh. Sed
+                    posuere, mauris vitae faucibus posuere, nibh purus commodo nisl, vitae placerat
+                    odio sapien a eros. Integer consequat suscipit magna, eget pretium mi tristique
+                    in.
+                  </p>
+                  <p>
+                    Suspendisse potenti. Donec vitae volutpat urna. Proin viverra, massa ut laoreet
+                    tristique, nisi sem pharetra felis, vitae vestibulum turpis magna eget nibh. In
+                    finibus sollicitudin tortor, vitae tempor purus viverra sit amet.
+                  </p>
+                </div>
+                <div className="space-y-6">
+                  <p>
+                    Duis vehicula, augue eget tristique pretium, nibh mauris interdum erat, sed
+                    facilisis lorem lacus ac erat. Integer at dictum dui. Pellentesque habitant morbi
+                    tristique senectus et netus et malesuada fames ac turpis egestas.
+                  </p>
+                  <p>
+                    Vivamus euismod libero vel vulputate posuere. Praesent nec leo id diam eleifend
+                    sollicitudin sed quis lectus. Aenean semper sapien sed nisl auctor, vitae aliquam
+                    mi pellentesque.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        </article>
+      </main>
+      <Footer />
+    </>
   );
 }
 
