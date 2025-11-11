@@ -14,6 +14,9 @@ type HeroCanvasProps = {
   introScript?: string;
 };
 
+const DESKTOP_TITLE_ASPECT = 1398 / 295;
+const MOBILE_TITLE_ASPECT = 828 / 589;
+
 function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasProps) {
   const { viewport, size } = useThree();
   const isMobile = size.width <= 768;
@@ -84,7 +87,7 @@ function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasPro
 
   const layout = useMemo(() => {
     if (isMobile) {
-      const titleAspect = 1398 / 295;
+      const titleAspect = MOBILE_TITLE_ASPECT;
       const sideMargin = Math.max(0.4, viewport.width * 0.06);
       const availableWidth = Math.max(3, viewport.width - sideMargin * 2);
       const titleWidth = Math.min(availableWidth, viewport.width - sideMargin * 0.4);
@@ -101,7 +104,7 @@ function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasPro
 
       return {
         isMobile: true,
-        cubePosition: [titleCenterX + titleWidth * 0.05, titleBottom - cubeHeight * 0.32, 0.15] as [
+        cubePosition: [titleCenterX + titleWidth * 0.05, titleBottom - cubeHeight * 0.82, 0.15] as [
           number,
           number,
           number
@@ -117,7 +120,7 @@ function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasPro
     const rightX = viewport.width / 2 - margin;
 
     const titleHeight = Math.min(2.4, Math.max(1.8, viewport.height * 0.24));
-    const titleWidth = titleHeight * (1398 / 295);
+    const titleWidth = titleHeight * DESKTOP_TITLE_ASPECT;
     const titleX = (leftX + rightX - titleWidth) / 2;
     const titleY = Math.min(1.2, viewport.height * 0.28);
 
