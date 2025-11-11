@@ -11,7 +11,11 @@ export function WorkSection() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section id="work" className="px-6 pb-24 sm:px-10 sm:pb-32">
+    <section
+      id="work"
+      className="relative px-6 pb-24 sm:px-10 sm:pb-32"
+      style={{ marginTop: "-20vh" }}
+    >
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-12">
         <div className="flex flex-col items-center gap-2 pt-[7vh] pb-6 text-center">
           <p className="flex items-center gap-2 text-sm text-foreground/70">
