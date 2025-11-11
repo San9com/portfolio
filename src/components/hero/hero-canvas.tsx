@@ -203,11 +203,10 @@ function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasPro
       <EffectComposer enableNormalPass={false}>
         <Bloom
           mipmapBlur
-          intensity={0.5}
-          luminanceThreshold={0.12}
-          luminanceSmoothing={0.75}
+          intensity={0.32}
+          luminanceThreshold={0.48}
+          luminanceSmoothing={0.68}
         />
-        {/* Noise removed for a bit more perf and less flicker */}
       </EffectComposer>
     </>
   );
