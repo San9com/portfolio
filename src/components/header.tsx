@@ -7,6 +7,8 @@ import clsx from "clsx";
 import { navigationLinks } from "@/data/navigation";
 import { usePathname } from "next/navigation";
 
+const MotionLink = motion(Link);
+
 type HeaderProps = {
   overlay?: boolean;
 };
@@ -57,19 +59,20 @@ export function Header({ overlay = false }: HeaderProps) {
 
         <nav className="hidden items-center gap-6 text-sm font-normal md:flex">
           {navigationLinks.map((link) => (
-            <motion.div
+            <MotionLink
               key={link.href}
+              href={link.href}
               initial={{ opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.12, ease: "easeOut" }}
+              whileHover={{
+                rotate: [0, 1.6, -1.2, 0],
+                scale: [1, 1.05, 0.98, 1],
+              }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+              className={clsx("text-sm text-foreground/70 transition-colors hover:text-foreground")}
             >
-              <Link
-                href={link.href}
-                className={clsx("text-sm text-foreground/70 transition-colors hover:text-foreground")}
-              >
-                <span>{link.label}</span>
-              </Link>
-            </motion.div>
+              {link.label}
+            </MotionLink>
           ))}
         </nav>
 

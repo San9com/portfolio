@@ -4,6 +4,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { contact, profile } from "@/data/site";
 
+const MotionLink = motion(Link);
+
 export function Footer() {
   return (
     <footer id="contact" className="relative isolate overflow-hidden border-t border-white/10 bg-[#050505]">
@@ -35,15 +37,30 @@ export function Footer() {
 
           <div className="space-y-3">
             <div className="flex flex-col gap-2 text-foreground/70">
-              <Link href="#work" className="transition-colors hover:text-foreground">
+              <MotionLink
+                href="#work"
+                className="transition-colors hover:text-foreground"
+                whileHover={{ rotate: [0, 1.6, -1.2, 0], scale: [1, 1.05, 0.98, 1] }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+              >
                 Work
-              </Link>
-              <Link href="#experience" className="transition-colors hover:text-foreground">
+              </MotionLink>
+              <MotionLink
+                href="#experience"
+                className="transition-colors hover:text-foreground"
+                whileHover={{ rotate: [0, 1.6, -1.2, 0], scale: [1, 1.05, 0.98, 1] }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+              >
                 Experience
-              </Link>
-              <Link href="#contact" className="transition-colors hover:text-foreground">
+              </MotionLink>
+              <MotionLink
+                href="#contact"
+                className="transition-colors hover:text-foreground"
+                whileHover={{ rotate: [0, 1.6, -1.2, 0], scale: [1, 1.05, 0.98, 1] }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+              >
                 Contact
-              </Link>
+              </MotionLink>
             </div>
           </div>
         </div>
