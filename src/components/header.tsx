@@ -84,13 +84,13 @@ export function Header({ overlay = false }: HeaderProps) {
                       variants={{
                         rest: { y: 0, rotate: 0, scale: 1 },
                         hover: {
-                          y: -2,
-                          rotate: charIndex % 2 === 0 ? 1.6 : -1.6,
-                          scale: 1.02,
+                          y: -4,
+                          rotate: charIndex % 2 === 0 ? 3.5 : -3.5,
+                          scale: 1.05,
                           transition: {
-                            duration: 0.35,
+                            duration: 0.5,
                             ease: "easeInOut",
-                            delay: charIndex * 0.018,
+                            delay: charIndex * 0.022,
                             repeat: 1,
                             repeatType: "reverse",
                           },
