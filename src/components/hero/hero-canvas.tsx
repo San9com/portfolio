@@ -96,7 +96,7 @@ function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasPro
       const topBound = viewport.height / 2;
       const topPadding = Math.max(0.45, viewport.height * 0.08);
       const titleTop = topBound - topPadding;
-      const titleCenterY = titleTop - titleHeight / 2;
+      const titleCenterY = titleTop - titleHeight / 2 - titleHeight * 0.15;
       const titleCenterX = leftEdge + titleWidth / 2;
       const titleBottom = titleCenterY - titleHeight / 2;
       const cubeScale = Math.min(0.84, Math.max(0.64, viewport.width * 0.24));
