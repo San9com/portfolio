@@ -4,7 +4,12 @@ import { Suspense, useMemo } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { Environment, Float, Lightformer, useTexture } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
-import { CanvasTexture, SRGBColorSpace } from "three";
+import {
+  CanvasTexture,
+  LinearFilter,
+  LinearMipmapLinearFilter,
+  SRGBColorSpace,
+} from "three";
 import { CUBE_SIZE, GlassCubeMesh } from "./glass-cube";
 
 type HeroCanvasProps = {
@@ -18,8 +23,9 @@ const DESKTOP_TITLE_ASPECT = 1398 / 295;
 const MOBILE_TITLE_ASPECT = 828 / 589;
 
 function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasProps) {
-  const { viewport, size } = useThree();
+  const { viewport, size, gl } = useThree();
   const isMobile = size.width <= 768;
+  const maxAnisotropy = gl.capabilities.getMaxAnisotropy?.() ?? 8;
   void _headlineLines;
 
   const basePortraitTexture = useTexture(portraitSrc, (texture) => {
@@ -29,13 +35,21 @@ function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasPro
   });
 
   const desktopTitleTexture = useTexture("/hero-title-2.svg", (texture) => {
-    texture.anisotropy = 2;
     texture.colorSpace = SRGBColorSpace;
+    texture.anisotropy = maxAnisotropy;
+    texture.magFilter = LinearFilter;
+    texture.minFilter = LinearMipmapLinearFilter;
+    texture.generateMipmaps = true;
+    texture.needsUpdate = true;
   });
 
   const mobileTitleTexture = useTexture("/hero-title-mobile.svg", (texture) => {
-    texture.anisotropy = 2;
     texture.colorSpace = SRGBColorSpace;
+    texture.anisotropy = maxAnisotropy;
+    texture.magFilter = LinearFilter;
+    texture.minFilter = LinearMipmapLinearFilter;
+    texture.generateMipmaps = true;
+    texture.needsUpdate = true;
   });
 
   const portraitTexture = useMemo(() => {
