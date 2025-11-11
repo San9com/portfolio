@@ -6,7 +6,6 @@ import { MeshTransmissionMaterial, RoundedBox } from "@react-three/drei";
 import { Group, MathUtils } from "three";
 
 const CUBE_SIZE = 2.6;
-const CUBE_DEPTH = 0.9;
 
 type GlassCubeMeshProps = {
   position?: [number, number, number];
@@ -43,11 +42,11 @@ export function GlassCubeMesh({ position = [0, 0, 0], scale = 1 }: GlassCubeMesh
 
   return (
     <group ref={ref} position={position} scale={scale}>
-      <RoundedBox args={[CUBE_SIZE, CUBE_SIZE, CUBE_DEPTH]} radius={0.68} smoothness={12}>
+      <RoundedBox args={[CUBE_SIZE, CUBE_SIZE, CUBE_SIZE * 0.4]} radius={0.72} smoothness={16}>
         <MeshTransmissionMaterial
           transmission={1}
           roughness={0.02}
-          thickness={0.1375}
+          thickness={0.35}
           ior={1.52}
           chromaticAberration={0.02}
           anisotropy={0.1}

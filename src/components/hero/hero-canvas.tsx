@@ -80,7 +80,7 @@ function HeroScene({ headlineLines, portraitSrc }: HeroCanvasProps) {
       return {
         isMobile,
         cubePosition: [-0.05, -0.05, 0.32] as [number, number, number],
-        cubeScale: 1.16,
+        cubeScale: 1.508,
         portraitPosition: [0, 1.5, -0.7] as [number, number, number],
         portraitPlane: [2.4, 2.7] as [number, number],
         textGroupPosition: [0, 0.15, -0.5] as [number, number, number],
@@ -132,7 +132,7 @@ function HeroScene({ headlineLines, portraitSrc }: HeroCanvasProps) {
     return {
       isMobile: false,
       cubePosition: [cubeX, cubeY, 0.22] as [number, number, number],
-      cubeScale: 1.12,
+      cubeScale: 1.456,
       portraitPosition: [portraitX, portraitY, -0.35] as [number, number, number],
       portraitPlane: [portraitWidth, portraitHeight] as [number, number],
       textGroupPosition: [leftX, textTop, -0.4] as [number, number, number],
@@ -161,7 +161,7 @@ function HeroScene({ headlineLines, portraitSrc }: HeroCanvasProps) {
         <meshPhysicalMaterial color="#070911" roughness={0.45} metalness={0.1} />
       </mesh>
 
-      <Float floatIntensity={0.55} rotationIntensity={0.32} speed={1.1}>
+      <Float floatIntensity={0.45} rotationIntensity={0.24} speed={1.05}>
         <GlassCubeMesh position={layout.cubePosition} scale={layout.cubeScale} />
       </Float>
 
