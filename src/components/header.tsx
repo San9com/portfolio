@@ -126,7 +126,7 @@ export function Header({ overlay = false }: HeaderProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="fixed inset-0 z-40 flex min-h-screen flex-col items-center justify-center gap-12 bg-black/95 px-8 py-12 text-lg text-foreground md:hidden"
+              className="fixed inset-0 z-40 flex min-h-screen flex-col bg-black/95 text-foreground md:hidden"
             >
               <motion.button
                 type="button"
@@ -138,16 +138,21 @@ export function Header({ overlay = false }: HeaderProps) {
                 Close
               </motion.button>
 
-              {navigationLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="text-2xl text-foreground transition-colors hover:text-accent"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {link.label.charAt(0).toUpperCase() + link.label.slice(1)}
-                </Link>
-              ))}
+              <div className="flex h-full flex-col pt-24 pb-12">
+                {navigationLinks.map((link, index) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className={clsx(
+                      "flex flex-1 items-center px-10 text-[min(16vw,4rem)] font-light text-foreground/90 transition-colors hover:text-foreground",
+                      index !== navigationLinks.length - 1 && "border-b border-white/[0.08]"
+                    )}
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    {link.label.charAt(0).toUpperCase() + link.label.slice(1)}
+                  </Link>
+                ))}
+              </div>
             </motion.nav>
           ) : null}
         </AnimatePresence>
