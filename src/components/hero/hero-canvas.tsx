@@ -213,14 +213,16 @@ function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasPro
         </group>
       </Environment>
 
-      <EffectComposer enableNormalPass={false}>
-        <Bloom
-          mipmapBlur
-          intensity={0.32}
-          luminanceThreshold={0.48}
-          luminanceSmoothing={0.68}
-        />
-      </EffectComposer>
+      {!isMobile && (
+        <EffectComposer enableNormalPass={false}>
+          <Bloom
+            mipmapBlur
+            intensity={0.32}
+            luminanceThreshold={0.48}
+            luminanceSmoothing={0.68}
+          />
+        </EffectComposer>
+      )}
     </>
   );
 }
