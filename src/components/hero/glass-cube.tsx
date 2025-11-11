@@ -94,8 +94,6 @@ export function GlassCubeMesh({
     isDragging.current = true;
     rotationTarget.current.x = rotationCurrent.current.x;
     rotationTarget.current.y = rotationCurrent.current.y;
-    event.target.setPointerCapture?.(event.pointerId);
-
     if (typeof document !== "undefined") {
       document.body.style.cursor = "grabbing";
     }
@@ -122,7 +120,6 @@ export function GlassCubeMesh({
     if (dragPointerId.current !== event.pointerId) return;
     event.stopPropagation();
 
-    event.target.releasePointerCapture?.(event.pointerId);
     dragPointerId.current = null;
     isDragging.current = false;
 
