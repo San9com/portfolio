@@ -13,7 +13,9 @@ type HeaderProps = {
 
 export function Header({ overlay = false }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [hasScrolled, setHasScrolled] = useState(false);
+  const [hasScrolled, setHasScrolled] = useState(() =>
+    typeof window !== "undefined" ? window.scrollY > 24 : false
+  );
   const { scrollY } = useScroll();
   const pathname = usePathname();
 
@@ -32,12 +34,6 @@ export function Header({ overlay = false }: HeaderProps) {
     };
   }, [menuOpen]);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setHasScrolled(window.scrollY > 24);
-    }
-  }, []);
-
   useMotionValueEvent(scrollY, "change", (latest) => {
     setHasScrolled(latest > 24);
   });
@@ -49,14 +45,15 @@ export function Header({ overlay = false }: HeaderProps) {
   return (
     <header className={clsx("z-30 flex w-full justify-center", positionClasses, backgroundClasses)}>
       <div className="pointer-events-auto relative flex w-full max-w-6xl items-center justify-between px-6 py-6 sm:px-10">
-        <motion.div
-          initial={{ opacity: 0, y: -12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-sm text-foreground/80"
-        >
-          murashka
-        </motion.div>
+        <Link href="/" className="text-sm text-foreground/80 transition-colors hover:text-foreground">
+          <motion.span
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            murashka
+          </motion.span>
+        </Link>
 
         <nav className="hidden items-center gap-6 text-sm font-normal md:flex">
           {navigationLinks.map((link) => (

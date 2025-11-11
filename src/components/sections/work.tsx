@@ -1,11 +1,11 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import clsx from "clsx";
 import { motion, useMotionTemplate, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
 import { projects } from "@/data/projects";
+import { useRouter } from "next/navigation";
 
 export function WorkSection() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -13,7 +13,7 @@ export function WorkSection() {
   return (
     <section id="work" className="px-6 pb-24 sm:px-10 sm:pb-32">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-12">
-        <div className="flex flex-col items-center gap-2 pt-[calc(2vh)] text-center">
+        <div className="flex flex-col items-center gap-2 pt-[7vh] pb-6 text-center">
           <p className="flex items-center gap-2 text-sm text-foreground/70">
             <span>Discover projects</span>
             <span aria-hidden="true" className="text-base leading-none">
@@ -50,6 +50,7 @@ type ProjectCardProps = {
 };
 
 function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps) {
+  const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -78,8 +79,14 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
       }}
       onMouseLeave={() => setIsHovered(false)}
       onFocus={() => onActivate(index)}
-      onClick={() => (window.location.href = `/work/${project.slug}`)}
       role="link"
+      onClick={() => router.push(`/work/${project.slug}`)}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          router.push(`/work/${project.slug}`);
+        }
+      }}
       initial={false}
       animate={{
         flex: isActive ? 1.5 : 0.55,
@@ -122,22 +129,15 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         <div className="text-xs text-white/80">{project.year}</div>
         <h3 className="text-3xl text-foreground lg:text-[2.4rem]">{project.title}</h3>
         <p className="text-sm leading-relaxed text-muted">{project.description}</p>
-        <motion.div whileHover={{ x: 6 }} className="inline-flex items-center gap-3">
-          <Link
-            href={`/work/${project.slug}`}
-            className="text-sm text-foreground transition-colors hover:text-accent"
-          >
-            Read case
-          </Link>
-          <motion.span
-            aria-hidden="true"
-            className="inline-flex h-8 w-8 items-center justify-center rounded bg-white/10"
-            animate={{ rotate: isHovered ? 45 : 0 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-          >
-            ↘
-          </motion.span>
-        </motion.div>
+        <motion.span
+          className="pointer-events-none mt-2 inline-flex items-center gap-3 rounded-full bg-white px-6 py-3 text-sm font-normal text-black"
+          whileHover={{ x: 4 }}
+        >
+          Read case
+          <span aria-hidden="true" className="text-lg">
+            ↗
+          </span>
+        </motion.span>
       </div>
     </motion.article>
   );
