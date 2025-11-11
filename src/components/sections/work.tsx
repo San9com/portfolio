@@ -13,7 +13,7 @@ export function WorkSection() {
   return (
     <section id="work" className="px-6 pb-24 sm:px-10 sm:pb-32">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-12">
-        <div className="flex flex-col items-center gap-2 pt-2 text-center">
+        <div className="flex flex-col items-center gap-2 pt-[calc(2vh)] text-center">
           <p className="flex items-center gap-2 text-sm text-foreground/70">
             <span>Discover projects</span>
             <span aria-hidden="true" className="text-base leading-none">
@@ -66,27 +66,25 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
   return (
     <motion.article
       ref={ref}
-      onMouseEnter={(event) => {
+      onMouseEnter={() => {
         onActivate(index);
         setIsHovered(true);
-        const bounds = ref.current?.getBoundingClientRect();
-        if (!bounds) return;
-        glowX.set(event.clientX - bounds.left);
-        glowY.set(event.clientY - bounds.top);
       }}
-      onMouseMove={(event) => {
+      onMouseMove={() => {
         const bounds = ref.current?.getBoundingClientRect();
         if (!bounds) return;
-        glowX.set(event.clientX - bounds.left);
-        glowY.set(event.clientY - bounds.top);
+        glowX.set(bounds.width / 2);
+        glowY.set(bounds.height / 2);
       }}
       onMouseLeave={() => setIsHovered(false)}
       onFocus={() => onActivate(index)}
+      onClick={() => (window.location.href = `/work/${project.slug}`)}
+      role="link"
       initial={false}
       animate={{
         flex: isActive ? 1.5 : 0.55,
       }}
-      whileHover={{ y: -14, rotateX: 2, rotateY: -2 }}
+      whileHover={{ rotateX: 1.5, rotateY: -1.5 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
       className="group relative flex min-h-[33rem] flex-1 flex-col justify-end overflow-hidden rounded bg-black/40 transition-colors"
       tabIndex={0}
