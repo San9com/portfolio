@@ -57,8 +57,8 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
             <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black via-black/80 to-transparent" />
           </div>
 
-          <section className="w-full bg-black px-6 pb-24 pt-16 sm:px-10 sm:pt-20">
-            <div className="mx-auto flex w-full max-w-5xl flex-col gap-12">
+          <section className="w-full bg-black px-6 pb-24 pt-10 sm:px-10 sm:pt-14">
+            <div className="mx-auto flex w-full max-w-5xl flex-col gap-8">
               <div className="flex items-center justify-between gap-8 text-foreground">
                 <Link
                   href="/"
