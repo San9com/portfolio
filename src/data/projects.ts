@@ -10,6 +10,16 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    id: "fidb",
+    year: "2025",
+    title: "FIDB Mobile Banking",
+    description:
+      "Reshaping FIDB’s digital bank into a calmer, human experience—rapid balance insights up front, contextual wealth nudges, and automation that feels personal.",
+    image: "/Case-fidb.png",
+    slug: "fidb-mobile-banking",
+    accent: "#a8b4ff",
+  },
+  {
     id: "elvou",
     year: "2025",
     title: "Elvou App Concept",
