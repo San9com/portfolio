@@ -130,7 +130,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         <h3 className="text-3xl text-foreground lg:text-[2.4rem]">{project.title}</h3>
         <p className="text-sm leading-relaxed text-muted">{project.description}</p>
         <motion.span
-          className="pointer-events-none mt-2 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-normal text-black"
+          className="pointer-events-none mt-2 inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-sm font-normal text-black shadow-[0_10px_40px_rgba(255,255,255,0.12)] backdrop-blur transition-transform duration-300"
           whileHover={{ x: 4 }}
         >
           Read case
