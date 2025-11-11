@@ -122,17 +122,17 @@ export function Header({ overlay = false }: HeaderProps) {
             <motion.nav
               id="mobile-nav"
               key="mobile-nav"
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="absolute left-0 top-full flex w-full flex-col gap-4 bg-black/95 px-6 py-6 text-sm text-foreground md:hidden"
+              className="fixed inset-0 z-40 flex min-h-screen flex-col items-center justify-center gap-10 bg-black/95 px-8 py-12 text-lg text-foreground md:hidden"
             >
               {navigationLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-sm text-foreground/80 transition-colors hover:text-foreground"
+                  className="text-2xl text-foreground transition-colors hover:text-accent"
                   onClick={() => setMenuOpen(false)}
                 >
                   {link.label.charAt(0).toUpperCase() + link.label.slice(1)}
