@@ -67,10 +67,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         flex: isActive ? 1.5 : 0.55,
       }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className={clsx(
-        "group relative flex min-h-[33rem] flex-1 flex-col justify-end overflow-hidden rounded bg-black/40 transition-colors",
-        isActive ? "lg:shadow-[0_30px_60px_rgba(177,165,167,0.25)]" : "lg:shadow-none"
-      )}
+      className="group relative flex min-h-[33rem] flex-1 flex-col justify-end overflow-hidden rounded bg-black/40 transition-colors"
       tabIndex={0}
     >
       <motion.div className="absolute inset-0" style={{ y: translateY }}>
