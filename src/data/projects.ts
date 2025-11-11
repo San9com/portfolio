@@ -12,9 +12,9 @@ export const projects: Project[] = [
   {
     id: "fidb",
     year: "2025",
-    title: "FIDB Mobile Banking",
+    title: "FiDB",
     description:
-      "Reshaping FIDB’s digital bank into a calmer, human experience—rapid balance insights up front, contextual wealth nudges, and automation that feels personal.",
+      "An F1 stats companion distilling 75 seasons of results, live standings, and career dashboards into a single iOS experience inspired by Appmiration’s FiDB.",
     image: "/Case-fidb.png",
     slug: "fidb-mobile-banking",
     accent: "#a8b4ff",
