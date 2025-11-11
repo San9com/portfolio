@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import clsx from "clsx";
@@ -18,8 +18,10 @@ export function Header({ overlay = false }: HeaderProps) {
   const [hasScrolled, setHasScrolled] = useState(() =>
     typeof window !== "undefined" ? window.scrollY > 24 : false
   );
+  const [isHidden, setIsHidden] = useState(false);
   const { scrollY } = useScroll();
   const pathname = usePathname();
+  const previousScroll = useRef<typeof scrollY.get()>(typeof window !== "undefined" ? window.scrollY : 0);
 
   const isCaseDetail =
     pathname?.startsWith("/work/") && pathname !== "/work";
@@ -37,15 +39,55 @@ export function Header({ overlay = false }: HeaderProps) {
   }, [menuOpen]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
+    if (typeof window === "undefined") return;
+
     setHasScrolled(latest > 24);
+
+    const prev = previousScroll.current;
+    const delta = latest - prev;
+    previousScroll.current = latest;
+
+    if (overlay || menuOpen) {
+      setIsHidden(false);
+      return;
+    }
+
+    const doc = document.documentElement;
+    const windowHeight = window.innerHeight;
+    const scrollHeight = doc.scrollHeight;
+    const atTop = latest <= 16;
+    const atBottom = latest + windowHeight >= scrollHeight - 16;
+    const scrollingDown = delta > 14;
+    const scrollingUp = delta < -14;
+
+    if (atTop || atBottom || scrollingUp) {
+      setIsHidden(false);
+    } else if (scrollingDown && latest > 80 && !atBottom) {
+      setIsHidden(true);
+    }
   });
+
+  useEffect(() => {
+    if (menuOpen) {
+      setIsHidden(false);
+    }
+  }, [menuOpen]);
 
   const positionClasses = overlay ? "fixed inset-x-0 top-0" : "sticky top-0 transition-colors duration-500";
   const backgroundClasses =
     overlay || isCaseDetail || !hasScrolled ? "bg-transparent" : "bg-black/85 backdrop-blur";
+  const translationClasses =
+    !overlay && !isCaseDetail ? (isHidden ? "-translate-y-full" : "translate-y-0") : "translate-y-0";
 
   return (
-    <header className={clsx("z-30 flex w-full justify-center", positionClasses, backgroundClasses)}>
+    <header
+      className={clsx(
+        "z-30 flex w-full justify-center transition-transform duration-500",
+        positionClasses,
+        backgroundClasses,
+        translationClasses
+      )}
+    >
       <div className="pointer-events-auto relative flex w-full max-w-6xl items-center justify-between px-6 py-6 sm:px-10">
         <Link href="/" className="text-sm text-foreground/80 transition-colors hover:text-foreground">
           <motion.span
