@@ -126,8 +126,18 @@ export function Header({ overlay = false }: HeaderProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="fixed inset-0 z-40 flex min-h-screen flex-col items-center justify-center gap-10 bg-black/95 px-8 py-12 text-lg text-foreground md:hidden"
+              className="fixed inset-0 z-40 flex min-h-screen flex-col items-center justify-center gap-12 bg-black/95 px-8 py-12 text-lg text-foreground md:hidden"
             >
+              <motion.button
+                type="button"
+                className="absolute right-6 top-6 rounded-full border border-white/20 px-4 py-2 text-sm text-foreground transition-colors hover:border-white/40 hover:text-white"
+                onClick={() => setMenuOpen(false)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.96 }}
+              >
+                Close
+              </motion.button>
+
               {navigationLinks.map((link) => (
                 <Link
                   key={link.href}

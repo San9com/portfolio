@@ -81,23 +81,25 @@ function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasPro
 
     if (isMobile) {
       const titleAspect = 1398 / 295;
-      const usableWidth = Math.max(4.2, viewport.width * 0.92);
-      const titleWidth = Math.min(usableWidth, viewport.width * 1.05);
+      const maxWidth = viewport.width * 1.4;
+      const titleWidth = Math.max(4.2, Math.min(maxWidth, viewport.width * 1.2));
       const titleHeight = titleWidth / titleAspect;
-      const titleCenterY = Math.min(0.22, viewport.height * 0.12);
+      const leftMargin = Math.max(0.6, viewport.width * 0.08);
+      const titleCenterX = -viewport.width / 2 + leftMargin + titleWidth / 2;
+      const titleCenterY = Math.min(0.28, viewport.height * 0.16);
       const titleBottom = titleCenterY - titleHeight / 2;
-      const cubeScale = Math.min(0.92, Math.max(0.7, viewport.width * 0.28));
+      const cubeScale = Math.min(0.9, Math.max(0.68, viewport.width * 0.26));
       const cubeHeight = CUBE_SIZE * cubeScale;
 
       return {
         isMobile,
-        cubePosition: [0, titleBottom - cubeHeight * 0.18, 0.15] as [
+        cubePosition: [titleCenterX + titleWidth * 0.05, titleBottom - cubeHeight * 0.18, 0.15] as [
           number,
           number,
           number
         ],
         cubeScale,
-        titlePosition: [0, titleCenterY, -0.5] as [number, number, number],
+        titlePosition: [titleCenterX, titleCenterY, -0.5] as [number, number, number],
         titlePlane: [titleWidth, titleHeight] as [number, number],
       };
     }
