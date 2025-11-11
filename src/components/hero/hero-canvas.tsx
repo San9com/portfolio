@@ -224,6 +224,22 @@ function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasPro
             position={[0, 6, 10] as const}
             scale={6}
           />
+          <Lightformer
+            form="rect"
+            intensity={4.8}
+            color="#8E4CFF"
+            position={[6, 0.5, 5] as const}
+            rotation={[0, -Math.PI / 3.5, 0] as const}
+            scale={[6, 8, 1] as const}
+          />
+          <Lightformer
+            form="rect"
+            intensity={5.2}
+            color="#CC4CFF"
+            position={[-5.5, 1.2, 5.5] as const}
+            rotation={[0, Math.PI / 2.8, 0] as const}
+            scale={[7, 9, 1] as const}
+          />
         </group>
       </Environment>
 
