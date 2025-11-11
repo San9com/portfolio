@@ -19,7 +19,7 @@ export const contact = {
 
 export const profile = {
   name: "Alexander Murashka",
-  title: "UI/UX Designer",
+  title: "iOS-first UX/UI designer.",
   portrait: "/hero-image-alex-final.png",
 };
 
