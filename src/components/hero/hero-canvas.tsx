@@ -14,8 +14,9 @@ type HeroCanvasProps = {
   introScript?: string;
 };
 
-function HeroScene({ headlineLines, portraitSrc }: HeroCanvasProps) {
+function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasProps) {
   const { viewport, size } = useThree();
+  void _headlineLines;
 
   const basePortraitTexture = useTexture(portraitSrc, (texture) => {
     texture.anisotropy = 4; // a bit lower for perf
@@ -79,16 +80,18 @@ function HeroScene({ headlineLines, portraitSrc }: HeroCanvasProps) {
     const isMobile = size.width <= 768;
 
     if (isMobile) {
-      const titleHeight = 1.48;
-      const titleWidth = titleHeight * (1398 / 295);
-      const titleCenterY = 0;
+      const titleAspect = 1398 / 295;
+      const usableWidth = Math.max(4.2, viewport.width * 0.92);
+      const titleWidth = Math.min(usableWidth, viewport.width * 1.05);
+      const titleHeight = titleWidth / titleAspect;
+      const titleCenterY = Math.min(0.1, viewport.height * 0.04);
       const titleBottom = titleCenterY - titleHeight / 2;
-      const cubeScale = 0.82;
+      const cubeScale = Math.min(0.92, Math.max(0.7, viewport.width * 0.28));
       const cubeHeight = CUBE_SIZE * cubeScale;
 
       return {
         isMobile,
-        cubePosition: [0, titleBottom - cubeHeight * 0.2, 0.15] as [
+        cubePosition: [0, titleBottom - cubeHeight * 0.18, 0.15] as [
           number,
           number,
           number
