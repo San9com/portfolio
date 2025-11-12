@@ -2,12 +2,10 @@
 
 import { Suspense, useMemo } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
-import { Environment, Float, Lightformer, useTexture } from "@react-three/drei";
+import { Environment, Float, Html, Lightformer, useTexture } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import {
   CanvasTexture,
-  LinearFilter,
-  LinearMipmapLinearFilter,
   SRGBColorSpace,
 } from "three";
 import { CUBE_SIZE, GlassCubeMesh } from "./glass-cube";
@@ -19,37 +17,17 @@ type HeroCanvasProps = {
   introScript?: string;
 };
 
-const DESKTOP_TITLE_ASPECT = 1398 / 295;
-const MOBILE_TITLE_ASPECT = 828 / 589;
+const TITLE_ASPECT = 1230.94 / 414.57;
 
 function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasProps) {
-  const { viewport, size, gl } = useThree();
+  const { viewport, size } = useThree();
   const isMobile = size.width <= 768;
-  const maxAnisotropy = gl.capabilities.getMaxAnisotropy?.() ?? 8;
   void _headlineLines;
 
   const basePortraitTexture = useTexture(portraitSrc, (texture) => {
     texture.anisotropy = 4; // a bit lower for perf
     texture.colorSpace = SRGBColorSpace;
     texture.flipY = false;
-  });
-
-  const desktopTitleTexture = useTexture("/hero-title-2.svg", (texture) => {
-    texture.colorSpace = SRGBColorSpace;
-    texture.anisotropy = maxAnisotropy;
-    texture.magFilter = LinearFilter;
-    texture.minFilter = LinearMipmapLinearFilter;
-    texture.generateMipmaps = true;
-    texture.needsUpdate = true;
-  });
-
-  const mobileTitleTexture = useTexture("/hero-title-mobile.svg", (texture) => {
-    texture.colorSpace = SRGBColorSpace;
-    texture.anisotropy = maxAnisotropy;
-    texture.magFilter = LinearFilter;
-    texture.minFilter = LinearMipmapLinearFilter;
-    texture.generateMipmaps = true;
-    texture.needsUpdate = true;
   });
 
   const portraitTexture = useMemo(() => {
@@ -101,7 +79,7 @@ function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasPro
 
   const layout = useMemo(() => {
     if (isMobile) {
-      const titleAspect = MOBILE_TITLE_ASPECT;
+      const titleAspect = TITLE_ASPECT;
       const sideMargin = Math.max(0.4, viewport.width * 0.06);
       const availableWidth = Math.max(3, viewport.width - sideMargin * 2);
       const titleWidth = Math.min(availableWidth, viewport.width - sideMargin * 0.4);
@@ -126,6 +104,10 @@ function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasPro
         cubeScale,
         titlePosition: [titleCenterX, titleCenterY, -0.5] as [number, number, number],
         titlePlane: [titleWidth, titleHeight] as [number, number],
+        titlePixels: [
+          (titleWidth / viewport.width) * size.width,
+          (titleHeight / viewport.height) * size.height,
+        ] as [number, number],
       };
     }
 
@@ -153,12 +135,15 @@ function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasPro
         number
       ],
       titlePlane: [titleWidth, titleHeight] as [number, number],
+      titlePixels: [
+        (titleWidth / viewport.width) * size.width,
+        (titleHeight / viewport.height) * size.height,
+      ] as [number, number],
     };
-  }, [isMobile, viewport.height, viewport.width]);
-
-  const titleTexture = isMobile ? mobileTitleTexture : desktopTitleTexture;
+  }, [isMobile, size.height, size.width, viewport.height, viewport.width]);
 
   const [cx, cy, cz] = layout.cubePosition;
+  const [titlePixelWidth, titlePixelHeight] = layout.titlePixels;
 
   return (
     <>
@@ -188,10 +173,38 @@ function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasPro
       />
 
       {/* ✅ Only ONE cube now */}
-      <mesh position={layout.titlePosition}>
-        <planeGeometry args={layout.titlePlane} />
-        <meshBasicMaterial map={titleTexture} toneMapped={false} transparent />
-      </mesh>
+      <Html
+        position={layout.titlePosition}
+        transform={false}
+        center
+        style={{
+          width: `${Math.max(titlePixelWidth, 240)}px`,
+          height: `${Math.max(titlePixelHeight, 120)}px`,
+          pointerEvents: "none",
+        }}
+        className="hero-title-html"
+      >
+        <div
+          className="hero-title-animation"
+          data-mobile={layout.isMobile ? "true" : "false"}
+        >
+          <div className="hero-title-animation__bg">
+            <div className="hero-title-animation__inner">
+              <svg
+                className="hero-title-animation__svg"
+                viewBox="0 0 1230.94 414.57"
+                role="img"
+                aria-label="Hello I'm Alexander"
+              >
+                <path
+                  d="M-293.58-104.62S-103.61-205.49-60-366.25c9.13-32.45,9-58.31,0-74-10.72-18.82-49.69-33.21-75.55,31.94-27.82,70.11-52.22,377.24-44.11,322.48s34-176.24,99.89-183.19c37.66-4,49.55,23.58,52.83,47.92a117.06,117.06,0,0,1-3,45.32c-7.17,27.28-20.47,97.67,33.51,96.86,66.93-1,131.91-53.89,159.55-84.49,31.1-36.17,31.1-70.64,19.27-90.25-16.74-29.92-69.47-33-92.79,16.73C62.78-179.86,98.7-93.8,159-81.63S302.7-99.55,393.3-269.92c29.86-58.16,52.85-114.71,46.14-150.08-7.44-39.21-59.74-54.5-92.87-8.7-47,65-61.78,266.62-34.74,308.53S416.62-58,481.52-130.31s133.2-188.56,146.54-256.23c14-71.15-56.94-94.64-88.4-47.32C500.53-375,467.58-229.49,503.3-127a73.73,73.73,0,0,0,23.43,33.67c25.49,20.23,55.1,16,77.46,6.32a111.25,111.25,0,0,0,30.44-19.87c37.73-34.23,29-36.71,64.58-127.53C724-284.3,785-298.63,821-259.13a71,71,0,0,1,13.69,22.56c17.68,46,6.81,80-6.81,107.89-12,24.62-34.56,42.72-61.45,47.91-23.06,4.45-48.37-.35-66.48-24.27a78.88,78.88,0,0,1-12.66-25.8c-14.75-51,4.14-88.76,11-101.41,6.18-11.39,37.26-69.61,103.42-42.24,55.71,23.05,100.66-23.31,100.66-23.31"
+                  transform="translate(311.08 476.02)"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </Html>
 
       <Float floatIntensity={0.55} rotationIntensity={0.32} speed={1.1}>
         <GlassCubeMesh
