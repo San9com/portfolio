@@ -116,7 +116,7 @@ function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasPro
     const rightX = viewport.width / 2 - margin;
 
     const titleHeight = Math.min(2.4, Math.max(1.8, viewport.height * 0.24));
-    const titleWidth = titleHeight * DESKTOP_TITLE_ASPECT;
+    const titleWidth = titleHeight * TITLE_ASPECT;
     const titleX = (leftX + rightX - titleWidth) / 2;
     const titleY = Math.min(1.2, viewport.height * 0.28);
 
