@@ -16,12 +16,12 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
     offset: ["start start", "end end"],
   });
 
-  const heroScale = useTransform(scrollYProgress, [0, 0.55], [1.08, 0.7]);
-  const heroOpacity = useTransform(scrollYProgress, [0.6, 0.72], [1, 0]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.55], [1.02, 0.64]);
+  const heroOpacity = useTransform(scrollYProgress, [0.56, 0.66], [1, 0]);
 
-  const frameOpacity = useTransform(scrollYProgress, [0.66, 0.82], [0, 1]);
-  const frameScale = useTransform(scrollYProgress, [0.66, 1], [0.7, 1]);
-  const frameTranslateY = useTransform(scrollYProgress, [0.66, 1], [40, 0]);
+  const frameOpacity = useTransform(scrollYProgress, [0.68, 0.84], [0, 1]);
+  const frameScale = useTransform(scrollYProgress, [0.68, 1], [0.74, 1]);
+  const frameTranslateY = useTransform(scrollYProgress, [0.68, 1], [30, 0]);
 
   return (
     <section
@@ -30,50 +30,52 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
       aria-label="Project visual immersion"
     >
       <div className="pointer-events-none sticky top-0 h-[100svh] overflow-hidden">
-        <motion.div
-          style={{ scale: heroScale, opacity: heroOpacity }}
-          className="relative flex h-full w-full items-center justify-center overflow-hidden"
-        >
-          <div className="relative aspect-[16/10] w-full max-w-[min(92vw,1200px)] overflow-hidden rounded-[16px] border border-white/6 bg-black">
-            <Image src={image} alt={alt} fill priority sizes="100vw" className="object-cover" />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent" />
-          </div>
-        </motion.div>
-      </div>
-
-      <motion.div
-        style={{ opacity: frameOpacity, scale: frameScale, y: frameTranslateY }}
-        className="pointer-events-none relative mx-auto hidden w-full max-w-[1160px] px-6 sm:flex"
-      >
-        <div className="relative mx-auto w-full">
-          <div className="relative mx-auto aspect-[3082/2287] w-full">
-            <div
-              className="absolute left-1/2 top-0 w-full -translate-x-1/2 overflow-hidden rounded-[26px] border border-white/6 shadow-[0_30px_80px_rgba(0,0,0,0.55)]"
-              style={{
-                width: "92%",
-                height: "77.45%",
-              }}
-            >
-              <Image
-                src={image}
-                alt={`${alt} framed preview`}
-                fill
-                sizes="(min-width: 1280px) 940px, (min-width: 768px) 70vw, 90vw"
-                className="object-cover"
-                priority={false}
-              />
+        <div className="relative h-full w-full">
+          <motion.div
+            style={{ scale: heroScale, opacity: heroOpacity }}
+            className="absolute inset-0 flex items-center justify-center"
+          >
+            <div className="absolute inset-0">
+              <Image src={image} alt={alt} fill priority sizes="100vw" className="object-cover" />
             </div>
-            <Image
-              src="/Pro Display XDR.svg"
-              alt="Pro Display XDR Frame"
-              fill
-              sizes="(min-width: 1280px) 1160px, (min-width: 768px) 80vw, 100vw"
-              className="pointer-events-none select-none mix-blend-lighten"
-              priority={false}
-            />
-          </div>
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent" />
+          </motion.div>
+
+          <motion.div
+            style={{ opacity: frameOpacity, scale: frameScale, y: frameTranslateY }}
+            className="absolute inset-0 hidden items-center justify-center sm:flex"
+          >
+            <div className="relative w-full max-w-[1160px] px-6">
+              <div className="relative mx-auto aspect-[3082/2287] w-full">
+                <div
+                  className="absolute left-1/2 top-0 w-full -translate-x-1/2 overflow-hidden rounded-[26px] border border-white/6 shadow-[0_30px_80px_rgba(0,0,0,0.55)]"
+                  style={{
+                    width: "92%",
+                    height: "77.45%",
+                  }}
+                >
+                  <Image
+                    src={image}
+                    alt={`${alt} framed preview`}
+                    fill
+                    sizes="(min-width: 1280px) 940px, (min-width: 768px) 70vw, 90vw"
+                    className="object-cover"
+                    priority={false}
+                  />
+                </div>
+                <Image
+                  src="/Pro Display XDR.svg"
+                  alt="Pro Display XDR Frame"
+                  fill
+                  sizes="(min-width: 1280px) 1160px, (min-width: 768px) 80vw, 100vw"
+                  className="pointer-events-none select-none mix-blend-lighten"
+                  priority={false}
+                />
+              </div>
+            </div>
+          </motion.div>
         </div>
-      </motion.div>
+      </div>
 
       <motion.div
         style={{ opacity: frameOpacity }}
