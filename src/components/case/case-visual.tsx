@@ -16,12 +16,12 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
     offset: ["start start", "end end"],
   });
 
-  const heroScale = useTransform(scrollYProgress, [0, 0.55], [1.08, 0.68]);
-  const heroOpacity = useTransform(scrollYProgress, [0.6, 0.92], [1, 0]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.55], [1.08, 0.7]);
+  const heroOpacity = useTransform(scrollYProgress, [0.6, 0.72], [1, 0]);
 
-  const frameOpacity = useTransform(scrollYProgress, [0.38, 0.82], [0, 1]);
-  const frameScale = useTransform(scrollYProgress, [0.34, 1], [0.62, 1]);
-  const frameTranslateY = useTransform(scrollYProgress, [0, 1], [140, 0]);
+  const frameOpacity = useTransform(scrollYProgress, [0.66, 0.82], [0, 1]);
+  const frameScale = useTransform(scrollYProgress, [0.66, 1], [0.7, 1]);
+  const frameTranslateY = useTransform(scrollYProgress, [0.66, 1], [40, 0]);
 
   return (
     <section
@@ -32,10 +32,12 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
       <div className="pointer-events-none sticky top-0 h-[100svh] overflow-hidden">
         <motion.div
           style={{ scale: heroScale, opacity: heroOpacity }}
-          className="relative h-full w-full overflow-hidden rounded-[16px] border border-white/4 bg-black"
+          className="relative flex h-full w-full items-center justify-center overflow-hidden"
         >
-          <Image src={image} alt={alt} fill priority sizes="100vw" className="object-cover" />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent" />
+          <div className="relative aspect-[16/10] w-full max-w-[min(92vw,1200px)] overflow-hidden rounded-[16px] border border-white/6 bg-black">
+            <Image src={image} alt={alt} fill priority sizes="100vw" className="object-cover" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/35 to-transparent" />
+          </div>
         </motion.div>
       </div>
 
