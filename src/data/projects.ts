@@ -12,11 +12,11 @@ export const projects: Project[] = [
   {
     id: "fidb",
     year: "2025",
-    title: "FiDB",
+    title: "FiDB Redesign",
     description:
-      "An F1 stats companion distilling 75 seasons of results, live standings, and career dashboards into a single iOS experience inspired by Appmiration’s FiDB.",
+      "Repositioning the beloved F1 stats companion to convert organic race-week traffic into subscription momentum.",
     image: "/Case-fidb.png",
-    slug: "fidb-mobile-banking",
+    slug: "fidb-redesign",
     accent: "#a8b4ff",
   },
   {
@@ -24,7 +24,7 @@ export const projects: Project[] = [
     year: "2025",
     title: "Elvou App Concept",
     description:
-      "Crafting a wellness companion that pairs restorative soundscapes with predictive rituals to ease decision fatigue throughout the day.",
+      "A ritual-led wellness pitch where every product becomes part of a guided routine, crafted as a sales narrative for Apperium.",
     image: "/Case-Elvou-app-concept.png",
     slug: "elvou-app-concept",
     accent: "#b6c5ff",
@@ -34,7 +34,7 @@ export const projects: Project[] = [
     year: "2024",
     title: "iotSpot",
     description:
-      "A double-diamond discovery that transformed charging friction into a seamless, anticipatory flow for urban EV drivers.",
+      "A ground-up rethink of the hybrid workplace app with new maps, faster flows, and guidance that removes guesswork.",
     image: "/images/project-iotspot.png",
     slug: "iotspot-case",
     accent: "#f6c58f",
@@ -50,13 +50,13 @@ export const projects: Project[] = [
     accent: "#9ccdc4",
   },
   {
-    id: "stellar",
+    id: "current",
     year: "2025",
-    title: "Stellar Lab",
+    title: "Current EV Charging App",
     description:
-      "A mindful astrology guide that balances depth with clarity, built around daily rituals and calm visual narratives.",
+      "An EV charging companion structured around design thinking sprints for wayfinding, pricing clarity, and loyalty loops.",
     image: "/images/project-stellar.png",
-    slug: "stellar-lab",
+    slug: "current-ev-charging-app",
     accent: "#ef92c2",
   },
 ];
