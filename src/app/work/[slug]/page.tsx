@@ -29,8 +29,8 @@ const caseContent: Record<string, CaseContent> = {
           "Clustered high-intent search terms and App Store reviews, revealing that fans arrived for telemetry snapshots yet met a static paywall before they felt the value.",
         ],
         visuals: [
-          "Visual placeholder · Conversion telemetry board highlighting qualifying drop-offs",
-          "Visual placeholder · Organic search clusters mapped to the 24-race calendar",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          "Pellentesque habitant morbi tristique senectus et netus et malesuada fames.",
         ],
       },
       {
@@ -40,8 +40,8 @@ const caseContent: Record<string, CaseContent> = {
           "Reordered navigation around ‘Weekend story, Driver duel, Season arc’ so fans feel guided rather than siloed into features.",
         ],
         visuals: [
-          "Visual placeholder · Value ladder canvas aligning feature tiers to prompts",
-          "Visual placeholder · Story-first navigation sketches",
+          "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+          "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
         ],
       },
       {
@@ -51,8 +51,8 @@ const caseContent: Record<string, CaseContent> = {
           "Reimagined onboarding into a three-step warm-up with social proof, driver spotlights, and calendar hooks leading toward trial activation.",
         ],
         visuals: [
-          "Visual placeholder · Component sheet of premium stat tiles",
-          "Visual placeholder · Onboarding sprint storyboard",
+          "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+          "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
         ],
       },
       {
@@ -62,8 +62,8 @@ const caseContent: Record<string, CaseContent> = {
           "Partnered with marketing on a race-week content cadence so organic spikes in traffic route directly into the new upgrade loops.",
         ],
         visuals: [
-          "Visual placeholder · Experiment roadmap timeline",
-          "Visual placeholder · Launch playbook snapshots",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidunt.",
+          "Curabitur pretium tincidunt lacus. Nulla gravida orci a odio bibendum, ac sollicitudin erat placerat.",
         ],
       },
     ],
@@ -79,8 +79,8 @@ const caseContent: Record<string, CaseContent> = {
           "Segmented routines—recovery, focus, wind-down—into sensory cues that the app could anticipate with ambient sound, pacing, and reminders.",
         ],
         visuals: [
-          "Visual placeholder · Ritual mood collage weaving sound, light, and texture",
-          "Visual placeholder · Persona routine cards for recovery and calm modes",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          "Aliquam erat volutpat. Donec a dui et dui fringilla consectetur id nec massa.",
         ],
       },
       {
@@ -90,8 +90,8 @@ const caseContent: Record<string, CaseContent> = {
           "Built a bilingual microcopy matrix to keep the tone soft, reassuring, and consultative across Dutch and English surfaces.",
         ],
         visuals: [
-          "Visual placeholder · Flowchart connecting rituals to adaptive product stacks",
-          "Visual placeholder · Microcopy matrix with tonal sliders",
+          "Suspendisse potenti. Praesent lacinia, arcu non egestas tristique, nibh erat facilisis urna, at dignissim libero ipsum ut justo.",
+          "Integer sit amet lacus ac sapien vehicula luctus quis vel justo.",
         ],
       },
       {
@@ -101,8 +101,8 @@ const caseContent: Record<string, CaseContent> = {
           "Presented an interactive prototype with subtle parallax, allowing stakeholders to sense how rituals would evolve with each purchase.",
         ],
         visuals: [
-          "Visual placeholder · Sales deck storyboard with conversion milestones",
-          "Visual placeholder · Prototype screens highlighting ritual timelines",
+          "Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero posuere vulputate.",
+          "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.",
         ],
       },
     ],
@@ -118,8 +118,8 @@ const caseContent: Record<string, CaseContent> = {
           "Benchmarked the current experience, measuring completion time and confidence to establish a clear baseline for the redesign.",
         ],
         visuals: [
-          "Visual placeholder · Journey map of hybrid work touchpoints",
-          "Visual placeholder · Benchmark dashboard for booking speed and confidence",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          "Aenean commodo ligula eget dolor. Aenean massa.",
         ],
       },
       {
@@ -129,8 +129,8 @@ const caseContent: Record<string, CaseContent> = {
           "Designed teammate locator microinteractions and predictive search chips that surface likely choices before users ask.",
         ],
         visuals: [
-          "Visual placeholder · Interactive map frames with zoom states",
-          "Visual placeholder · Microinteraction storyboard for teammate pulses",
+          "Nullam dictum felis eu pede mollis pretium. Integer tincidunt.",
+          "Cras dapibus. Vivamus elementum semper nisi.",
         ],
       },
       {
@@ -140,108 +140,108 @@ const caseContent: Record<string, CaseContent> = {
           "Co-wrote the ‘sneak peek’ campaign with product marketing, showcasing visuals that mirror the new navigation flow.",
         ],
         visuals: [
-          "Visual placeholder · Performance budget overlay on prototype screens",
-          "Visual placeholder · Launch teaser layout with motion cues",
+          "Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.",
+          "Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.",
         ],
       },
     ],
   },
   "gaiazoo-companion": {
     intro:
-      "Structure ready for final GaiaZoo narrative. The sections below hold space for future field learnings while keeping visual artefacts aligned to the design thinking cadence.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis, erat vel efficitur auctor, purus tellus ultrices odio, in cursus risus nibh sed erat.",
     phases: [
       {
         title: "Discover",
         body: [
-          "Placeholder copy describing observation days inside the zoo and early family interviews.",
-          "Replace with insights about empathy-building and conservation cues.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis convallis, turpis id facilisis lobortis, nisl nibh ornare nulla, vel laoreet odio lorem nec neque.",
+          "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.",
         ],
         visuals: [
-          "Visual placeholder · Field note collage awaiting photos",
-          "Visual placeholder · Empathy map scaffolding",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          "Quisque vehicula lectus non justo fermentum, vitae fringilla nisl aliquet.",
         ],
       },
       {
         title: "Define",
         body: [
-          "Placeholder copy outlining how problem statements are being shaped.",
-          "Swap with final opportunity statements and success metrics.",
+          "Integer fringilla, augue eget tincidunt auctor, urna erat varius nisl, sed sollicitudin erat sem at arcu.",
+          "Curabitur aliquet, sapien a lacinia mattis, tortor arcu ultricies quam, ut scelerisque erat orci eget risus.",
         ],
         visuals: [
-          "Visual placeholder · Opportunity framing canvas",
-          "Visual placeholder · KPI sketch cards",
+          "Sed at sem vitae sapien blandit posuere.",
+          "Donec ullamcorper nulla non metus auctor fringilla.",
         ],
       },
       {
         title: "Design",
         body: [
-          "Placeholder copy referencing prototyping of adaptive maps, conservation stories, and reward loops.",
-          "Replace once interaction flows and UI guidelines are approved.",
+          "Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.",
+          "Maecenas faucibus mollis interdum. Praesent commodo cursus magna, vel scelerisque nisl consectetur.",
         ],
         visuals: [
-          "Visual placeholder · Adaptive map frame stack",
-          "Visual placeholder · Storytelling card explorations",
+          "Nullam id dolor id nibh ultricies vehicula ut id elit.",
+          "Etiam porta sem malesuada magna mollis euismod.",
         ],
       },
       {
         title: "Deliver",
         body: [
-          "Placeholder copy describing pilot setup, analytics instrumentation, and rollout plan.",
-          "Update with launch metrics and conservation engagement signals.",
+          "Aenean lacinia bibendum nulla sed consectetur. Cras mattis consectetur purus sit amet fermentum.",
+          "Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.",
         ],
         visuals: [
-          "Visual placeholder · Pilot dashboard layout",
-          "Visual placeholder · Rollout timeline markers",
+          "Morbi leo risus, porta ac consectetur ac, vestibulum at eros.",
+          "Praesent commodo cursus magna, vel scelerisque nisl consectetur et.",
         ],
       },
     ],
   },
   "current-ev-charging-app": {
     intro:
-      "Awaiting final copy for the Current EV charging story. This scaffold mirrors the design thinking rhythm so new narrative and artefacts can drop in immediately.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer feugiat quam vel augue accumsan, vitae tempus lacus vulputate.",
     phases: [
       {
         title: "Discover",
         body: [
-          "Text placeholder for field research with EV drivers and charge point operators.",
-          "Swap with quotes, journey pains, and service blueprint notes once approved.",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sit amet turpis at odio egestas commodo.",
+          "Mauris sed tortor sed neque vehicula dictum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames.",
         ],
         visuals: [
-          "Visual placeholder · Journey map shell for route anxieties",
-          "Visual placeholder · Service blueprint lanes ready for data",
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          "Quisque sodales arcu vel dui vestibulum, non finibus nulla mollis.",
         ],
       },
       {
         title: "Define",
         body: [
-          "Text placeholder for How Might We statements and prioritised problems.",
-          "Replace with chosen KPIs, personas, and guardrails provided by the team.",
+          "Suspendisse euismod, urna id vestibulum cursus, nulla turpis faucibus est, vitae convallis magna lacus vel erat.",
+          "Etiam porta, massa vel dapibus aliquet, ante metus efficitur justo, id finibus lorem sapien vitae purus.",
         ],
         visuals: [
-          "Visual placeholder · Prioritisation matrix canvas",
-          "Visual placeholder · Persona spotlight layout",
+          "Sed posuere consectetur est at lobortis.",
+          "Cras justo odio, dapibus ac facilisis in, egestas eget quam.",
         ],
       },
       {
         title: "Design",
         body: [
-          "Text placeholder for prototyping loops around pricing clarity and station discovery.",
-          "Update with final UI explorations, motion principles, and copy decks.",
+          "Donec id elit non mi porta gravida at eget metus.",
+          "Vestibulum id ligula porta felis euismod semper.",
         ],
         visuals: [
-          "Visual placeholder · Flow storyboard for charge session booking",
-          "Visual placeholder · Pricing transparency component set",
+          "Maecenas sed diam eget risus varius blandit sit amet non magna.",
+          "Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.",
         ],
       },
       {
         title: "Deliver",
         body: [
-          "Text placeholder for pilot preparation, analytics tagging, and loyalty program experiments.",
-          "Replace with launch outcomes, retention curves, and roadmap notes.",
+          "Integer posuere erat a ante venenatis dapibus posuere velit aliquet.",
+          "Curabitur blandit tempus porttitor. Sed posuere consectetur est at lobortis.",
         ],
         visuals: [
-          "Visual placeholder · Pilot dashboard wireframe",
-          "Visual placeholder · Loyalty loop experiment tracker",
+          "Aenean lacinia bibendum nulla sed consectetur.",
+          "Praesent commodo cursus magna, vel scelerisque nisl consectetur et.",
         ],
       },
     ],
@@ -253,23 +253,23 @@ const defaultCaseContent: CaseContent = {
     {
       title: "Discover",
       body: [
-        "Initial research notes and discovery insights will be added here.",
-        "Use this block to explain context, audience, and opportunity framing.",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.",
       ],
       visuals: [
-        "Visual placeholder · Discovery artefact",
-        "Visual placeholder · Research highlight reel",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       ],
     },
     {
       title: "Design",
       body: [
-        "Prototype notes, UI explorations, and motion studies are staged for future updates.",
-        "Add learnings from testing and how the team iterated between rounds.",
+        "Proin nec libero gravida, fermentum ligula a, aliquet ipsum.",
+        "Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.",
       ],
       visuals: [
-        "Visual placeholder · Prototype frames",
-        "Visual placeholder · Interaction study",
+        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.",
       ],
     },
   ],
@@ -277,19 +277,12 @@ const defaultCaseContent: CaseContent = {
 
 function VisualPlaceholder({ label }: { label: string }) {
   return (
-    <div
-      className="group relative flex aspect-[4/3] w-full items-center justify-center overflow-hidden rounded-[4px] text-foreground/70 transition-all duration-500"
-      style={{
-        backgroundImage:
-          "linear-gradient(140deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)), radial-gradient(circle at 12% 18%, rgba(142, 76, 255, 0.18), rgba(142, 76, 255, 0)), radial-gradient(circle at 82% 86%, rgba(204, 76, 255, 0.16), rgba(204, 76, 255, 0))",
-        backgroundBlendMode: "screen, normal",
-      }}
-    >
-      <div className="absolute inset-0 translate-y-[18%] scale-105 bg-[radial-gradient(circle,_rgba(255,255,255,0.12)_0%,_rgba(255,255,255,0)_60%)] opacity-0 transition-opacity duration-500 group-hover:opacity-80" />
-      <span className="relative z-10 max-w-[78%] text-center text-sm leading-relaxed">
-        {label}
-      </span>
-      <div className="absolute inset-x-6 bottom-6 h-px origin-left scale-x-50 bg-white/20 transition-transform duration-500 group-hover:scale-x-100" />
+    <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
+      <div className="relative flex min-h-[80svh] w-full items-center justify-center bg-[#141414]">
+        <p className="max-w-[72ch] px-8 text-center text-base leading-relaxed text-white/35">
+          {label}
+        </p>
+      </div>
     </div>
   );
 }
@@ -359,12 +352,9 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
                 ) : null}
               </div>
 
-              <div className="flex flex-col gap-16">
+              <div className="flex flex-col gap-20">
                 {content.phases.map((phase) => (
-                  <section
-                    key={`${project.slug}-${phase.title}`}
-                    className="grid gap-12 md:grid-cols-[1.05fr_0.95fr]"
-                  >
+                  <section key={`${project.slug}-${phase.title}`} className="flex flex-col gap-12">
                     <div className="space-y-6">
                       <h2 className="text-[clamp(1.8rem,3.6vw,2.8rem)] font-light text-foreground">
                         {phase.title}
@@ -377,11 +367,9 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
                         ))}
                       </div>
                     </div>
-                    <div className="grid gap-6">
-                      {phase.visuals.map((label, index) => (
-                        <VisualPlaceholder key={`${phase.title}-visual-${index}`} label={label} />
-                      ))}
-                    </div>
+                    {phase.visuals.map((label, index) => (
+                      <VisualPlaceholder key={`${phase.title}-visual-${index}`} label={label} />
+                    ))}
                   </section>
                 ))}
               </div>
