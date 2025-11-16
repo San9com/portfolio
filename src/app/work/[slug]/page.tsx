@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { projects } from "@/data/projects";
+import { CaseVisualShowcase } from "@/components/case/case-visual";
 
 type CasePhase = {
   title: string;
@@ -335,18 +335,7 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
       <main className="bg-black text-foreground">
         <Header overlay />
         <article className="mx-auto flex min-h-screen w-full flex-col">
-          <div className="relative h-[68vh] min-h-[540px] w-full overflow-hidden">
-            <Image
-              src={project.image}
-              alt={`${project.title} case hero`}
-              fill
-              priority
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
-            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black via-black/80 to-transparent" />
-          </div>
-
+          <CaseVisualShowcase image={project.image} alt={`${project.title} hero visual`} />
           <section className="w-full bg-black px-6 pb-24 pt-10 sm:px-10 sm:pt-14">
             <div className="mx-auto flex w-full max-w-5xl flex-col gap-10">
               <div className="flex items-center justify-between gap-8 text-foreground">
