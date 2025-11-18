@@ -18,7 +18,10 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
     offset: ["start start", "end end"],
   });
 
-  const [viewport, setViewport] = useState({ width: 1280, height: 720 });
+  const [viewport, setViewport] = useState(() => ({
+    width: typeof window !== "undefined" ? window.innerWidth : 1280,
+    height: typeof window !== "undefined" ? window.innerHeight : 720,
+  }));
 
   useEffect(() => {
     const update = () => {
@@ -59,9 +62,10 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
     };
   }, [isDesktop, viewport.height, viewport.width]);
 
+  const targetOffsetY = Math.max(viewport.height - targetHeight, 0);
   const width = useTransform(scrollYProgress, [0, 0.62], [startWidth, targetWidth]);
   const height = useTransform(scrollYProgress, [0, 0.62], [startHeight, targetHeight]);
-  const y = useTransform(scrollYProgress, [0, 0.62], [0, targetHeight - startHeight]);
+  const y = useTransform(scrollYProgress, [0, 0.62], [0, targetOffsetY]);
   const borderRadius = useTransform(
     scrollYProgress,
     [0.08, 0.7],
