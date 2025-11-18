@@ -18,10 +18,8 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
     offset: ["start start", "end end"],
   });
 
-  const [viewport, setViewport] = useState(() => ({
-    width: typeof window !== "undefined" ? window.innerWidth : 1280,
-    height: typeof window !== "undefined" ? window.innerHeight : 720,
-  }));
+  const [viewport, setViewport] = useState({ width: 1280, height: 720 });
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const update = () => {
@@ -34,6 +32,11 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
     update();
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
+  }, []);
+
+  useEffect(() => {
+    const id = window.requestAnimationFrame(() => setMounted(true));
+    return () => window.cancelAnimationFrame(id);
   }, []);
 
   const isDesktop = viewport.width >= 768;
@@ -83,6 +86,23 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
     const nextVisible = value > 0.01;
     setFrameVisible((prev) => (prev === nextVisible ? prev : nextVisible));
   });
+
+  if (!mounted) {
+    return (
+      <section
+        ref={sectionRef}
+        className="relative flex min-h-[220svh] w-full flex-col justify-center"
+        aria-label="Project visual immersion"
+      >
+        <div className="pointer-events-none sticky top-0 h-[100svh] overflow-hidden">
+          <div className="relative h-full w-full">
+            <Image src={image} alt={alt} fill priority sizes="100vw" className="object-cover" />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent" />
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section
