@@ -61,7 +61,7 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
 
   const width = useTransform(scrollYProgress, [0, 0.62], [startWidth, targetWidth]);
   const height = useTransform(scrollYProgress, [0, 0.62], [startHeight, targetHeight]);
-  const y = useTransform(scrollYProgress, [0, 0.62], [0, Math.max((viewport.height - targetHeight) / 2, 0)]);
+  const y = useTransform(scrollYProgress, [0, 0.62], [0, targetHeight - startHeight]);
   const borderRadius = useTransform(
     scrollYProgress,
     [0.08, 0.7],
