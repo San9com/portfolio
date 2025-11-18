@@ -34,33 +34,44 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
   }, []);
 
   const isDesktop = viewport.width >= 768;
-  const { targetWidth, targetHeight, startWidth, startHeight } = useMemo(() => {
+  const {
+    targetWidth,
+    targetHeight,
+    startWidth,
+    startHeight,
+    screenTopInset,
+    screenSideInset,
+  } = useMemo(() => {
     const width = Math.min(
       viewport.width * (isDesktop ? 0.74 : 0.92),
       isDesktop ? 1160 : viewport.width * 0.94,
     );
     const height = width / FRAME_RATIO;
+    const screenHeightRatio = 0.7745;
+    const screenWidthRatio = 0.92;
     return {
       targetWidth: width,
       targetHeight: height,
       startWidth: viewport.width,
       startHeight: viewport.height,
+      screenTopInset: (1 - screenHeightRatio) * 100,
+      screenSideInset: ((1 - screenWidthRatio) / 2) * 100,
     };
   }, [isDesktop, viewport.height, viewport.width]);
 
   const width = useTransform(scrollYProgress, [0, 0.6], [startWidth, targetWidth]);
   const height = useTransform(scrollYProgress, [0, 0.6], [startHeight, targetHeight]);
-  const y = useTransform(
-    scrollYProgress,
-    [0, 0.6],
-    [0, Math.max((viewport.height - targetHeight) / 2, 0)],
-  );
+  const y = useTransform(scrollYProgress, [0, 1], [0, 0]);
   const borderRadius = useTransform(
     scrollYProgress,
     [0.08, 0.7],
     [0, isDesktop ? 24 : 16],
   );
   const frameOpacity = useTransform(scrollYProgress, [0.68, 0.88], [0, isDesktop ? 1 : 0]);
+  const clipPath = useTransform(scrollYProgress, [0.64, 0.86], [
+    "inset(0% 0% 0% 0%)",
+    `inset(0% ${screenSideInset}% ${screenTopInset}% ${screenSideInset}%)`,
+  ]);
 
   const [frameVisible, setFrameVisible] = useState(false);
 
@@ -86,7 +97,9 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
           className="absolute left-1/2 top-0 -translate-x-1/2 overflow-hidden"
         >
           <div className="relative h-full w-full">
-            <Image src={image} alt={alt} fill priority sizes="100vw" className="object-cover" />
+            <motion.div style={{ clipPath }} className="absolute inset-0">
+              <Image src={image} alt={alt} fill priority sizes="100vw" className="object-cover" />
+            </motion.div>
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent" />
             {frameVisible ? (
               <motion.img
