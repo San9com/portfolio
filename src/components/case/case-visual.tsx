@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  motion,
-  useMotionValue,
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-} from "framer-motion";
+import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
@@ -40,32 +34,25 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
   }, []);
 
   const isDesktop = viewport.width >= 768;
-  const desiredWidth = Math.min(
-    viewport.width * (isDesktop ? 0.72 : 0.92),
+  const targetWidth = Math.min(
+    viewport.width * (isDesktop ? 0.72 : 0.9),
     isDesktop ? 1160 : viewport.width * 0.92,
   );
-  const finalScaleX = desiredWidth / viewport.width;
-  let finalScaleY =
-    (finalScaleX * viewport.width) / (FRAME_RATIO * viewport.height);
-  if (!isDesktop) {
-    finalScaleY = finalScaleX;
-  }
-  finalScaleY = Math.max(Math.min(finalScaleY, 1), 0.45);
+  const targetHeight = targetWidth / FRAME_RATIO;
+  const coverScale = Math.max(
+    viewport.width / targetWidth,
+    viewport.height / targetHeight,
+  );
 
-  const containerScaleX = useTransform(scrollYProgress, [0, 0.6, 1], [1, 0.9, finalScaleX]);
-  const containerScaleY = useTransform(scrollYProgress, [0, 0.6, 1], [1, 0.9, finalScaleY]);
-  const containerRadius = useTransform(scrollYProgress, [0, 0.7, 1], [0, 0, isDesktop ? 22 : 14]);
-  const frameOpacity = useTransform(scrollYProgress, [0.72, 0.88], [0, isDesktop ? 1 : 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.6], [coverScale, 1]);
+  const containerRadius = useTransform(
+    scrollYProgress,
+    [0.12, 0.68],
+    [0, isDesktop ? 22 : 16],
+  );
+  const frameOpacity = useTransform(scrollYProgress, [0.62, 0.82], [0, isDesktop ? 1 : 0]);
 
-  const containerY = useMotionValue(0);
   const [frameVisible, setFrameVisible] = useState(false);
-  useEffect(() => {
-    const unsubscribe = containerScaleY.on("change", (value) => {
-      const offset = (viewport.height * (1 - value)) / 2;
-      containerY.set(offset);
-    });
-    return () => unsubscribe();
-  }, [containerScaleY, viewport.height, containerY]);
 
   useMotionValueEvent(frameOpacity, "change", (value) => {
     const nextVisible = value > 0.01;
@@ -79,26 +66,38 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
       aria-label="Project visual immersion"
     >
       <div className="pointer-events-none sticky top-0 h-[100svh] overflow-hidden">
-        <motion.div
-          style={{
-            scaleX: containerScaleX,
-            scaleY: containerScaleY,
-            y: containerY,
-            borderRadius: containerRadius,
-          }}
-          className="absolute inset-0 origin-top overflow-hidden"
-        >
-          <Image src={image} alt={alt} fill priority sizes="100vw" className="object-cover" />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent" />
-          {frameVisible ? (
-            <motion.img
-              src="/Pro Display XDR.svg"
-              alt="Pro Display XDR Frame"
-              className="pointer-events-none absolute inset-0 h-full w-full select-none object-contain mix-blend-lighten"
-              style={{ opacity: frameOpacity }}
-            />
-          ) : null}
-        </motion.div>
+        <div className="relative h-full w-full">
+          <motion.div
+            style={{
+              scale,
+              borderRadius: containerRadius,
+            }}
+            className="absolute left-1/2 top-0 w-[min(1160px,90vw)] origin-top -translate-x-1/2 overflow-hidden"
+          >
+            <div
+              className="relative w-full"
+              style={{ paddingBottom: `${(1 / FRAME_RATIO) * 100}%` }}
+            >
+              <Image
+                src={image}
+                alt={alt}
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent" />
+              {frameVisible ? (
+                <motion.img
+                  src="/Pro Display XDR.svg"
+                  alt="Pro Display XDR Frame"
+                  className="pointer-events-none absolute inset-0 h-full w-full select-none object-contain mix-blend-lighten"
+                  style={{ opacity: frameOpacity }}
+                />
+              ) : null}
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
