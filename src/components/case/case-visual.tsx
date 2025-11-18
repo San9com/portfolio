@@ -59,9 +59,9 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
     };
   }, [isDesktop, viewport.height, viewport.width]);
 
-  const width = useTransform(scrollYProgress, [0, 0.6], [startWidth, targetWidth]);
-  const height = useTransform(scrollYProgress, [0, 0.6], [startHeight, targetHeight]);
-  const y = useTransform(scrollYProgress, [0, 1], [0, 0]);
+  const width = useTransform(scrollYProgress, [0, 0.62], [startWidth, targetWidth]);
+  const height = useTransform(scrollYProgress, [0, 0.62], [startHeight, targetHeight]);
+  const y = useTransform(scrollYProgress, [0, 0.62], [0, Math.max((viewport.height - targetHeight) / 2, 0)]);
   const borderRadius = useTransform(
     scrollYProgress,
     [0.08, 0.7],
