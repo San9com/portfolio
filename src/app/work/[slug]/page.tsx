@@ -338,15 +338,17 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
                 >
                   ← Back home
                 </Link>
-                <span className="text-[clamp(2.8rem,6vw,5rem)] font-light leading-[0.9] text-foreground">
-                  {project.year}
-                </span>
               </div>
 
-              <div className="flex flex-col gap-6">
-                <h1 className="text-[clamp(2.8rem,6vw,5rem)] font-light leading-[0.9] text-foreground">
-                  {project.title}
-                </h1>
+              <div className="flex flex-col gap-6 text-foreground">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+                  <h1 className="text-[clamp(2.8rem,6vw,5rem)] font-light leading-[0.9]">
+                    {project.title}
+                  </h1>
+                  <span className="text-[clamp(2.2rem,4.2vw,3.8rem)] font-light leading-[0.9] text-foreground/80">
+                    {project.year}
+                  </span>
+                </div>
                 {content.intro ? (
                   <p className="max-w-3xl text-lg leading-relaxed text-white/70">{content.intro}</p>
                 ) : null}

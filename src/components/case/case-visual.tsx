@@ -72,21 +72,13 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
   const borderRadius = useTransform(
     scrollYProgress,
     [0.08, 0.7],
-    [0, isDesktop ? 24 : 16],
+    [0, isDesktop ? 32 : 20],
   );
   const frameOpacity = useTransform(scrollYProgress, [0.68, 0.88], [0, isDesktop ? 1 : 0]);
   const clipPath = useTransform(scrollYProgress, [0.64, 0.86], [
     "inset(0% 0% 0% 0%)",
     `inset(0% ${screenSideInset}% ${screenTopInset}% ${screenSideInset}%)`,
   ]);
-
-  const macbookWidth = useMemo(
-    () => Math.min(isDesktop ? 420 : 260, viewport.width * (isDesktop ? 0.3 : 0.48)),
-    [isDesktop, viewport.width],
-  );
-  const macbookHeight = useMemo(() => macbookWidth * 0.62, [macbookWidth]);
-  const macbookOffsetX = useTransform(width, () => -macbookWidth * 0.92);
-  const macbookOffsetY = useTransform(height, () => macbookHeight * 0.16);
 
   const [frameVisible, setFrameVisible] = useState(false);
 
@@ -99,7 +91,7 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
     return (
       <section
         ref={sectionRef}
-        className="relative flex min-h-[220svh] w-full flex-col justify-center"
+        className="relative flex min-h-[220svh] w-full flex-col justify-start"
         aria-label="Project visual immersion"
       >
         <div className="pointer-events-none sticky top-0 h-[100svh] overflow-hidden">
@@ -115,7 +107,7 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-[220svh] w-full flex-col justify-center"
+      className="relative flex min-h-[220svh] w-full flex-col justify-start"
       aria-label="Project visual immersion"
     >
       <div className="pointer-events-none sticky top-0 h-[100svh] overflow-hidden">
@@ -140,27 +132,6 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
                 className="pointer-events-none absolute inset-0 h-full w-full select-none object-contain mix-blend-lighten"
                 style={{ opacity: frameOpacity }}
               />
-            ) : null}
-            {frameVisible ? (
-              <motion.div
-                aria-hidden
-                className="pointer-events-none absolute bottom-0 left-full"
-                style={{
-                  opacity: frameOpacity,
-                  x: macbookOffsetX,
-                  y: macbookOffsetY,
-                  width: macbookWidth,
-                }}
-              >
-                <Image
-                  src="/mbp-14-spaceblack-gallery-5-202510-Photoroom.png"
-                  alt=""
-                  width={Math.round(macbookWidth)}
-                  height={Math.round(macbookHeight)}
-                  className="select-none object-contain"
-                  priority={false}
-                />
-              </motion.div>
             ) : null}
           </div>
         </motion.div>
