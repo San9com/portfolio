@@ -80,6 +80,14 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
     `inset(0% ${screenSideInset}% ${screenTopInset}% ${screenSideInset}%)`,
   ]);
 
+  const macbookWidth = useMemo(
+    () => Math.min(isDesktop ? 420 : 260, viewport.width * (isDesktop ? 0.3 : 0.48)),
+    [isDesktop, viewport.width],
+  );
+  const macbookHeight = useMemo(() => macbookWidth * 0.62, [macbookWidth]);
+  const macbookOffsetX = useTransform(width, () => -macbookWidth * 0.92);
+  const macbookOffsetY = useTransform(height, () => macbookHeight * 0.16);
+
   const [frameVisible, setFrameVisible] = useState(false);
 
   useMotionValueEvent(frameOpacity, "change", (value) => {
@@ -132,6 +140,27 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
                 className="pointer-events-none absolute inset-0 h-full w-full select-none object-contain mix-blend-lighten"
                 style={{ opacity: frameOpacity }}
               />
+            ) : null}
+            {frameVisible ? (
+              <motion.div
+                aria-hidden
+                className="pointer-events-none absolute bottom-0 left-full"
+                style={{
+                  opacity: frameOpacity,
+                  x: macbookOffsetX,
+                  y: macbookOffsetY,
+                  width: macbookWidth,
+                }}
+              >
+                <Image
+                  src="/mbp-14-spaceblack-gallery-5-202510-Photoroom.png"
+                  alt=""
+                  width={Math.round(macbookWidth)}
+                  height={Math.round(macbookHeight)}
+                  className="select-none object-contain"
+                  priority={false}
+                />
+              </motion.div>
             ) : null}
           </div>
         </motion.div>
