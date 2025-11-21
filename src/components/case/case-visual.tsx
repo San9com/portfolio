@@ -22,6 +22,11 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, []);
+
+  useEffect(() => {
     const update = () => {
       setViewport({
         width: window.innerWidth,

@@ -48,10 +48,20 @@ export function Header({ overlay = false }: HeaderProps) {
   const backgroundClasses =
     overlay || isCaseDetail || !hasScrolled ? "bg-transparent" : "bg-black/85 backdrop-blur";
 
+  const brandTextClasses = overlay
+    ? "text-white mix-blend-difference hover:text-white"
+    : "text-foreground/80 hover:text-foreground";
+  const navLinkClasses = overlay
+    ? "text-white/80 mix-blend-difference hover:text-white"
+    : "text-foreground/70 hover:text-foreground";
+  const mobileButtonClasses = overlay
+    ? "text-white mix-blend-difference hover:text-white"
+    : "text-foreground/80 hover:text-foreground";
+
   return (
     <header className={clsx("z-30 flex w-full justify-center", positionClasses, backgroundClasses)}>
       <div className="pointer-events-auto relative flex w-full max-w-7xl items-center justify-between px-6 py-6 sm:px-10">
-        <Link href="/" className="text-sm text-foreground/80 transition-colors hover:text-foreground">
+        <Link href="/" className={clsx("text-sm transition-colors", brandTextClasses)}>
           <motion.span
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -70,7 +80,7 @@ export function Header({ overlay = false }: HeaderProps) {
                 href={link.href}
                 initial={{ opacity: 0, y: -12 }}
                 animate={{ opacity: 1, y: 0 }}
-                className={clsx("text-sm text-foreground/70 transition-colors hover:text-foreground")}
+                className={clsx("text-sm transition-colors", navLinkClasses)}
               >
                 <MotionSpan
                   initial="rest"
@@ -108,7 +118,10 @@ export function Header({ overlay = false }: HeaderProps) {
 
         <button
           type="button"
-          className="flex scale-125 items-center gap-2 rounded px-4 py-2 text-base text-foreground/80 transition-colors hover:text-foreground md:hidden"
+          className={clsx(
+            "flex scale-125 items-center gap-2 rounded px-4 py-2 text-base transition-colors md:hidden",
+            mobileButtonClasses
+          )}
           onClick={() => setMenuOpen((prev) => !prev)}
           aria-expanded={menuOpen}
           aria-controls="mobile-nav"
