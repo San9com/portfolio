@@ -3,7 +3,7 @@
 import { useRef, RefObject, useEffect, useState } from "react";
 
 type GlassExperienceCardCanvasProps = {
-  cardRef: RefObject<HTMLElement>;
+  cardRef: RefObject<HTMLElement | null>;
 };
 
 export function GlassExperienceCardCanvas({ cardRef }: GlassExperienceCardCanvasProps) {
