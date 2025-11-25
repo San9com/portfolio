@@ -74,14 +74,14 @@ export function Footer() {
                   e.preventDefault();
                   const lenis = getLenis();
                   if (lenis) {
-                    const element = document.querySelector(item.href);
+                    const element = document.querySelector(item.href) as HTMLElement | null;
                     if (element) {
                       lenis.scrollTo(element, { offset: 0, duration: 1.2 });
                       window.history.pushState(null, "", item.href);
                     }
                   } else {
                     // Fallback to native smooth scroll
-                    const element = document.querySelector(item.href);
+                    const element = document.querySelector(item.href) as HTMLElement | null;
                     if (element) {
                       element.scrollIntoView({ behavior: "smooth", block: "start" });
                       window.history.pushState(null, "", item.href);
