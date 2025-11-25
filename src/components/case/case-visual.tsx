@@ -40,8 +40,8 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
   }, []);
 
   useEffect(() => {
-    const id = window.requestAnimationFrame(() => setMounted(true));
-    return () => window.cancelAnimationFrame(id);
+    // Ensure component is mounted and gradient is visible
+    setMounted(true);
   }, []);
 
   const isDesktop = viewport.width >= 768;
@@ -81,8 +81,8 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
   );
   const frameOpacity = useTransform(scrollYProgress, [0.68, 0.88], [0, isDesktop ? 1 : 0]);
   const clipPath = useTransform(scrollYProgress, [0.64, 0.86], [
-    "inset(0% 0% 0% 0%)",
-    `inset(0% ${screenSideInset}% ${screenTopInset}% ${screenSideInset}%)`,
+    "inset(0% 0% 0% 0% round 0px)",
+    `inset(0% ${screenSideInset}% ${screenTopInset}% ${screenSideInset}% round 12px)`,
   ]);
 
   const [frameVisible, setFrameVisible] = useState(false);
@@ -102,7 +102,7 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
         <div className="pointer-events-none sticky top-0 h-[100svh] overflow-hidden">
           <div className="relative h-full w-full">
             <Image src={image} alt={alt} fill priority sizes="100vw" className="object-cover" />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent" />
+            <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-black via-black/25 to-transparent" style={{ willChange: "opacity" }} />
           </div>
         </div>
       </section>
@@ -129,12 +129,12 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
             <motion.div style={{ clipPath }} className="absolute inset-0">
               <Image src={image} alt={alt} fill priority sizes="100vw" className="object-cover" />
             </motion.div>
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent" />
+            <div className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-t from-black via-black/25 to-transparent" />
             {frameVisible ? (
               <motion.img
                 src="/Pro Display XDR.svg"
                 alt="Pro Display XDR Frame"
-                className="pointer-events-none absolute inset-0 h-full w-full select-none object-contain mix-blend-lighten"
+                className="pointer-events-none absolute inset-0 z-30 h-full w-full select-none object-contain mix-blend-lighten"
                 style={{ opacity: frameOpacity }}
               />
             ) : null}

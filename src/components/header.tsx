@@ -6,6 +6,7 @@ import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-
 import clsx from "clsx";
 import { navigationLinks } from "@/data/navigation";
 import { usePathname } from "next/navigation";
+import { getLenis } from "@/components/providers/smooth-scroll-provider";
 
 const MotionLink = motion(Link);
 const MotionSpan = motion.span;
@@ -44,12 +45,11 @@ export function Header({ overlay = false }: HeaderProps) {
     setHasScrolled(latest > 24);
   });
 
-  const positionClasses = overlay ? "fixed inset-x-0 top-0" : "sticky top-0 transition-colors duration-500";
-  const backgroundClasses =
-    overlay || isCaseDetail || !hasScrolled ? "bg-transparent" : "bg-black/85 backdrop-blur";
+  const positionClasses = overlay ? "fixed inset-x-0 top-0" : "sticky top-0";
+  const backgroundClasses = "bg-transparent";
 
   const brandTextClasses = overlay
-    ? "text-white mix-blend-difference hover:text-white"
+    ? "text-black hover:text-black"
     : "text-foreground/80 hover:text-foreground";
   const navLinkClasses = overlay
     ? "text-white/80 mix-blend-difference hover:text-white"
@@ -60,7 +60,7 @@ export function Header({ overlay = false }: HeaderProps) {
 
   return (
     <header className={clsx("z-30 flex w-full justify-center", positionClasses, backgroundClasses)}>
-      <div className="pointer-events-auto relative flex w-full max-w-7xl items-center justify-between px-6 py-6 sm:px-10">
+      <div className="pointer-events-auto relative flex w-full items-center justify-between px-4 py-4 sm:px-6 sm:py-6 md:px-10 2xl:max-w-7xl 2xl:mx-auto">
         <Link href="/" className={clsx("text-sm transition-colors", brandTextClasses)}>
           <motion.span
             initial={{ opacity: 0, y: -12 }}
@@ -74,10 +74,31 @@ export function Header({ overlay = false }: HeaderProps) {
         <nav className="hidden items-center gap-6 text-sm font-normal md:flex">
           {navigationLinks.map((link) => {
             const characters = Array.from(link.label);
+            const handleClick = (e: React.MouseEvent) => {
+              if (link.href.startsWith("#")) {
+                e.preventDefault();
+                const lenis = getLenis();
+                if (lenis) {
+                  const element = document.querySelector(link.href);
+                  if (element) {
+                    lenis.scrollTo(element, { offset: 0, duration: 1.2 });
+                    window.history.pushState(null, "", link.href);
+                  }
+                } else {
+                  // Fallback to native smooth scroll
+                  const element = document.querySelector(link.href);
+                  if (element) {
+                    element.scrollIntoView({ behavior: "smooth", block: "start" });
+                    window.history.pushState(null, "", link.href);
+                  }
+                }
+              }
+            };
             return (
               <MotionLink
                 key={link.href}
                 href={link.href}
+                onClick={handleClick}
                 initial={{ opacity: 0, y: -12 }}
                 animate={{ opacity: 1, y: 0 }}
                 className={clsx("text-sm transition-colors", navLinkClasses)}
@@ -152,19 +173,44 @@ export function Header({ overlay = false }: HeaderProps) {
               </motion.button>
 
               <div className="flex h-full flex-col pt-24 pb-12">
-                {navigationLinks.map((link, index) => (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    className={clsx(
-                      "flex flex-1 items-center px-10 text-[min(16vw,4rem)] font-light text-foreground/90 transition-colors hover:text-foreground",
-                      index !== navigationLinks.length - 1 && "border-b border-white/[0.08]"
-                    )}
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    {link.label.charAt(0).toUpperCase() + link.label.slice(1)}
-                  </Link>
-                ))}
+                {navigationLinks.map((link, index) => {
+                  const handleClick = (e: React.MouseEvent) => {
+                    setMenuOpen(false);
+                    if (link.href.startsWith("#")) {
+                      e.preventDefault();
+                      setTimeout(() => {
+                        const lenis = getLenis();
+                        if (lenis) {
+                          const element = document.querySelector(link.href);
+                          if (element) {
+                            lenis.scrollTo(element, { offset: 0, duration: 1.2 });
+                            window.history.pushState(null, "", link.href);
+                          }
+                        } else {
+                          // Fallback to native smooth scroll
+                          const element = document.querySelector(link.href);
+                          if (element) {
+                            element.scrollIntoView({ behavior: "smooth", block: "start" });
+                            window.history.pushState(null, "", link.href);
+                          }
+                        }
+                      }, 100);
+                    }
+                  };
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={handleClick}
+                      className={clsx(
+                        "flex flex-1 items-center px-10 text-[min(16vw,4rem)] font-light text-foreground/90 transition-colors hover:text-foreground",
+                        index !== navigationLinks.length - 1 && "border-b border-white/[0.08]"
+                      )}
+                    >
+                      {link.label.charAt(0).toUpperCase() + link.label.slice(1)}
+                    </Link>
+                  );
+                })}
               </div>
             </motion.nav>
           ) : null}

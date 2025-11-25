@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import type { ThreeEvent } from "@react-three/fiber";
 import { MeshTransmissionMaterial } from "@react-three/drei";
 import { Group, MathUtils, Texture } from "three";
 
@@ -22,122 +21,56 @@ export function GlassCubeMesh({
   const ref = useRef<Group>(null);
   const scrollTarget = useRef(0);
   const scrollCurrent = useRef(0);
-  const rotationTarget = useRef({ x: 0, y: 0 });
-  const rotationCurrent = useRef({ x: 0, y: 0 });
-  const isDragging = useRef(false);
-  const dragPointerId = useRef<number | null>(null);
+  const baseScale = useRef(scale);
+
+  useEffect(() => {
+    baseScale.current = scale;
+  }, [scale]);
 
   useEffect(() => {
     const onScroll = () => {
-      scrollTarget.current = window.scrollY * 0.0012;
+      scrollTarget.current = window.scrollY * 0.002;
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(
-    () => () => {
-      if (typeof document !== "undefined") {
-        document.body.style.cursor = "";
-      }
-    },
-    []
-  );
-
-  useFrame((state) => {
+  useFrame(() => {
     const group = ref.current;
     if (!group) return;
 
+    // Smooth scroll interpolation - optimized lerp
+    const lerpFactor = 0.15; // Slightly faster for responsiveness
     scrollCurrent.current = MathUtils.lerp(
       scrollCurrent.current,
       scrollTarget.current,
-      0.14
+      lerpFactor
     );
 
-    if (!isDragging.current) {
-      const pointerTargetX = -state.pointer.y * Math.PI * 0.15;
-      const pointerTargetY = state.pointer.x * Math.PI * 0.2;
-      rotationTarget.current.x = MathUtils.lerp(
-        rotationTarget.current.x,
-        pointerTargetX,
-        0.08
-      );
-      rotationTarget.current.y = MathUtils.lerp(
-        rotationTarget.current.y,
-        pointerTargetY,
-        0.08
-      );
+    // Only update if change is significant (performance optimization)
+    const threshold = 0.001;
+    if (Math.abs(scrollCurrent.current - scrollTarget.current) < threshold) {
+      scrollCurrent.current = scrollTarget.current;
     }
 
-    rotationCurrent.current.x = MathUtils.lerp(
-      rotationCurrent.current.x,
-      rotationTarget.current.x,
-      0.16
-    );
-    rotationCurrent.current.y = MathUtils.lerp(
-      rotationCurrent.current.y,
-      rotationTarget.current.y,
-      0.16
-    );
-
-    group.rotation.x = rotationCurrent.current.x + scrollCurrent.current * 0.22;
-    group.rotation.y = rotationCurrent.current.y + scrollCurrent.current * 0.32;
+    // Base rotation (turned to the side) + scroll rotation
+    const baseRotationX = 0.15; // ~9 degrees
+    const baseRotationY = 0.25; // ~14 degrees
+    
+    group.rotation.x = baseRotationX + scrollCurrent.current * 0.8;
+    group.rotation.y = baseRotationY + scrollCurrent.current * 1.2;
+    
+    // Scale down as you scroll
+    const scrollScaleMultiplier = Math.max(0.3, 1 - scrollCurrent.current * 0.5);
+    const finalScale = baseScale.current * scrollScaleMultiplier;
+    group.scale.set(finalScale, finalScale, finalScale);
   });
-
-  const handlePointerDown = (event: ThreeEvent<PointerEvent>) => {
-    event.stopPropagation();
-    const group = ref.current;
-    if (!group) return;
-
-    dragPointerId.current = event.pointerId;
-    isDragging.current = true;
-    rotationTarget.current.x = rotationCurrent.current.x;
-    rotationTarget.current.y = rotationCurrent.current.y;
-    if (typeof document !== "undefined") {
-      document.body.style.cursor = "grabbing";
-    }
-  };
-
-  const handlePointerMove = (event: ThreeEvent<PointerEvent>) => {
-    if (!isDragging.current || dragPointerId.current !== event.pointerId) return;
-    event.stopPropagation();
-
-    const movementX = event.nativeEvent.movementX ?? 0;
-    const movementY = event.nativeEvent.movementY ?? 0;
-    const ROTATION_SPEED = 0.0065;
-
-    rotationTarget.current.y += movementX * ROTATION_SPEED;
-    rotationTarget.current.x += movementY * ROTATION_SPEED;
-    rotationTarget.current.x = MathUtils.clamp(
-      rotationTarget.current.x,
-      -Math.PI / 2,
-      Math.PI / 2
-    );
-  };
-
-  const endDrag = (event: ThreeEvent<PointerEvent>) => {
-    if (dragPointerId.current !== event.pointerId) return;
-    event.stopPropagation();
-
-    dragPointerId.current = null;
-    isDragging.current = false;
-
-    if (typeof document !== "undefined") {
-      document.body.style.cursor = "";
-    }
-  };
 
   return (
     <group
       ref={ref}
       position={position}
-      scale={scale}
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={endDrag}
-      onPointerCancel={endDrag}
-      onPointerLeave={endDrag}
     >
       {/* Perfect sharp-edged cube */}
       <mesh>
@@ -167,7 +100,10 @@ export function GlassCubeMesh({
         />
       </mesh>
       {portraitTexture ? (
-        <mesh position={[0, 0, CUBE_SIZE / 2 - 0.04]}>
+        <mesh 
+          position={[0, 0, CUBE_SIZE / 2 - 0.04]}
+          rotation={[0, 0, 0]}
+        >
           <planeGeometry args={[CUBE_SIZE * 0.9, CUBE_SIZE * 0.9]} />
           <meshBasicMaterial
             map={portraitTexture}

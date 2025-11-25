@@ -7,6 +7,13 @@ type SmoothScrollProviderProps = {
   children: ReactNode;
 };
 
+// Store Lenis instance globally for access
+let lenisInstance: Lenis | null = null;
+
+export function getLenis() {
+  return lenisInstance;
+}
+
 export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -18,9 +25,12 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
     }
 
     const lenis = new Lenis({
-      lerp: 0.07,
+      lerp: 0.1, // Faster lerp for better performance
       smoothWheel: true,
+      duration: 1.2, // Slightly faster duration
     });
+
+    lenisInstance = lenis;
 
     let animationFrame: number;
 
@@ -34,6 +44,7 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
     return () => {
       cancelAnimationFrame(animationFrame);
       lenis.destroy();
+      lenisInstance = null;
     };
   }, []);
 

@@ -6,7 +6,7 @@ import { Footer } from "@/components/footer";
 
 export default function Home() {
   return (
-    <div>
+    <div className="relative">
       <Header />
       <main className="relative">
         <HeroSection />

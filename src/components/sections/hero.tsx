@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { HeroCanvas } from "@/components/hero/hero-canvas";
 import { heroCopy, profile } from "@/data/site";
 
@@ -20,7 +20,8 @@ export function HeroSection() {
     <section
       id="top"
       ref={sectionRef}
-      className="relative isolate flex min-h-[100svh] w-full items-end justify-center overflow-hidden bg-black px-3 pb-16 pt-28 sm:px-10 sm:pb-20 lg:pb-24"
+      className="relative isolate flex min-h-[100svh] w-full items-end justify-center overflow-hidden bg-black px-3 pb-16 pt-28 sm:px-10 sm:pb-20 lg:min-h-[75svh] lg:pb-24"
+      style={{ zIndex: 1, cursor: "none" }}
     >
       <div className="sr-only">
         <p>{heroCopy.introScript}</p>

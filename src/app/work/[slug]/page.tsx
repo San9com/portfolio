@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
@@ -29,8 +30,8 @@ const caseContent: Record<string, CaseContent> = {
           "Clustered high-intent search terms and App Store reviews, revealing that fans arrived for telemetry snapshots yet met a static paywall before they felt the value.",
         ],
         visuals: [
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          "Pellentesque habitant morbi tristique senectus et netus et malesuada fames.",
+          "Analytics dashboard showing race weekend traffic patterns and conversion drop-off points.",
+          "User journey map highlighting friction points before premium trial activation.",
         ],
       },
       {
@@ -40,8 +41,8 @@ const caseContent: Record<string, CaseContent> = {
           "Reordered navigation around ‘Weekend story, Driver duel, Season arc’ so fans feel guided rather than siloed into features.",
         ],
         visuals: [
-          "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-          "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+          "Value ladder visualization showing premium features integrated into free content.",
+          "Navigation restructure with Weekend story, Driver duel, and Season arc sections.",
         ],
       },
       {
@@ -51,8 +52,8 @@ const caseContent: Record<string, CaseContent> = {
           "Reimagined onboarding into a three-step warm-up with social proof, driver spotlights, and calendar hooks leading toward trial activation.",
         ],
         visuals: [
-          "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-          "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+          "Modular stat tile design with live deltas and glass layer effects showcasing premium features.",
+          "Three-step onboarding flow with social proof, driver spotlights, and calendar integration.",
         ],
       },
       {
@@ -62,8 +63,8 @@ const caseContent: Record<string, CaseContent> = {
           "Partnered with marketing on a race-week content cadence so organic spikes in traffic route directly into the new upgrade loops.",
         ],
         visuals: [
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidunt.",
-          "Curabitur pretium tincidunt lacus. Nulla gravida orci a odio bibendum, ac sollicitudin erat placerat.",
+          "Multi-variant experiment designs for trial wording and referral code placement.",
+          "Race-week content calendar and upgrade banner designs for marketing integration.",
         ],
       },
     ],
@@ -79,8 +80,8 @@ const caseContent: Record<string, CaseContent> = {
           "Segmented routines—recovery, focus, wind-down—into sensory cues that the app could anticipate with ambient sound, pacing, and reminders.",
         ],
         visuals: [
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          "Aliquam erat volutpat. Donec a dui et dui fringilla consectetur id nec massa.",
+          "Stakeholder interview insights and friction points in current wellness purchase flows.",
+          "Ritual segmentation framework showing recovery, focus, and wind-down routines.",
         ],
       },
       {
@@ -90,8 +91,8 @@ const caseContent: Record<string, CaseContent> = {
           "Built a bilingual microcopy matrix to keep the tone soft, reassuring, and consultative across Dutch and English surfaces.",
         ],
         visuals: [
-          "Suspendisse potenti. Praesent lacinia, arcu non egestas tristique, nibh erat facilisis urna, at dignissim libero ipsum ut justo.",
-          "Integer sit amet lacus ac sapien vehicula luctus quis vel justo.",
+          "Product recommendation flows integrated into breathing and movement rituals.",
+          "Bilingual microcopy matrix for Dutch and English with consultative tone guidelines.",
         ],
       },
       {
@@ -101,8 +102,8 @@ const caseContent: Record<string, CaseContent> = {
           "Presented an interactive prototype with subtle parallax, allowing stakeholders to sense how rituals would evolve with each purchase.",
         ],
         visuals: [
-          "Mauris non tempor quam, et lacinia sapien. Mauris accumsan eros eget libero posuere vulputate.",
-          "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.",
+          "Sales deck design pairing metrics with emotive storytelling for stakeholder presentation.",
+          "Interactive prototype with subtle parallax effects showing ritual evolution with purchases.",
         ],
       },
     ],
@@ -118,8 +119,8 @@ const caseContent: Record<string, CaseContent> = {
           "Benchmarked the current experience, measuring completion time and confidence to establish a clear baseline for the redesign.",
         ],
         visuals: [
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          "Aenean commodo ligula eget dolor. Aenean massa.",
+          "Corporate pilot listening session findings and pain points in desk finding workflows.",
+          "Current experience benchmark metrics showing completion time and confidence levels.",
         ],
       },
       {
@@ -129,8 +130,8 @@ const caseContent: Record<string, CaseContent> = {
           "Designed teammate locator microinteractions and predictive search chips that surface likely choices before users ask.",
         ],
         visuals: [
-          "Nullam dictum felis eu pede mollis pretium. Integer tincidunt.",
-          "Cras dapibus. Vivamus elementum semper nisi.",
+          "Interactive map interface design with context, availability, and etiquette on one canvas.",
+          "Teammate locator microinteractions and predictive search chip designs.",
         ],
       },
       {
@@ -140,108 +141,108 @@ const caseContent: Record<string, CaseContent> = {
           "Co-wrote the ‘sneak peek’ campaign with product marketing, showcasing visuals that mirror the new navigation flow.",
         ],
         visuals: [
-          "Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.",
-          "Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.",
+          "React Native build architecture with performance budgets for sub-second pinch-zoom.",
+          "Sneak peek campaign visuals mirroring the new navigation flow for product marketing.",
         ],
       },
     ],
   },
   "gaiazoo-companion": {
     intro:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis, erat vel efficitur auctor, purus tellus ultrices odio, in cursus risus nibh sed erat.",
+      "Reimagining a day at the zoo with adaptive maps, conservation storytelling, and rewards that deepen empathy for wildlife and their habitats.",
     phases: [
       {
         title: "Discover",
         body: [
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis convallis, turpis id facilisis lobortis, nisl nibh ornare nulla, vel laoreet odio lorem nec neque.",
-          "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.",
+          "Conducted visitor research to understand how families navigate the zoo and where they lose engagement with conservation messaging.",
+          "Mapped pain points in wayfinding, especially during peak hours when visitors struggle to find exhibits and facilities.",
         ],
         visuals: [
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          "Quisque vehicula lectus non justo fermentum, vitae fringilla nisl aliquet.",
+          "Visitor journey maps showing navigation patterns and engagement drop-off points.",
+          "Conservation messaging audit revealing missed opportunities for deeper connection.",
         ],
       },
       {
         title: "Define",
         body: [
-          "Integer fringilla, augue eget tincidunt auctor, urna erat varius nisl, sed sollicitudin erat sem at arcu.",
-          "Curabitur aliquet, sapien a lacinia mattis, tortor arcu ultricies quam, ut scelerisque erat orci eget risus.",
+          "Designed adaptive map system that adjusts routes based on crowd density and visitor preferences.",
+          "Created reward system that gamifies conservation learning, encouraging visitors to complete animal discovery challenges.",
         ],
         visuals: [
-          "Sed at sem vitae sapien blandit posuere.",
-          "Donec ullamcorper nulla non metus auctor fringilla.",
+          "Adaptive map interface showing dynamic routing based on real-time crowd data.",
+          "Reward system design with conservation challenges and achievement unlocks.",
         ],
       },
       {
         title: "Design",
         body: [
-          "Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.",
-          "Maecenas faucibus mollis interdum. Praesent commodo cursus magna, vel scelerisque nisl consectetur.",
+          "Built storytelling framework that weaves conservation facts into engaging narratives at each exhibit.",
+          "Designed wayfinding system with clear visual hierarchy and accessibility features for all visitors.",
         ],
         visuals: [
-          "Nullam id dolor id nibh ultricies vehicula ut id elit.",
-          "Etiam porta sem malesuada magna mollis euismod.",
+          "Conservation storytelling interface with narrative-driven content at each exhibit.",
+          "Accessible wayfinding design with clear visual hierarchy and navigation cues.",
         ],
       },
       {
         title: "Deliver",
         body: [
-          "Aenean lacinia bibendum nulla sed consectetur. Cras mattis consectetur purus sit amet fermentum.",
-          "Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.",
+          "Launched companion app with real-time map updates and conservation challenge system.",
+          "Measured increased visitor engagement with conservation content and improved navigation satisfaction scores.",
         ],
         visuals: [
-          "Morbi leo risus, porta ac consectetur ac, vestibulum at eros.",
-          "Praesent commodo cursus magna, vel scelerisque nisl consectetur et.",
+          "Final app interface showing real-time map updates and active challenges.",
+          "Analytics dashboard displaying improved engagement metrics and visitor satisfaction.",
         ],
       },
     ],
   },
   "current-ev-charging-app": {
     intro:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer feugiat quam vel augue accumsan, vitae tempus lacus vulputate.",
-    phases: [
+      "An EV charging companion structured around design thinking sprints for wayfinding, pricing clarity, and loyalty loops that make charging seamless.",
+      phases: [
       {
         title: "Discover",
         body: [
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sit amet turpis at odio egestas commodo.",
-          "Mauris sed tortor sed neque vehicula dictum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames.",
+          "Researched EV driver pain points around finding available chargers, understanding pricing, and managing charging sessions.",
+          "Identified key friction points in wayfinding and the lack of transparency in pricing structures across different networks.",
         ],
         visuals: [
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          "Quisque sodales arcu vel dui vestibulum, non finibus nulla mollis.",
+          "User research findings showing pain points in charger discovery and pricing transparency.",
+          "Journey maps highlighting friction in the charging experience from discovery to payment.",
         ],
       },
       {
         title: "Define",
         body: [
-          "Suspendisse euismod, urna id vestibulum cursus, nulla turpis faucibus est, vitae convallis magna lacus vel erat.",
-          "Etiam porta, massa vel dapibus aliquet, ante metus efficitur justo, id finibus lorem sapien vitae purus.",
+          "Established design principles focused on clarity, trust, and convenience for EV drivers.",
+          "Defined loyalty program structure that rewards frequent users while maintaining clear value proposition.",
         ],
         visuals: [
-          "Sed posuere consectetur est at lobortis.",
-          "Cras justo odio, dapibus ac facilisis in, egestas eget quam.",
+          "Design principles framework and user experience goals for the charging companion.",
+          "Loyalty program structure and reward system design.",
         ],
       },
       {
         title: "Design",
         body: [
-          "Donec id elit non mi porta gravida at eget metus.",
-          "Vestibulum id ligula porta felis euismod semper.",
+          "Created intuitive wayfinding interface with real-time charger availability and clear pricing information.",
+          "Designed seamless payment flow and loyalty program integration that rewards consistent usage.",
         ],
         visuals: [
-          "Maecenas sed diam eget risus varius blandit sit amet non magna.",
-          "Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.",
+          "Wayfinding interface design with real-time availability and pricing transparency.",
+          "Payment flow and loyalty program integration showing reward accumulation.",
         ],
       },
       {
         title: "Deliver",
         body: [
-          "Integer posuere erat a ante venenatis dapibus posuere velit aliquet.",
-          "Curabitur blandit tempus porttitor. Sed posuere consectetur est at lobortis.",
+          "Launched app with comprehensive charger network coverage and transparent pricing across all locations.",
+          "Achieved high user satisfaction scores for wayfinding clarity and loyalty program engagement.",
         ],
         visuals: [
-          "Aenean lacinia bibendum nulla sed consectetur.",
-          "Praesent commodo cursus magna, vel scelerisque nisl consectetur et.",
+          "Final app interface showing comprehensive charger network and pricing information.",
+          "Analytics dashboard displaying user satisfaction metrics and loyalty program engagement.",
         ],
       },
     ],
@@ -253,36 +254,38 @@ const defaultCaseContent: CaseContent = {
     {
       title: "Discover",
       body: [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.",
+        "Research and discovery phase to understand user needs and project requirements.",
+        "Analysis of existing solutions and identification of opportunities for improvement.",
       ],
       visuals: [
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "User research findings and discovery insights.",
+        "Competitive analysis and opportunity mapping.",
       ],
     },
     {
       title: "Design",
       body: [
-        "Proin nec libero gravida, fermentum ligula a, aliquet ipsum.",
-        "Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.",
+        "Design phase focusing on creating intuitive and effective user experiences.",
+        "Iterative design process with user testing and feedback integration.",
       ],
       visuals: [
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
-        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.",
+        "Design concepts and user interface explorations.",
+        "Final design solutions and implementation details.",
       ],
     },
   ],
 };
 
-function VisualPlaceholder({ label }: { label: string }) {
+function CaseImage({ image, alt }: { image: string; alt: string }) {
   return (
-    <div className="relative left-1/2 right-1/2 w-screen -translate-x-1/2">
-      <div className="relative flex min-h-[80svh] w-full items-center justify-center bg-[#141414]">
-        <p className="max-w-[72ch] px-8 text-center text-base leading-relaxed text-white/35">
-          {label}
-        </p>
-      </div>
+    <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#0a0a0a]">
+      <Image
+        src={image}
+        alt={alt}
+        fill
+        className="object-cover"
+        sizes="(max-width: 768px) 100vw, 50vw"
+      />
     </div>
   );
 }
@@ -327,51 +330,75 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
     <>
       <main className="bg-black text-foreground">
         <Header overlay />
-        <article className="mx-auto flex min-h-screen w-full flex-col">
+        <article className="mx-auto flex w-full flex-col">
           <CaseVisualShowcase image={project.image} alt={`${project.title} hero visual`} />
-          <section className="w-full bg-black px-6 pb-24 pt-10 sm:px-10 sm:pt-14">
-            <div className="mx-auto flex w-full max-w-5xl flex-col gap-10">
+          <section className="w-full bg-black px-4 pb-24 pt-12 sm:px-6 sm:pb-32 sm:pt-16 md:px-10 md:pt-24 lg:px-16">
+            <div className="mx-auto flex w-full flex-col gap-16 2xl:max-w-[1400px]">
               <div className="flex items-center justify-between gap-8 text-foreground">
                 <Link
                   href="/"
-                  className="inline-flex items-center gap-2 text-sm font-normal text-foreground/70 transition-colors hover:text-foreground"
+                  className="inline-flex items-center gap-2 text-sm font-normal tracking-wider text-foreground/60 transition-colors hover:text-foreground"
                 >
                   ← Back home
                 </Link>
               </div>
 
-              <div className="flex flex-col gap-6 text-foreground">
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                  <h1 className="text-[clamp(2.8rem,6vw,5rem)] font-light leading-[0.9]">
+              {/* Hero Section - Matches reference style */}
+              <div className="flex flex-col gap-8 text-foreground lg:flex-row lg:items-start lg:justify-between lg:gap-16">
+                <div className="flex flex-col gap-6 lg:flex-1">
+                  <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-light leading-[1.1] tracking-tight">
                     {project.title}
                   </h1>
-                  <span className="text-[clamp(2.2rem,4.2vw,3.8rem)] font-light leading-[0.9] text-foreground/80">
-                    {project.year}
-                  </span>
+                  {content.intro ? (
+                    <p className="max-w-2xl text-base leading-[1.7] text-white/65">{content.intro}</p>
+                  ) : null}
                 </div>
-                {content.intro ? (
-                  <p className="max-w-3xl text-lg leading-relaxed text-white/70">{content.intro}</p>
-                ) : null}
+                <span className="text-[clamp(2rem,3.5vw,3rem)] font-light leading-none text-foreground/70 lg:pt-2">
+                  {project.year}
+                </span>
               </div>
 
-              <div className="flex flex-col gap-20">
-                {content.phases.map((phase) => (
-                  <section key={`${project.slug}-${phase.title}`} className="flex flex-col gap-12">
+              {/* Content Phases */}
+              <div className="flex flex-col gap-24 pt-8 lg:gap-32">
+                {content.phases.map((phase, phaseIndex) => (
+                  <section key={`${project.slug}-${phase.title}`} className="flex flex-col gap-16">
                     <div className="space-y-6">
-                      <h2 className="text-[clamp(1.8rem,3.6vw,2.8rem)] font-light text-foreground">
+                      <h2 className="text-[clamp(1.6rem,3vw,2.4rem)] font-light leading-tight text-foreground">
                         {phase.title}
                       </h2>
-                      <div className="space-y-4 text-white/65">
+                      <div className="max-w-3xl space-y-5 text-base leading-[1.7] text-white/60">
                         {phase.body.map((paragraph, index) => (
-                          <p key={`${phase.title}-body-${index}`} className="leading-relaxed">
-                            {paragraph}
-                          </p>
+                          <p key={`${phase.title}-body-${index}`}>{paragraph}</p>
                         ))}
                       </div>
                     </div>
-                    {phase.visuals.map((label, index) => (
-                      <VisualPlaceholder key={`${phase.title}-visual-${index}`} label={label} />
-                    ))}
+                    
+                    {/* Full-width visuals section */}
+                    <div className="flex flex-col gap-6">
+                      {phase.visuals.map((label, index) => {
+                        const isLastTwo = phase.visuals.length >= 2 && index >= phase.visuals.length - 2;
+                        const isEvenInLastTwo = isLastTwo && (index - (phase.visuals.length - 2)) % 2 === 0;
+                        const nextIsAlsoLast = isLastTwo && index < phase.visuals.length - 1;
+                        
+                        // If this is the first of the last two items, render both in a grid
+                        if (isEvenInLastTwo && nextIsAlsoLast) {
+                          return (
+                            <div key={`${phase.title}-visual-grid-${index}`} className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                              <CaseImage image={project.image} alt={`${project.title} - ${label}`} />
+                              <CaseImage image={project.image} alt={`${project.title} - ${phase.visuals[index + 1]}`} />
+                            </div>
+                          );
+                        }
+                        
+                        // Skip if this was already rendered as part of the grid
+                        if (isLastTwo && !isEvenInLastTwo) {
+                          return null;
+                        }
+                        
+                        // Render single full-width visual
+                        return <CaseImage key={`${phase.title}-visual-${index}`} image={project.image} alt={`${project.title} - ${label}`} />;
+                      })}
+                    </div>
                   </section>
                 ))}
               </div>

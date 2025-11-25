@@ -4,13 +4,9 @@ import { Suspense, useMemo } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { Environment, Float, Lightformer, useTexture } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
-import {
-  CanvasTexture,
-  LinearFilter,
-  LinearMipmapLinearFilter,
-  SRGBColorSpace,
-} from "three";
-import { CUBE_SIZE, GlassCubeMesh } from "./glass-cube";
+import { SRGBColorSpace, CanvasTexture } from "three";
+import { GlassCubeMesh } from "./glass-cube";
+import { GlassLens } from "./glass-lens";
 
 type HeroCanvasProps = {
   headlineLines: string[];
@@ -19,40 +15,31 @@ type HeroCanvasProps = {
   introScript?: string;
 };
 
-const DESKTOP_TITLE_ASPECT = 1398 / 295;
-const MOBILE_TITLE_ASPECT = 828 / 589;
+function HeroScene({ portraitSrc }: HeroCanvasProps) {
+  const { viewport, size } = useThree();
 
-function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasProps) {
-  const { viewport, size, gl } = useThree();
-  const isMobile = size.width <= 768;
-  const maxAnisotropy = gl.capabilities.getMaxAnisotropy?.() ?? 8;
-  void _headlineLines;
+  // Load SVG title texture
+  const titleTexture = useTexture("/title.svg", (texture) => {
+    texture.colorSpace = SRGBColorSpace;
+  });
 
+  // Load portrait texture (not grayscale, original)
   const basePortraitTexture = useTexture(portraitSrc, (texture) => {
-    texture.anisotropy = 4; // a bit lower for perf
     texture.colorSpace = SRGBColorSpace;
-    texture.flipY = false;
+    texture.flipY = true;
   });
 
-  const desktopTitleTexture = useTexture("/hero-title-2.svg", (texture) => {
-    texture.colorSpace = SRGBColorSpace;
-    texture.anisotropy = maxAnisotropy;
-    texture.magFilter = LinearFilter;
-    texture.minFilter = LinearMipmapLinearFilter;
-    texture.generateMipmaps = true;
-    texture.needsUpdate = true;
-  });
-
-  const mobileTitleTexture = useTexture("/hero-title-mobile.svg", (texture) => {
-    texture.colorSpace = SRGBColorSpace;
-    texture.anisotropy = maxAnisotropy;
-    texture.magFilter = LinearFilter;
-    texture.minFilter = LinearMipmapLinearFilter;
-    texture.generateMipmaps = true;
-    texture.needsUpdate = true;
-  });
-
+  // Portrait texture for the main image - adjusted masking for larger size
   const portraitTexture = useMemo(() => {
+    const texture = basePortraitTexture.clone();
+    // Show more of the image - start from 30% down, show 60% of height
+    texture.offset.set(0, 0.3); // Start from 30% down
+    texture.repeat.set(1, 0.6); // Show 60% of height (more visible area)
+    return texture;
+  }, [basePortraitTexture]);
+
+  // Grayscale portrait texture for glass cubes
+  const portraitGrayscaleTexture = useMemo(() => {
     const sourceImage = basePortraitTexture.image as
       | HTMLImageElement
       | HTMLCanvasElement
@@ -93,150 +80,141 @@ function HeroScene({ headlineLines: _headlineLines, portraitSrc }: HeroCanvasPro
     const grayscaleTexture = new CanvasTexture(canvas);
     grayscaleTexture.anisotropy = basePortraitTexture.anisotropy;
     grayscaleTexture.colorSpace = basePortraitTexture.colorSpace;
-    grayscaleTexture.flipY = basePortraitTexture.flipY;
+    grayscaleTexture.flipY = true;
     grayscaleTexture.needsUpdate = true;
 
     return grayscaleTexture;
   }, [basePortraitTexture]);
 
+  // Clean centered layout: Text and image side by side, centered, smaller
   const layout = useMemo(() => {
+    const isMobile = size.width < 768; // Use actual pixel width
+    const margin = viewport.width * 0.1; // Generous clean margins
+    const gap = viewport.width * 0.04; // Clean gap between elements
+    
+    // Calculate sizes - make both smaller
+    const svgAspect = 1072 / 427; // title.svg aspect ratio
+    const portraitAspect = 1;
+    
     if (isMobile) {
-      const titleAspect = MOBILE_TITLE_ASPECT;
-      const sideMargin = Math.max(0.4, viewport.width * 0.06);
-      const availableWidth = Math.max(3, viewport.width - sideMargin * 2);
-      const titleWidth = Math.min(availableWidth, viewport.width - sideMargin * 0.4);
-      const titleHeight = titleWidth / titleAspect;
-      const leftEdge = -viewport.width / 2 + sideMargin;
-      const topBound = viewport.height / 2;
-      const topPadding = Math.max(0.45, viewport.height * 0.08);
-      const titleTop = topBound - topPadding;
-      const titleCenterY = titleTop - titleHeight / 2 - titleHeight * 0.15;
-      const titleCenterX = leftEdge + titleWidth / 2;
-      const titleBottom = titleCenterY - titleHeight / 2;
-      const cubeScale = Math.min(0.84, Math.max(0.64, viewport.width * 0.24));
-      const cubeHeight = CUBE_SIZE * cubeScale;
-
+      // Mobile: Stack vertically, full width
+      const svgWidth = viewport.width * 0.85;
+      const svgHeight = svgWidth / svgAspect;
+      
+      const portraitWidth = viewport.width * 0.6;
+      const portraitHeight = (portraitWidth / portraitAspect) * 0.6;
+      
+      // Center horizontally
+      const svgX = 0;
+      const portraitX = 0;
+      
+      // Stack vertically with gap
+      const svgY = -viewport.height * 0.15;
+      const portraitY = svgY + svgHeight / 2 + (viewport.height * 0.04) + portraitHeight / 2;
+      
       return {
-        isMobile: true,
-        cubePosition: [titleCenterX + titleWidth * 0.05, titleBottom - cubeHeight * 0.82, 0.15] as [
-          number,
-          number,
-          number
-        ],
-        cubeScale,
-        titlePosition: [titleCenterX, titleCenterY, -0.5] as [number, number, number],
-        titlePlane: [titleWidth, titleHeight] as [number, number],
+        svgPosition: [svgX, svgY, -0.2] as [number, number, number],
+        svgSize: [svgWidth, svgHeight] as [number, number],
+        portraitPosition: [portraitX, portraitY, -0.2] as [number, number, number],
+        portraitSize: [portraitWidth, portraitHeight] as [number, number],
+        glassPositions: [] as [number, number, number][],
       };
     }
+    
+    // Desktop: Side by side (original layout)
+    const portraitWidth = viewport.width * 0.31;
+    const portraitHeight = (portraitWidth / portraitAspect) * 0.6; // 60% height to match mask
+    
+    // Text: scaled to match image height, smaller
+    const svgHeight = portraitHeight; // Match the image height
+    const svgWidth = svgHeight * svgAspect; // Calculate width from height and aspect ratio
+    
+    // Center both elements horizontally
+    const totalWidth = svgWidth + gap + portraitWidth;
+    const svgX = -totalWidth / 2 + svgWidth / 2;
+    const portraitX = svgX + svgWidth / 2 + gap + portraitWidth / 2;
+    
+    // Center vertically in viewport, then move 10% higher
+    const centerY = viewport.height * 0.1; // 10% higher than center
+    const svgY = centerY;
+    const portraitY = centerY;
 
-    const margin = Math.max(0.8, viewport.width * 0.06);
-    const leftX = -viewport.width / 2 + margin;
-    const rightX = viewport.width / 2 - margin;
-
-    const titleHeight = Math.min(2.4, Math.max(1.8, viewport.height * 0.24));
-    const titleWidth = titleHeight * DESKTOP_TITLE_ASPECT;
-    const titleX = (leftX + rightX - titleWidth) / 2;
-    const titleY = Math.min(1.2, viewport.height * 0.28);
-
-    const cubeScale = Math.min(1.08, Math.max(0.88, viewport.width * 0.065));
-    const cubeHeight = CUBE_SIZE * cubeScale;
-    const titleBottom = titleY - titleHeight / 2;
-    const cubeY = titleBottom - cubeHeight * 0.2;
+    // Glass elements positions removed for clean layout
+    const glassPositions: [number, number, number][] = [];
 
     return {
-      isMobile: false,
-      cubePosition: [titleX + titleWidth / 2, cubeY, 0.22] as [number, number, number],
-      cubeScale,
-      titlePosition: [titleX + titleWidth / 2, titleY, -0.4] as [
-        number,
-        number,
-        number
-      ],
-      titlePlane: [titleWidth, titleHeight] as [number, number],
+      svgPosition: [svgX, svgY, -0.2] as [number, number, number],
+      svgSize: [svgWidth, svgHeight] as [number, number],
+      portraitPosition: [portraitX, portraitY, -0.2] as [number, number, number],
+      portraitSize: [portraitWidth, portraitHeight] as [number, number],
+      glassPositions,
     };
-  }, [isMobile, viewport.height, viewport.width]);
-
-  const titleTexture = isMobile ? mobileTitleTexture : desktopTitleTexture;
-
-  const [cx, cy, cz] = layout.cubePosition;
+  }, [viewport.width, viewport.height, size.width]);
 
   return (
     <>
       <color attach="background" args={["#000000"]} />
 
-      <ambientLight intensity={0.45} />
+      <ambientLight intensity={0.4} />
+      
       <spotLight
-        position={[8, 12, 12]}
-        angle={0.7}
-        penumbra={0.6}
-        intensity={2.0}
-        color="#ffd7a8"
-      />
-      <spotLight
-        position={[-10, 9, 8]}
-        angle={0.9}
-        penumbra={0.55}
-        intensity={1.4}
-        color="#8db6ff"
-      />
-      <spotLight
-        position={[0, -8, 5]}
-        angle={1.1}
+        position={[0, 10, 8]}
+        angle={0.4}
         penumbra={0.3}
-        intensity={0.8}
+        intensity={3}
         color="#ffffff"
+        castShadow={false}
       />
 
-      {/* ✅ Only ONE cube now */}
-      <mesh position={layout.titlePosition}>
-        <planeGeometry args={layout.titlePlane} />
+      {/* SVG Title on the left */}
+      <mesh position={layout.svgPosition}>
+        <planeGeometry args={layout.svgSize} />
         <meshBasicMaterial map={titleTexture} toneMapped={false} transparent />
       </mesh>
 
-      <Float floatIntensity={0.55} rotationIntensity={0.32} speed={1.1}>
-        <GlassCubeMesh
-          position={[cx, cy, cz]}
-          scale={layout.cubeScale}
-          portraitTexture={portraitTexture}
-        />
-      </Float>
+      {/* Portrait on the right */}
+      <mesh position={layout.portraitPosition}>
+        <planeGeometry args={layout.portraitSize} />
+        <meshBasicMaterial map={portraitTexture} toneMapped={false} transparent />
+      </mesh>
+
+      {/* Single magnifying glass lens following cursor over text */}
+      <GlassLens
+        position={[layout.svgPosition[0], layout.svgPosition[1], 0.3]}
+        speed={0.15}
+        startOffset={0}
+        radius={0.84}
+        scale={1.4}
+        travelWidth={layout.svgSize[0]}
+      />
 
       <Environment resolution={256}>
         <group>
           <Lightformer
-            intensity={6.5}
-            color="#fbe5c0"
-            position={[10, 2, 8] as const}
-            rotation={[0, -Math.PI / 2.8, 0] as const}
-            scale={[8, 10, 1] as const}
-          />
-          <Lightformer
-            intensity={5}
-            color="#8fb4ff"
-            position={[-12, 4, 6] as const}
-            rotation={[0, Math.PI / 3, 0] as const}
-            scale={[10, 12, 1] as const}
-          />
-          <Lightformer
-            form="ring"
-            intensity={3.5}
+            intensity={4}
             color="#ffffff"
-            position={[0, 6, 10] as const}
-            scale={6}
+            position={[10, 5, 8]}
+            rotation={[0, -Math.PI / 3, 0]}
+            scale={[8, 8, 1]}
+          />
+          <Lightformer
+            intensity={3}
+            color="#ffffff"
+            position={[-10, 5, 8]}
+            rotation={[0, Math.PI / 3, 0]}
+            scale={[8, 8, 1]}
           />
         </group>
       </Environment>
 
-      {!isMobile && (
-        <EffectComposer enableNormalPass={false}>
-          <Bloom
-            mipmapBlur
-            intensity={0.32}
-            luminanceThreshold={0.48}
-            luminanceSmoothing={0.68}
-          />
-        </EffectComposer>
-      )}
+      <EffectComposer enableNormalPass={false}>
+        <Bloom
+          mipmapBlur
+          intensity={0.2}
+          luminanceThreshold={0.5}
+          luminanceSmoothing={0.7}
+        />
+      </EffectComposer>
     </>
   );
 }
@@ -245,9 +223,14 @@ export function HeroCanvas(props: HeroCanvasProps) {
   return (
     <Canvas
       className="h-full w-full"
-      camera={{ position: [0, 0.8, 11.6], fov: 34 }}
-      dpr={[1, 1.4]} // a bit lower max DPR
-      gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+      camera={{ position: [0, 0, 10], fov: 50 }}
+      dpr={[1, 2]}
+      gl={{ 
+        antialias: true,
+        alpha: true,
+        powerPreference: "high-performance",
+      }}
+      frameloop="always"
     >
       <Suspense fallback={null}>
         <HeroScene {...props} />

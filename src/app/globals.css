@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "SeasonMix";
+  src: url("/qurova-demo/SeasonMix-TRIAL-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PPNeueMontreal";
+  src: url("/PPNeueMontreal-Book.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   color-scheme: dark;
   --background: #000000;
@@ -11,7 +27,7 @@
   --accent-strong: #ffddab;
   --border-subtle: rgba(255, 255, 255, 0.08);
   --shadow-soft: 0 20px 60px rgba(4, 7, 16, 0.6);
-  --font-sans-base: "Rmneue", "Futura PT", "Avenir Next", "Avenir", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans-base: "PPNeueMontreal", "Rmneue", "Futura PT", "Avenir Next", "Avenir", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-size-base: 22px;
   --font-letter-spacing: -0.5px;
   --body-padding-y: 0px;
@@ -50,7 +66,7 @@ body {
   margin: 0;
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(
+  font-family: "PPNeueMontreal", var(
     --font-sans-base,
     "Rmneue",
     "Futura PT",
@@ -62,25 +78,59 @@ body {
     sans-serif
   );
   font-size: var(--font-size-base);
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: var(--font-letter-spacing);
   padding: var(--body-padding-y) var(--body-padding-x);
   text-rendering: optimizeLegibility;
   -ms-overflow-style: none;
 }
 
-[class~="text-xs"],
-[class~="text-sm"],
-[class~="text-base"],
-[class*="text-[0.7rem]"],
-[class*="text-[0.8rem]"],
-[class*="text-[0.875rem]"],
-[class*="text-[14px]"],
-[class*="text-[16px]"] {
+h1,
+h2,
+h3 {
+  font-family: "SeasonMix", var(
+      --font-sans-base,
+      "Rmneue",
+      "Futura PT",
+      "Avenir Next",
+      "Avenir",
+      "Helvetica Neue",
+      Helvetica,
+      Arial,
+      sans-serif
+    );
+  font-weight: 300;
+}
+
+.clients-marquee {
+  display: flex;
+  width: max-content;
+  align-items: baseline;
+  animation: clients-marquee 40s linear infinite;
+}
+
+@keyframes clients-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
+
+[class~="text-xs"]:not(.clients-marquee span),
+[class~="text-sm"]:not(.clients-marquee span),
+[class~="text-base"]:not(.clients-marquee span),
+[class*="text-[0.7rem]"]:not(.clients-marquee span),
+[class*="text-[0.8rem]"]:not(.clients-marquee span),
+[class*="text-[0.875rem]"]:not(.clients-marquee span),
+[class*="text-[14px]"]:not(.clients-marquee span),
+[class*="text-[16px]"]:not(.clients-marquee span),
+[class*="text-[17px]"]:not(.clients-marquee span) {
   font-size: var(--font-size-base) !important;
   line-height: 1.4;
   letter-spacing: var(--font-letter-spacing);
-  font-weight: 300;
+  font-weight: 400;
 }
 
 [class~="px-6"],
@@ -115,11 +165,23 @@ footer > div {
 }
 
 [class~="max-w-6xl"] {
-  max-width: min(1100px, 100%) !important;
+  max-width: 100% !important;
+}
+
+@media (min-width: 1536px) {
+  [class~="max-w-6xl"] {
+    max-width: min(1100px, 100%) !important;
+  }
 }
 
 [class~="max-w-7xl"] {
-  max-width: min(1240px, 100%) !important;
+  max-width: 100% !important;
+}
+
+@media (min-width: 1536px) {
+  [class~="max-w-7xl"] {
+    max-width: min(1240px, 100%) !important;
+  }
 }
 
 [class~="max-w-sm"],
@@ -140,18 +202,57 @@ footer > div {
   border-radius: 4px !important;
 }
 
-.text-xs,
-.text-sm,
-.text-base,
-.text-\[0\.7rem\],
-.text-\[0\.8rem\],
-.text-\[0\.875rem\],
-.text-\[14px\],
-.text-\[16px\] {
+.text-xs:not(.clients-marquee span),
+.text-sm:not(.clients-marquee span),
+.text-base:not(.clients-marquee span),
+.text-\[0\.7rem\]:not(.clients-marquee span),
+.text-\[0\.8rem\]:not(.clients-marquee span),
+.text-\[0\.875rem\]:not(.clients-marquee span),
+.text-\[14px\]:not(.clients-marquee span),
+.text-\[16px\]:not(.clients-marquee span),
+.text-\[17px\]:not(.clients-marquee span) {
   font-size: var(--font-size-base) !important;
   line-height: 1.4;
   letter-spacing: var(--font-letter-spacing);
-  font-weight: 300;
+  font-weight: 400;
+}
+
+/* Ensure minimum font size of 18px for all body text */
+body {
+  font-size: var(--font-size-base) !important;
+}
+
+p,
+span:not(h1 span, h2 span, h3 span, h4 span, h5 span, h6 span, .clients-marquee span),
+a:not(h1 a, h2 a, h3 a, h4 a, h5 a, h6 a),
+li,
+td,
+th {
+  font-size: max(18px, 1em) !important;
+}
+
+/* Allow clients-marquee to use its own font size - highest specificity */
+.clients-marquee span,
+.clients-marquee span *,
+.clients-marquee-text,
+.clients-marquee .clients-marquee-text,
+div.clients-marquee span.clients-marquee-text {
+  font-size: clamp(120px, 20vw, 500px) !important;
+  min-font-size: unset !important;
+  max-font-size: none !important;
+}
+
+/* Override any other font-size rules for marquee text with maximum specificity */
+.clients-marquee-text[style*="fontSize"],
+.clients-marquee span[style*="fontSize"],
+div.clients-marquee span.clients-marquee-text[style] {
+  font-size: clamp(120px, 20vw, 500px) !important;
+}
+
+/* Ensure no other rules override the marquee text */
+body .clients-marquee-text,
+body .clients-marquee span.clients-marquee-text {
+  font-size: clamp(120px, 20vw, 500px) !important;
 }
 
 @media (max-width: 768px) {
