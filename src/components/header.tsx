@@ -59,8 +59,8 @@ export function Header({ overlay = false }: HeaderProps) {
     : "text-foreground/80 hover:text-foreground";
 
   return (
-    <header className={clsx("z-30 flex w-full justify-center", positionClasses, backgroundClasses)}>
-      <div className="pointer-events-auto relative flex w-full items-center justify-between px-4 py-4 sm:px-6 sm:py-6 md:px-10 2xl:max-w-7xl 2xl:mx-auto">
+    <header className={clsx("z-30 flex w-full justify-center px-4 sm:px-6 md:px-10", positionClasses, backgroundClasses)}>
+      <div className="pointer-events-auto relative flex w-full max-w-7xl items-center justify-between py-4 sm:py-6">
         <Link href="/" className={clsx("text-sm transition-colors", brandTextClasses)}>
           <motion.span
             initial={{ opacity: 0, y: -12 }}

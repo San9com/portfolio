@@ -38,7 +38,7 @@ export function Footer() {
       >
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-32 bg-gradient-to-t from-black to-transparent" />
 
-      <div className="relative mx-auto flex w-full flex-col gap-12 px-6 py-36 sm:px-20 sm:py-48 2xl:max-w-7xl">
+      <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-12 px-4 py-36 sm:px-6 sm:py-48 md:px-10">
         <div className="grid gap-14 text-sm text-white/70 sm:grid-cols-3">
           <div className="space-y-3">
             <p className="text-white/80">{profile.name}</p>
