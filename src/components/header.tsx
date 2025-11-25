@@ -119,14 +119,15 @@ export function Header({ overlay = false }: HeaderProps) {
                           rotate: charIndex % 2 === 0 ? 3.5 : -3.5,
                           scale: 1.05,
                           transition: {
-                            duration: 0.5,
-                            ease: "easeInOut",
-                            delay: charIndex * 0.022,
+                            duration: 0.4,
+                            ease: [0.4, 0, 0.2, 1],
+                            delay: charIndex * 0.015,
                             repeat: 1,
                             repeatType: "reverse",
                           },
                         },
                       }}
+                      style={{ willChange: "transform" }}
                     >
                       {char}
                     </MotionSpan>
@@ -159,7 +160,7 @@ export function Header({ overlay = false }: HeaderProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.3, ease: "easeOut" }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
               className="fixed inset-0 z-40 flex min-h-screen flex-col bg-black/95 text-foreground md:hidden"
             >
               <motion.button
@@ -203,7 +204,7 @@ export function Header({ overlay = false }: HeaderProps) {
                       href={link.href}
                       onClick={handleClick}
                       className={clsx(
-                        "flex flex-1 items-center px-10 text-[min(16vw,4rem)] font-light text-foreground/90 transition-colors hover:text-foreground",
+                        "flex flex-1 items-center px-10 text-[min(24vw,10rem)] font-light text-foreground/90 transition-colors hover:text-foreground",
                         index !== navigationLinks.length - 1 && "border-b border-white/[0.08]"
                       )}
                     >

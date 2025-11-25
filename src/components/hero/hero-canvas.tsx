@@ -98,10 +98,10 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
     
     if (isMobile) {
       // Mobile: Stack vertically, full width
-      const svgWidth = viewport.width * 0.85;
+      const svgWidth = viewport.width * 0.95; // Full width with small margin
       const svgHeight = svgWidth / svgAspect;
       
-      const portraitWidth = viewport.width * 0.6;
+      const portraitWidth = viewport.width * 0.95; // Full width with small margin
       const portraitHeight = (portraitWidth / portraitAspect) * 0.6;
       
       // Center horizontally
