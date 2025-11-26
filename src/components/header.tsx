@@ -73,21 +73,31 @@ export function Header({ overlay = false }: HeaderProps) {
                 }
                 
                 // Otherwise, scroll to section on current page
-                const lenis = getLenis();
-                if (lenis) {
+                const scrollToElement = () => {
                   const element = document.querySelector<HTMLElement>(link.href);
-                  if (element) {
-                    lenis.scrollTo(element, { offset: 0, duration: 1.2 });
-                    window.history.pushState(null, "", link.href);
-                  }
-                } else {
-                  // Fallback to native smooth scroll
-                  const element = document.querySelector<HTMLElement>(link.href);
-                  if (element) {
+                  if (!element) return;
+                  
+                  const lenis = getLenis();
+                  if (lenis) {
+                    // For work section, scroll to show the content (account for sticky positioning)
+                    if (link.href === "#work") {
+                      // Scroll to the section with a small offset to show content
+                      const rect = element.getBoundingClientRect();
+                      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                      const targetY = scrollTop + rect.top - 100; // 100px offset from top
+                      lenis.scrollTo(targetY, { duration: 1.2 });
+                    } else {
+                      lenis.scrollTo(element, { offset: 0, duration: 1.2 });
+                    }
+                  } else {
+                    // Fallback to native smooth scroll
                     element.scrollIntoView({ behavior: "smooth", block: "start" });
-                    window.history.pushState(null, "", link.href);
                   }
-                }
+                  window.history.pushState(null, "", link.href);
+                };
+                
+                // Wait a bit to ensure DOM is ready
+                setTimeout(scrollToElement, 100);
               }
             };
             
