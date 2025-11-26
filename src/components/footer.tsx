@@ -29,7 +29,7 @@ export function Footer() {
     <footer
       id="contact"
       ref={footerRef}
-      className={isCasePage ? "relative isolate overflow-hidden border-t border-white/10 bg-black text-white" : "sticky top-0 isolate overflow-hidden border-t border-white/10 bg-black text-white"}
+      className={isCasePage ? "relative isolate overflow-hidden border-t border-white/10 bg-[#101010] text-white" : "sticky top-0 isolate overflow-hidden border-t border-white/10 bg-[#101010] text-white"}
       style={{ zIndex: 4 }}
     >
       <motion.div
@@ -37,7 +37,7 @@ export function Footer() {
         style={{ y }}
         className="relative"
       >
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-32 bg-gradient-to-t from-black to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-32 bg-gradient-to-t from-[#101010] to-transparent" />
 
       <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-12 px-6 py-36 sm:px-20 sm:py-48">
         <div className="grid gap-14 text-sm text-white/70 sm:grid-cols-3">
@@ -106,7 +106,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="overflow-hidden border-t border-white/10 bg-black">
+      <div className="overflow-hidden border-t border-white/10 bg-[#101010]">
         <div className="flex flex-col items-center gap-8 py-12 sm:gap-10 sm:py-16">
           <div className="relative w-full overflow-hidden" style={{ minHeight: "200px" }}>
             <div className="clients-marquee" style={{ willChange: "transform" }}>

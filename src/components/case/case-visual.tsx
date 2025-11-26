@@ -150,7 +150,7 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
         <div className="pointer-events-none sticky top-0 h-[100svh] overflow-hidden">
           <div className="relative h-full w-full">
             <Image src={image} alt={alt} fill priority sizes="100vw" className="object-cover" />
-            <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-black via-black/25 to-transparent" style={{ willChange: "opacity" }} />
+            <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-[#101010] via-[#101010]/25 to-transparent" style={{ willChange: "opacity" }} />
           </div>
         </div>
       </section>
@@ -177,7 +177,7 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
             <motion.div style={{ clipPath }} className="absolute inset-0">
               <Image src={image} alt={alt} fill priority sizes="100vw" className="object-cover" />
             </motion.div>
-            <div className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-t from-black via-black/25 to-transparent" />
+            <div className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-t from-[#101010] via-[#101010]/25 to-transparent" />
             {frameVisible ? (
               <motion.img
                 src="/Pro Display XDR.svg"

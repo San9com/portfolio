@@ -127,7 +127,7 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
 
   return (
     <>
-      <color attach="background" args={["#000000"]} />
+      <color attach="background" args={["#101010"]} />
 
       <ambientLight intensity={0.4} />
       

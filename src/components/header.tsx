@@ -144,7 +144,7 @@ export function Header({ overlay = false }: HeaderProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="fixed inset-0 z-40 flex min-h-screen flex-col bg-black/95 text-foreground md:hidden"
+              className="fixed inset-0 z-40 flex min-h-screen flex-col bg-[#101010]/95 text-foreground md:hidden"
             >
               <motion.button
                 type="button"

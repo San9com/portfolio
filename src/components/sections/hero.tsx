@@ -42,7 +42,7 @@ export function HeroSection() {
     <section
       id="top"
       ref={sectionRef}
-      className="relative isolate flex min-h-[75svh] w-full items-end justify-center overflow-hidden bg-black px-3 pb-16 pt-28 sm:px-10 sm:pb-20 lg:pb-24 hero-no-cursor"
+      className="relative isolate flex min-h-[75svh] w-full items-end justify-center overflow-hidden bg-[#101010] px-3 pb-16 pt-28 sm:px-10 sm:pb-20 lg:pb-24 hero-no-cursor"
       style={{ zIndex: 1 }}
     >
       <div className="sr-only">
