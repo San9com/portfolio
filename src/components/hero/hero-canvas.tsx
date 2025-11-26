@@ -160,6 +160,11 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
         radius={0.84}
         scale={1.4}
         travelWidth={layout.svgSize[0]}
+        titlePosition={layout.svgPosition}
+        titleSize={layout.svgSize}
+        portraitTexture={basePortraitTexture}
+        portraitPosition={layout.portraitPosition}
+        portraitSize={layout.portraitSize}
       />
 
       <Environment resolution={256}>
