@@ -328,7 +328,7 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
 
   return (
     <>
-      <main className="min-h-screen bg-black text-foreground">
+      <main className="bg-black text-foreground">
         <Header overlay />
         <article className="mx-auto flex w-full flex-col">
           <CaseVisualShowcase image={project.image} alt={`${project.title} hero visual`} />

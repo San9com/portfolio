@@ -9,7 +9,7 @@ type ParallaxSectionProps = {
   speed?: number;
   className?: string;
   zIndex?: number;
-  offset?: "start start" | "start end" | "end start" | "end end" | "center center";
+  offset?: string;
 };
 
 export function ParallaxSection({
@@ -22,7 +22,7 @@ export function ParallaxSection({
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: [offset, "end start"] as ["start start" | "start end" | "end start" | "end end" | "center center", "end start"],
+    offset: [offset, "end start"],
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [0, speed * 100]);
