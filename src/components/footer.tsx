@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { contact, profile } from "@/data/site";
 import { getLenis } from "@/components/providers/smooth-scroll-provider";
@@ -10,6 +10,7 @@ import { getLenis } from "@/components/providers/smooth-scroll-provider";
 export function Footer() {
   const skills = ["UI/UX design", "Web design", "Code", "iOS design"];
   const pathname = usePathname();
+  const router = useRouter();
   const isCasePage = pathname?.startsWith("/work/");
   
   const footerRef = useRef<HTMLElement>(null);
@@ -73,6 +74,14 @@ export function Footer() {
               ].map((item) => {
                 const handleClick = (e: React.MouseEvent) => {
                   e.preventDefault();
+                  
+                  // If on detail page, navigate to home first, then scroll
+                  if (isCasePage) {
+                    router.push(`/${item.href}`);
+                    return;
+                  }
+                  
+                  // Otherwise, scroll to section on current page
                   const lenis = getLenis();
                   if (lenis) {
                     const element = document.querySelector<HTMLElement>(item.href);
@@ -89,10 +98,16 @@ export function Footer() {
                     }
                   }
                 };
+                
+                // Use full path for detail pages, hash for home page
+                const linkHref = isCasePage && item.href.startsWith("#") 
+                  ? `/${item.href}` 
+                  : item.href;
+                
                 return (
                   <motion.div key={item.href} whileHover={{ x: 6 }}>
                     <Link
-                      href={item.href}
+                      href={linkHref}
                       onClick={handleClick}
                       className="w-fit transition-colors hover:text-white"
                     >
