@@ -23,7 +23,7 @@ export function ExperienceSection() {
     <section 
       id="experience" 
       ref={sectionRef}
-      className="sticky top-0 bg-black px-4 pb-24 pt-16 sm:px-6 sm:pb-32 sm:pt-24 md:px-10 md:pb-40 md:pt-32"
+      className="sticky top-0 bg-black px-6 pb-32 pt-24 sm:px-10 sm:pb-40 sm:pt-32"
       style={{ zIndex: 3 }}
     >
       <motion.div
@@ -31,11 +31,11 @@ export function ExperienceSection() {
         style={{ y }}
         className="relative"
       >
-      <div className="mx-auto flex w-full flex-col gap-20 2xl:max-w-7xl">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-20">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
           <AnimatedText
             as="h2"
-            className="text-[2.5rem] leading-[1.1] tracking-tight text-foreground sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem]"
+            className="text-[3.5rem] leading-[1.1] tracking-tight text-foreground sm:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem]"
             delay={0.1}
           >
             Craft Through<br />The Years

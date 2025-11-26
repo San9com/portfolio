@@ -60,7 +60,7 @@ export function Header({ overlay = false }: HeaderProps) {
 
   return (
     <header className={clsx("z-30 flex w-full justify-center", positionClasses, backgroundClasses)}>
-      <div className="pointer-events-auto relative flex w-full items-center justify-between px-4 py-4 sm:px-6 sm:py-6 md:px-10 2xl:max-w-7xl 2xl:mx-auto">
+      <div className="pointer-events-auto relative mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-6 sm:px-10">
         <Link href="/" className={clsx("text-sm transition-colors", brandTextClasses)}>
           <motion.span
             initial={{ opacity: 0, y: -12 }}
@@ -79,14 +79,14 @@ export function Header({ overlay = false }: HeaderProps) {
                 e.preventDefault();
                 const lenis = getLenis();
                 if (lenis) {
-                  const element = document.querySelector(link.href) as HTMLElement | null;
+                  const element = document.querySelector(link.href);
                   if (element) {
                     lenis.scrollTo(element, { offset: 0, duration: 1.2 });
                     window.history.pushState(null, "", link.href);
                   }
                 } else {
                   // Fallback to native smooth scroll
-                  const element = document.querySelector(link.href) as HTMLElement | null;
+                  const element = document.querySelector(link.href);
                   if (element) {
                     element.scrollIntoView({ behavior: "smooth", block: "start" });
                     window.history.pushState(null, "", link.href);
@@ -181,14 +181,14 @@ export function Header({ overlay = false }: HeaderProps) {
                       setTimeout(() => {
                         const lenis = getLenis();
                         if (lenis) {
-                          const element = document.querySelector(link.href) as HTMLElement | null;
+                          const element = document.querySelector(link.href);
                           if (element) {
                             lenis.scrollTo(element, { offset: 0, duration: 1.2 });
                             window.history.pushState(null, "", link.href);
                           }
                         } else {
                           // Fallback to native smooth scroll
-                          const element = document.querySelector(link.href) as HTMLElement | null;
+                          const element = document.querySelector(link.href);
                           if (element) {
                             element.scrollIntoView({ behavior: "smooth", block: "start" });
                             window.history.pushState(null, "", link.href);

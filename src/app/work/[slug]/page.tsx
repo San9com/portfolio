@@ -332,8 +332,8 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
         <Header overlay />
         <article className="mx-auto flex w-full flex-col">
           <CaseVisualShowcase image={project.image} alt={`${project.title} hero visual`} />
-          <section className="w-full bg-black px-4 pb-24 pt-12 sm:px-6 sm:pb-32 sm:pt-16 md:px-10 md:pt-24 lg:px-16">
-            <div className="mx-auto flex w-full flex-col gap-16 2xl:max-w-[1400px]">
+          <section className="w-full bg-black px-6 pb-32 pt-16 sm:px-10 sm:pt-24 lg:px-16">
+            <div className="mx-auto flex w-full max-w-[1400px] flex-col gap-16">
               <div className="flex items-center justify-between gap-8 text-foreground">
                 <Link
                   href="/"

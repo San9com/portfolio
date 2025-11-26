@@ -165,23 +165,11 @@ footer > div {
 }
 
 [class~="max-w-6xl"] {
-  max-width: 100% !important;
-}
-
-@media (min-width: 1536px) {
-  [class~="max-w-6xl"] {
-    max-width: min(1100px, 100%) !important;
-  }
+  max-width: min(1100px, 100%) !important;
 }
 
 [class~="max-w-7xl"] {
-  max-width: 100% !important;
-}
-
-@media (min-width: 1536px) {
-  [class~="max-w-7xl"] {
-    max-width: min(1240px, 100%) !important;
-  }
+  max-width: min(1240px, 100%) !important;
 }
 
 [class~="max-w-sm"],
@@ -223,7 +211,6 @@ body {
 }
 
 p,
-span:not(h1 span, h2 span, h3 span, h4 span, h5 span, h6 span, .clients-marquee span),
 a:not(h1 a, h2 a, h3 a, h4 a, h5 a, h6 a),
 li,
 td,
@@ -231,28 +218,9 @@ th {
   font-size: max(18px, 1em) !important;
 }
 
-/* Allow clients-marquee to use its own font size - highest specificity */
-.clients-marquee span,
-.clients-marquee span *,
-.clients-marquee-text,
-.clients-marquee .clients-marquee-text,
-div.clients-marquee span.clients-marquee-text {
-  font-size: clamp(120px, 20vw, 500px) !important;
-  min-font-size: unset !important;
-  max-font-size: none !important;
-}
-
-/* Override any other font-size rules for marquee text with maximum specificity */
-.clients-marquee-text[style*="fontSize"],
-.clients-marquee span[style*="fontSize"],
-div.clients-marquee span.clients-marquee-text[style] {
-  font-size: clamp(120px, 20vw, 500px) !important;
-}
-
-/* Ensure no other rules override the marquee text */
-body .clients-marquee-text,
-body .clients-marquee span.clients-marquee-text {
-  font-size: clamp(120px, 20vw, 500px) !important;
+.clients-marquee-text {
+  font-size: clamp(200px, 25vw, 500px) !important;
+  line-height: 1;
 }
 
 @media (max-width: 768px) {

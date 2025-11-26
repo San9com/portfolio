@@ -8,7 +8,7 @@ import { contact, profile } from "@/data/site";
 import { getLenis } from "@/components/providers/smooth-scroll-provider";
 
 export function Footer() {
-  const skills = ["I do web design, UI/UX, I code and I vibe-code, I do lots of things"];
+  const skills = ["UI/UX design", "Web design", "Code", "iOS design"];
   const pathname = usePathname();
   const isCasePage = pathname?.startsWith("/work/");
   
@@ -38,7 +38,7 @@ export function Footer() {
       >
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-32 bg-gradient-to-t from-black to-transparent" />
 
-      <div className="relative mx-auto flex w-full flex-col gap-12 px-6 py-36 sm:px-20 sm:py-48 2xl:max-w-7xl">
+      <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-12 px-6 py-36 sm:px-20 sm:py-48">
         <div className="grid gap-14 text-sm text-white/70 sm:grid-cols-3">
           <div className="space-y-3">
             <p className="text-white/80">{profile.name}</p>
@@ -74,14 +74,14 @@ export function Footer() {
                   e.preventDefault();
                   const lenis = getLenis();
                   if (lenis) {
-                    const element = document.querySelector(item.href) as HTMLElement | null;
+                    const element = document.querySelector(item.href);
                     if (element) {
                       lenis.scrollTo(element, { offset: 0, duration: 1.2 });
                       window.history.pushState(null, "", item.href);
                     }
                   } else {
                     // Fallback to native smooth scroll
-                    const element = document.querySelector(item.href) as HTMLElement | null;
+                    const element = document.querySelector(item.href);
                     if (element) {
                       element.scrollIntoView({ behavior: "smooth", block: "start" });
                       window.history.pushState(null, "", item.href);
@@ -117,9 +117,8 @@ export function Footer() {
                     fontFamily: "SeasonMix, var(--font-sans-base)", 
                     color: "rgba(255, 255, 255, 0.5)",
                     whiteSpace: "nowrap",
-                    fontSize: "clamp(120px, 20vw, 500px)",
-                    minFontSize: "120px"
-                  } as React.CSSProperties}
+                    fontSize: "clamp(200px, 25vw, 500px) !important"
+                  }}
                 >
                   {skill}
                 </span>

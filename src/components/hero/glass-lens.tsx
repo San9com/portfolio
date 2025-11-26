@@ -35,21 +35,8 @@ export function GlassLens({
       setMouse({ x, y });
     };
 
-    const handleTouchMove = (event: TouchEvent) => {
-      if (event.touches.length > 0) {
-        const touch = event.touches[0];
-        const x = (touch.clientX / size.width) * 2 - 1;
-        const y = -(touch.clientY / size.height) * 2 + 1;
-        setMouse({ x, y });
-      }
-    };
-
     window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("touchmove", handleTouchMove);
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("touchmove", handleTouchMove);
-    };
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [size]);
 
   useFrame(() => {

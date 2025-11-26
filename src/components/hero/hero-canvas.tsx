@@ -16,7 +16,7 @@ type HeroCanvasProps = {
 };
 
 function HeroScene({ portraitSrc }: HeroCanvasProps) {
-  const { viewport, size } = useThree();
+  const { viewport } = useThree();
 
   // Load SVG title texture
   const titleTexture = useTexture("/title.svg", (texture) => {
@@ -88,7 +88,6 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
 
   // Clean centered layout: Text and image side by side, centered, smaller
   const layout = useMemo(() => {
-    const isMobile = size.width < 768; // Use actual pixel width
     const margin = viewport.width * 0.1; // Generous clean margins
     const gap = viewport.width * 0.04; // Clean gap between elements
     
@@ -96,32 +95,7 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
     const svgAspect = 1072 / 427; // title.svg aspect ratio
     const portraitAspect = 1;
     
-    if (isMobile) {
-      // Mobile: Stack vertically, full width
-      const svgWidth = viewport.width * 0.85;
-      const svgHeight = svgWidth / svgAspect;
-      
-      const portraitWidth = viewport.width * 0.6;
-      const portraitHeight = (portraitWidth / portraitAspect) * 0.6;
-      
-      // Center horizontally
-      const svgX = 0;
-      const portraitX = 0;
-      
-      // Stack vertically with gap
-      const svgY = -viewport.height * 0.15;
-      const portraitY = svgY + svgHeight / 2 + (viewport.height * 0.04) + portraitHeight / 2;
-      
-      return {
-        svgPosition: [svgX, svgY, -0.2] as [number, number, number],
-        svgSize: [svgWidth, svgHeight] as [number, number],
-        portraitPosition: [portraitX, portraitY, -0.2] as [number, number, number],
-        portraitSize: [portraitWidth, portraitHeight] as [number, number],
-        glassPositions: [] as [number, number, number][],
-      };
-    }
-    
-    // Desktop: Side by side (original layout)
+    // Portrait: smaller size
     const portraitWidth = viewport.width * 0.31;
     const portraitHeight = (portraitWidth / portraitAspect) * 0.6; // 60% height to match mask
     
@@ -149,7 +123,7 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
       portraitSize: [portraitWidth, portraitHeight] as [number, number],
       glassPositions,
     };
-  }, [viewport.width, viewport.height, size.width]);
+  }, [viewport.width, viewport.height]);
 
   return (
     <>

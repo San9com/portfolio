@@ -17,14 +17,14 @@ export function WorkSection() {
     offset: ["start end", "end start"],
   });
 
-  // Stronger parallax for case cards
-  const y = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  // Subtle parallax - elegant and simple
+  const y = useTransform(scrollYProgress, [0, 1], [0, 30]);
 
   return (
     <section
       id="work"
       ref={sectionRef}
-      className="sticky top-0 bg-black px-4 pb-24 sm:px-6 sm:pb-32 md:px-10 md:pb-40"
+      className="sticky top-0 bg-black px-6 pb-32 sm:px-10 sm:pb-40"
       style={{ zIndex: 2 }}
     >
       <motion.div
@@ -32,8 +32,8 @@ export function WorkSection() {
         style={{ y }}
         className="relative"
       >
-      <div className="mx-auto flex w-full flex-col gap-12 2xl:max-w-7xl">
-        <div className="flex flex-col items-center gap-2 -mt-[99.9vh] pt-[100vh] pb-4 text-center sm:pb-6">
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-12">
+        <div className="flex flex-col items-center gap-2 -mt-[99.9vh] pt-[100vh] pb-6 text-center">
           <AnimatedText
             as="p"
             className="flex items-center gap-2 text-sm text-foreground/70"
@@ -46,7 +46,7 @@ export function WorkSection() {
           </AnimatedText>
         </div>
 
-        <div className="flex flex-col gap-4 sm:gap-6 lg:h-[48rem] lg:flex-row">
+        <div className="flex flex-col gap-6 lg:h-[48rem] lg:flex-row">
           {projects.map((project, index) => {
             const isActive = activeIndex === index;
 
@@ -81,7 +81,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
     target: ref,
     offset: ["start end", "end start"],
   });
-  const translateY = useTransform(scrollYProgress, [0, 1], [-80, 80]);
+  const translateY = useTransform(scrollYProgress, [0, 1], [-40, 40]);
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = useCallback(() => {
@@ -122,7 +122,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         ease: [0.4, 0, 0.2, 1],
         layout: { duration: 0.35 } // Faster layout transitions
       }}
-      className="group relative flex min-h-[24rem] flex-1 flex-col justify-end overflow-hidden rounded bg-black/40 will-change-[flex] cursor-pointer sm:min-h-[28rem] lg:min-h-[33rem]"
+      className="group relative flex min-h-[33rem] flex-1 flex-col justify-end overflow-hidden rounded bg-black/40 will-change-[flex] cursor-pointer"
       tabIndex={0}
       style={{ backfaceVisibility: "hidden" }}
     >
