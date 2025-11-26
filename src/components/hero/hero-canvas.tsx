@@ -160,11 +160,6 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
         radius={0.84}
         scale={1.4}
         travelWidth={layout.svgSize[0]}
-        titlePosition={layout.svgPosition}
-        titleSize={layout.svgSize}
-        portraitTexture={basePortraitTexture}
-        portraitPosition={layout.portraitPosition}
-        portraitSize={layout.portraitSize}
       />
 
       <Environment resolution={256}>
@@ -201,7 +196,7 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
 export function HeroCanvas(props: HeroCanvasProps) {
   return (
     <Canvas
-      className="h-full w-full"
+      className="h-full w-full hero-no-cursor"
       style={{ cursor: "none" }}
       camera={{ position: [0, 0, 10], fov: 50 }}
       dpr={[1, 2]}

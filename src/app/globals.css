@@ -268,9 +268,16 @@ a {
   text-decoration: none;
 }
 
-/* Hide cursor in hero section */
-section[id="top"],
-section[id="top"] * {
+/* Hide cursor in hero section - aggressive approach */
+.hero-no-cursor,
+.hero-no-cursor *,
+.hero-no-cursor *::before,
+.hero-no-cursor *::after {
+  cursor: none !important;
+}
+
+/* Hide cursor on body when mouse is over hero section */
+body.hero-cursor-hidden {
   cursor: none !important;
 }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { HeroCanvas } from "@/components/hero/hero-canvas";
 import { heroCopy, profile } from "@/data/site";
@@ -16,12 +16,34 @@ export function HeroSection() {
   const headlineLines = heroCopy.headlineLines ?? [heroCopy.headline];
   const sectionRef = useRef<HTMLElement | null>(null);
 
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section || typeof document === "undefined") return;
+
+    const handleMouseEnter = () => {
+      document.body.classList.add("hero-cursor-hidden");
+    };
+
+    const handleMouseLeave = () => {
+      document.body.classList.remove("hero-cursor-hidden");
+    };
+
+    section.addEventListener("mouseenter", handleMouseEnter);
+    section.addEventListener("mouseleave", handleMouseLeave);
+
+    return () => {
+      section.removeEventListener("mouseenter", handleMouseEnter);
+      section.removeEventListener("mouseleave", handleMouseLeave);
+      document.body.classList.remove("hero-cursor-hidden");
+    };
+  }, []);
+
   return (
     <section
       id="top"
       ref={sectionRef}
-      className="relative isolate flex min-h-[75svh] w-full items-end justify-center overflow-hidden bg-black px-3 pb-16 pt-28 sm:px-10 sm:pb-20 lg:pb-24 cursor-none"
-      style={{ zIndex: 1, cursor: "none" }}
+      className="relative isolate flex min-h-[75svh] w-full items-end justify-center overflow-hidden bg-black px-3 pb-16 pt-28 sm:px-10 sm:pb-20 lg:pb-24 hero-no-cursor"
+      style={{ zIndex: 1 }}
     >
       <div className="sr-only">
         <p>{heroCopy.introScript}</p>
@@ -34,7 +56,7 @@ export function HeroSection() {
         initial="initial"
         animate="animate"
         transition={{ delay: 0.2, duration: 0.9, ease: "easeOut" }}
-        className="absolute inset-0"
+        className="absolute inset-0 hero-no-cursor"
         style={{ cursor: "none" }}
       >
         <HeroCanvas
