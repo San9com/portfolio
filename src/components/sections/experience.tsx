@@ -23,7 +23,7 @@ export function ExperienceSection() {
     <section 
       id="experience" 
       ref={sectionRef}
-      className="sticky top-0 bg-[#101010] px-6 pb-32 pt-24 sm:px-10 sm:pb-40 sm:pt-32"
+      className="sticky top-0 bg-black px-6 pb-32 pt-24 sm:px-10 sm:pb-40 sm:pt-32"
       style={{ zIndex: 3 }}
     >
       <motion.div

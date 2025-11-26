@@ -278,7 +278,7 @@ const defaultCaseContent: CaseContent = {
 
 function CaseImage({ image, alt }: { image: string; alt: string }) {
   return (
-    <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#101010]">
+    <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#0a0a0a]">
       <Image
         src={image}
         alt={alt}
@@ -328,11 +328,11 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
 
   return (
     <>
-      <main className="bg-[#101010] text-foreground">
+      <main className="bg-black text-foreground">
         <Header overlay />
         <article className="mx-auto flex w-full flex-col">
           <CaseVisualShowcase image={project.image} alt={`${project.title} hero visual`} />
-          <section className="w-full bg-[#101010] px-6 pb-32 pt-16 sm:px-10 sm:pt-24 lg:px-16">
+          <section className="w-full bg-black px-6 pb-32 pt-16 sm:px-10 sm:pt-24 lg:px-16">
             <div className="mx-auto flex w-full max-w-[1400px] flex-col gap-16">
               <div className="flex items-center justify-between gap-8 text-foreground">
                 <Link

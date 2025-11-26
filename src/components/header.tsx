@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import clsx from "clsx";
 import { navigationLinks } from "@/data/navigation";
@@ -16,6 +17,9 @@ type HeaderProps = {
 
 export function Header({ overlay = false }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
+  const isDetailPage = pathname?.startsWith("/work/");
 
   useEffect(() => {
     if (menuOpen) {
@@ -61,6 +65,14 @@ export function Header({ overlay = false }: HeaderProps) {
             const handleClick = (e: React.MouseEvent) => {
               if (link.href.startsWith("#")) {
                 e.preventDefault();
+                
+                // If on detail page, navigate to home first, then scroll
+                if (isDetailPage) {
+                  router.push(`/${link.href}`);
+                  return;
+                }
+                
+                // Otherwise, scroll to section on current page
                 const lenis = getLenis();
                 if (lenis) {
                   const element = document.querySelector<HTMLElement>(link.href);
@@ -78,10 +90,16 @@ export function Header({ overlay = false }: HeaderProps) {
                 }
               }
             };
+            
+            // Use full path for detail pages, hash for home page
+            const linkHref = isDetailPage && link.href.startsWith("#") 
+              ? `/${link.href}` 
+              : link.href;
+            
             return (
               <MotionLink
                 key={link.href}
-                href={link.href}
+                href={linkHref}
                 onClick={handleClick}
                 initial={{ opacity: 0, y: -12 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -144,7 +162,7 @@ export function Header({ overlay = false }: HeaderProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="fixed inset-0 z-40 flex min-h-screen flex-col bg-[#101010]/95 text-foreground md:hidden"
+              className="fixed inset-0 z-40 flex min-h-screen flex-col bg-black/95 text-foreground md:hidden"
             >
               <motion.button
                 type="button"
@@ -162,6 +180,14 @@ export function Header({ overlay = false }: HeaderProps) {
                     setMenuOpen(false);
                     if (link.href.startsWith("#")) {
                       e.preventDefault();
+                      
+                      // If on detail page, navigate to home first
+                      if (isDetailPage) {
+                        router.push(`/${link.href}`);
+                        return;
+                      }
+                      
+                      // Otherwise, scroll to section on current page
                       setTimeout(() => {
                         const lenis = getLenis();
                         if (lenis) {
@@ -181,10 +207,16 @@ export function Header({ overlay = false }: HeaderProps) {
                       }, 100);
                     }
                   };
+                  
+                  // Use full path for detail pages, hash for home page
+                  const linkHref = isDetailPage && link.href.startsWith("#") 
+                    ? `/${link.href}` 
+                    : link.href;
+                  
                   return (
                     <Link
                       key={link.href}
-                      href={link.href}
+                      href={linkHref}
                       onClick={handleClick}
                       className={clsx(
                         "flex flex-1 items-center px-10 text-[min(16vw,4rem)] font-light text-foreground/90 transition-colors hover:text-foreground",

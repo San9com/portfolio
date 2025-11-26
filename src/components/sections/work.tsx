@@ -24,7 +24,7 @@ export function WorkSection() {
     <section
       id="work"
       ref={sectionRef}
-      className="sticky top-0 bg-[#101010] px-6 pb-32 sm:px-10 sm:pb-40"
+      className="sticky top-0 bg-black px-6 pb-32 sm:px-10 sm:pb-40"
       style={{ zIndex: 2 }}
     >
       <motion.div
@@ -122,7 +122,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         ease: [0.4, 0, 0.2, 1],
         layout: { duration: 0.35 } // Faster layout transitions
       }}
-      className="group relative flex min-h-[33rem] flex-1 flex-col justify-end overflow-hidden rounded bg-[#101010]/40 will-change-[flex] cursor-pointer"
+      className="group relative flex min-h-[33rem] flex-1 flex-col justify-end overflow-hidden rounded bg-black/40 will-change-[flex] cursor-pointer"
       tabIndex={0}
       style={{ backfaceVisibility: "hidden" }}
     >
@@ -163,7 +163,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
 
       {/* Gradient overlay */}
       <motion.div
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-full bg-gradient-to-t from-[#101010] via-[#101010]/30 to-transparent md:via-[#101010]/20"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-full bg-gradient-to-t from-black via-black/30 to-transparent md:via-black/20"
         initial={false}
         animate={{
           opacity: isActive ? 1 : 0.6,
