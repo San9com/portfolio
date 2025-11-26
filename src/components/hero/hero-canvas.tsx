@@ -197,6 +197,7 @@ export function HeroCanvas(props: HeroCanvasProps) {
   return (
     <Canvas
       className="h-full w-full"
+      style={{ cursor: "none" }}
       camera={{ position: [0, 0, 10], fov: 50 }}
       dpr={[1, 2]}
       gl={{ 

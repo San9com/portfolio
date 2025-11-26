@@ -35,6 +35,7 @@ export function HeroSection() {
         animate="animate"
         transition={{ delay: 0.2, duration: 0.9, ease: "easeOut" }}
         className="absolute inset-0"
+        style={{ cursor: "none" }}
       >
         <HeroCanvas
           headlineLines={headlineLines}
