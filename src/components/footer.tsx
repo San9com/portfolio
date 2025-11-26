@@ -22,7 +22,8 @@ export function Footer() {
   });
 
   // Subtle parallax - elegant and simple (only on home page)
-  const y = isCasePage ? 0 : useTransform(scrollYProgress, [0, 1], [0, 50]);
+  const parallaxY = useTransform(scrollYProgress, [0, 1], [0, 50]);
+  const y = isCasePage ? 0 : parallaxY;
 
   return (
     <footer
@@ -74,14 +75,14 @@ export function Footer() {
                   e.preventDefault();
                   const lenis = getLenis();
                   if (lenis) {
-                    const element = document.querySelector(item.href);
+                    const element = document.querySelector<HTMLElement>(item.href);
                     if (element) {
                       lenis.scrollTo(element, { offset: 0, duration: 1.2 });
                       window.history.pushState(null, "", item.href);
                     }
                   } else {
                     // Fallback to native smooth scroll
-                    const element = document.querySelector(item.href);
+                    const element = document.querySelector<HTMLElement>(item.href);
                     if (element) {
                       element.scrollIntoView({ behavior: "smooth", block: "start" });
                       window.history.pushState(null, "", item.href);
