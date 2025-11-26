@@ -3,6 +3,7 @@
 import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { getLenis } from "@/components/providers/smooth-scroll-provider";
 
 type CaseVisualShowcaseProps = {
   image: string;
@@ -23,7 +24,36 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    
+    // Scroll to top immediately
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    
+    // Force Lenis to recalculate scroll height after content is rendered
+    const recalculateScroll = () => {
+      const lenis = getLenis();
+      if (lenis) {
+        // Force Lenis to recalculate the scroll height
+        lenis.resize();
+        // Also scroll to top to ensure we're at the start
+        lenis.scrollTo(0, { immediate: true });
+      }
+      
+      // Also trigger a resize event to force browser recalculation
+      window.dispatchEvent(new Event("resize"));
+    };
+    
+    // Recalculate after mount and after delays to ensure content is fully rendered
+    // This handles cases where images or other content loads asynchronously
+    const timeouts = [
+      setTimeout(recalculateScroll, 100),
+      setTimeout(recalculateScroll, 300),
+      setTimeout(recalculateScroll, 600),
+      setTimeout(recalculateScroll, 1000),
+    ];
+    
+    return () => {
+      timeouts.forEach(clearTimeout);
+    };
   }, []);
 
   useEffect(() => {
@@ -41,7 +71,25 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
 
   useEffect(() => {
     // Ensure component is mounted and gradient is visible
-    setMounted(true);
+    const id = requestAnimationFrame(() => {
+      setMounted(true);
+    });
+    
+    // Recalculate scroll height once component is fully mounted
+    const recalculateAfterMount = () => {
+      const lenis = getLenis();
+      if (lenis) {
+        lenis.resize();
+      }
+      window.dispatchEvent(new Event("resize"));
+    };
+    
+    // Recalculate after a short delay to ensure DOM is updated
+    const timeout = setTimeout(recalculateAfterMount, 200);
+    return () => {
+      cancelAnimationFrame(id);
+      clearTimeout(timeout);
+    };
   }, []);
 
   const isDesktop = viewport.width >= 768;
