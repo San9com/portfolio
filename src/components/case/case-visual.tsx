@@ -83,10 +83,19 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
     screenTopInset,
     screenSideInset,
   } = useMemo(() => {
-    const width = Math.min(
-      viewport.width * (isDesktop ? 0.74 : 0.92),
-      isDesktop ? 1160 : viewport.width * 0.94,
-    );
+    // On mobile, simplify - no animation, just full screen image
+    if (!isDesktop) {
+      return {
+        targetWidth: viewport.width,
+        targetHeight: viewport.height,
+        startWidth: viewport.width,
+        startHeight: viewport.height,
+        screenTopInset: 0,
+        screenSideInset: 0,
+      };
+    }
+    
+    const width = Math.min(viewport.width * 0.74, 1160);
     const height = width / FRAME_RATIO;
     const screenHeightRatio = 0.7745;
     const screenWidthRatio = 0.92;
@@ -101,19 +110,17 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
   }, [isDesktop, viewport.height, viewport.width]);
 
   const targetOffsetY = Math.max(viewport.height - targetHeight, 0);
+  
+  // Desktop animation transforms (only used when isDesktop is true)
   const width = useTransform(scrollYProgress, [0, 0.62], [startWidth, targetWidth]);
   const height = useTransform(scrollYProgress, [0, 0.62], [startHeight, targetHeight]);
   const y = useTransform(scrollYProgress, [0, 0.62], [0, targetOffsetY]);
-  const borderRadius = useTransform(
-    scrollYProgress,
-    [0.08, 0.7],
-    [0, isDesktop ? 32 : 20],
-  );
-  const frameOpacity = useTransform(scrollYProgress, [0.68, 0.88], [0, isDesktop ? 1 : 0]);
+  const borderRadius = useTransform(scrollYProgress, [0.08, 0.7], [0, 32]);
   const clipPath = useTransform(scrollYProgress, [0.64, 0.86], [
     "inset(0% 0% 0% 0% round 0px)",
     `inset(0% ${screenSideInset}% ${screenTopInset}% ${screenSideInset}% round 12px)`,
   ]);
+  const frameOpacity = useTransform(scrollYProgress, [0.68, 0.88], [0, 1]);
 
   const [frameVisible, setFrameVisible] = useState(false);
 
@@ -122,11 +129,14 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
     setFrameVisible((prev) => (prev === nextVisible ? prev : nextVisible));
   });
 
+  // On mobile, use simpler layout without animation
+  const sectionMinHeight = isDesktop ? "min-h-[220svh]" : "min-h-[100svh]";
+
   if (!mounted) {
     return (
       <section
         ref={sectionRef}
-        className="relative flex min-h-[220svh] w-full flex-col justify-start"
+        className={`relative flex ${sectionMinHeight} w-full flex-col justify-start`}
         aria-label="Project visual immersion"
       >
         <div className="pointer-events-none sticky top-0 h-[100svh] overflow-hidden">
@@ -147,10 +157,37 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
     );
   }
 
+  // On mobile, render simple static image without animation
+  if (!isDesktop) {
+    return (
+      <section
+        ref={sectionRef}
+        className={`relative flex ${sectionMinHeight} w-full flex-col justify-start`}
+        aria-label="Project visual immersion"
+      >
+        <div className="pointer-events-none sticky top-0 h-[100svh] overflow-hidden">
+          <div className="relative h-full w-full">
+            <Image 
+              src={image} 
+              alt={alt} 
+              fill 
+              priority 
+              sizes="100vw" 
+              className="object-cover" 
+              style={{ filter: `brightness(${brightness})` }}
+            />
+            <div className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-t from-black via-black/25 to-transparent" />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // Desktop version with XDR animation
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-[220svh] w-full flex-col justify-start"
+      className={`relative flex ${sectionMinHeight} w-full flex-col justify-start`}
       aria-label="Project visual immersion"
     >
       <div className="pointer-events-none sticky top-0 h-[100svh] overflow-hidden">
