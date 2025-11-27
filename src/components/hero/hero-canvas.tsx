@@ -18,13 +18,8 @@ type HeroCanvasProps = {
 function HeroScene({ portraitSrc }: HeroCanvasProps) {
   const { viewport } = useThree();
 
-  // Load SVG title texture - always use desktop version, mobile will be handled in layout
+  // Load SVG title texture
   const titleTexture = useTexture("/title.svg", (texture) => {
-    texture.colorSpace = SRGBColorSpace;
-  });
-  
-  // Load mobile SVG texture separately
-  const mobileTitleTexture = useTexture("/hero-title-mobile.svg", (texture) => {
     texture.colorSpace = SRGBColorSpace;
   });
 
@@ -91,36 +86,38 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
     return grayscaleTexture;
   }, [basePortraitTexture]);
 
-  // Clean centered layout: Text and image side by side, centered, smaller
+  // Detect mobile vs desktop
+  const isMobile = viewport.width < 768;
+
+  // Clean centered layout: Text and image side by side, centered, smaller (DESKTOP)
+  // Mobile: Image on top of text, both screen wide
   const layout = useMemo(() => {
-    const isMobile = viewport.width < 768;
     const svgAspect = 1072 / 427; // title.svg aspect ratio
     const portraitAspect = 1;
-    
+
     if (isMobile) {
-      // Mobile: Image on top, text SVG below, both screen wide
-      const sideMargin = viewport.width * 0.06; // Small side margins
-      const gap = viewport.height * 0.04; // Gap between image and text
+      // MOBILE LAYOUT: Image on top, text below, both screen wide
+      const sideMargin = viewport.width * 0.05; // Small side margins
+      const gap = viewport.height * 0.05; // Vertical gap between image and text
       
       // Both elements are screen wide (with small margins)
       const elementWidth = viewport.width - sideMargin * 2;
       
-      // Portrait/image: full width, takes up top portion
-      const portraitHeight = elementWidth / portraitAspect * 0.6; // 60% height to match mask
+      // Image: screen wide, maintain aspect ratio
+      const portraitHeight = (elementWidth / portraitAspect) * 0.6; // 60% height to match mask
       const portraitWidth = elementWidth;
       
-      // Text SVG: full width, positioned below
-      const svgHeight = elementWidth / svgAspect;
+      // Text: screen wide, maintain aspect ratio
+      const svgHeight = (elementWidth / svgAspect);
       const svgWidth = elementWidth;
       
-      // Center horizontally
-      const centerX = 0;
-      
-      // Position vertically: image on top, text below
-      const topPadding = viewport.height * 0.15; // Top padding
-      const portraitY = viewport.height / 2 - portraitHeight / 2 - gap / 2 - topPadding;
-      const svgY = viewport.height / 2 + svgHeight / 2 + gap / 2 - topPadding;
-      
+      // Position: Image on top, text below
+      // In Three.js viewport, (0,0) is center, Y increases upward
+      // Image on top: higher Y value (closer to top of screen)
+      const centerX = 0; // Centered horizontally
+      const portraitY = viewport.height * 0.2; // Image positioned higher (20% from top)
+      const svgY = portraitY - portraitHeight / 2 - gap - svgHeight / 2; // Text below image (lower Y)
+
       return {
         svgPosition: [centerX, svgY, -0.2] as [number, number, number],
         svgSize: [svgWidth, svgHeight] as [number, number],
@@ -129,11 +126,12 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
         glassPositions: [] as [number, number, number][],
       };
     }
-    
-    // Desktop: side by side layout
+
+    // DESKTOP LAYOUT: Keep exactly the same as before
     const margin = viewport.width * 0.1; // Generous clean margins
     const gap = viewport.width * 0.04; // Clean gap between elements
     
+    // Calculate sizes - make both smaller
     // Portrait: smaller size
     const portraitWidth = viewport.width * 0.31;
     const portraitHeight = (portraitWidth / portraitAspect) * 0.6; // 60% height to match mask
@@ -162,7 +160,7 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
       portraitSize: [portraitWidth, portraitHeight] as [number, number],
       glassPositions,
     };
-  }, [viewport.width, viewport.height]);
+  }, [viewport.width, viewport.height, isMobile]);
 
   return (
     <>
@@ -179,14 +177,10 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
         castShadow={false}
       />
 
-      {/* SVG Title - use mobile version on mobile, desktop version on desktop */}
+      {/* SVG Title on the left */}
       <mesh position={layout.svgPosition}>
         <planeGeometry args={layout.svgSize} />
-        <meshBasicMaterial 
-          map={viewport.width < 768 ? mobileTitleTexture : titleTexture} 
-          toneMapped={false} 
-          transparent 
-        />
+        <meshBasicMaterial map={titleTexture} toneMapped={false} transparent />
       </mesh>
 
       {/* Portrait on the right */}
@@ -195,8 +189,8 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
         <meshBasicMaterial map={portraitTexture} toneMapped={false} transparent />
       </mesh>
 
-      {/* Single magnifying glass lens following cursor over text - desktop only */}
-      {viewport.width >= 768 && (
+      {/* Single magnifying glass lens following cursor over text */}
+      {!isMobile && (
         <GlassLens
           position={[layout.svgPosition[0], layout.svgPosition[1], 0.3]}
           speed={0.15}
