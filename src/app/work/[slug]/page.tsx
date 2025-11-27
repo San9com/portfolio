@@ -553,7 +553,7 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
               <div className="flex flex-col gap-8 text-foreground lg:flex-row lg:items-start lg:justify-between lg:gap-16">
                 <div className="flex flex-col gap-6 lg:flex-1">
                   <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-light leading-[1.1] tracking-tight">
-                    {project.title}
+                    {project.slug === "stmpd-records" ? "STMPD Records (Martin Garrix)" : project.title}
                   </h1>
                   {content.intro ? (
                     <p className="max-w-2xl text-base leading-[1.7] text-white/65">{content.intro}</p>
