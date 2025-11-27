@@ -49,7 +49,7 @@ export function WorkSection() {
             className="flex items-center gap-2 text-sm text-foreground/70"
             delay={0.1}
           >
-            <span>These are my favourite</span>
+            <span>These projects are my favourites</span>
             <span aria-hidden="true" className="text-base leading-none">
               ↓
             </span>

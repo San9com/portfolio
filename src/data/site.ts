@@ -4,7 +4,7 @@ export const heroCopy = {
   headlineLines: ["I design unique user", "experiences with care."],
   description:
     "Alexander Murashka is a UI/UX designer shaping immersive, story-driven interfaces that respect the craft and the people who use them.",
-  ctaLabel: "These are my favourite",
+  ctaLabel: "These projects are my favourites",
 };
 
 export const contact = {
