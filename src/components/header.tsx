@@ -327,7 +327,7 @@ export function Header({ overlay = false }: HeaderProps) {
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="flex items-center gap-2"
+          className="flex items-center gap-3"
           >
             <span className="md:!text-white">murashka</span>
             <span className="hidden text-white/50 md:inline">iOS/UI/UX designer</span>
@@ -427,7 +427,7 @@ export function Header({ overlay = false }: HeaderProps) {
         <motion.button
           type="button"
           layout
-          className={clsx(
+                className={clsx(
             "relative flex min-w-[4.5rem] items-center justify-center rounded-full border border-white/20 px-5 py-3 text-sm text-foreground transition-colors hover:border-white/40 hover:text-white md:hidden",
             mobileButtonClasses
           )}
