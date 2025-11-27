@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-const INACTIVE_TITLE = "hey, come back — I still have more to show";
+const INACTIVE_TITLE = "hey, come back ;)";
 const INACTIVE_DELAY = 5000; // 5 seconds
 
 export function TitleManager() {
