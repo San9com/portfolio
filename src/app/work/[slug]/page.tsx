@@ -525,6 +525,9 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
 
   const content = caseContent[project.slug] ?? defaultCaseContent;
 
+  // Track used images to prevent duplicates across all phases
+  const usedImages = new Set<string>([project.image]); // Add cover image to used set
+
   return (
     <>
       <main className="bg-black text-foreground">
@@ -537,7 +540,7 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
           />
           <section className="w-full bg-black px-6 pb-32 pt-16 sm:px-10 sm:pt-24 lg:px-16">
             <div className="mx-auto flex w-full max-w-[1400px] flex-col gap-16">
-              <div className="flex items-center justify-between gap-8 text-foreground">
+              <div className="sticky top-24 z-20 flex items-center justify-between gap-8 text-foreground sm:top-28">
                 <Link
                   href="/"
                   className="inline-flex items-center gap-2 text-sm font-normal tracking-wider text-foreground/60 transition-colors hover:text-foreground"
@@ -579,7 +582,13 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
                     {/* Full-width visuals section */}
                     <div className="flex flex-col gap-6">
                       {phase.visuals
-                        .filter((visual) => visual.image !== project.image)
+                        .filter((visual) => {
+                          // Filter out cover image and already used images
+                          if (visual.image === project.image) return false;
+                          if (usedImages.has(visual.image)) return false;
+                          usedImages.add(visual.image); // Mark as used
+                          return true;
+                        })
                         .map((visual, index, filteredVisuals) => {
                           const isLastTwo = filteredVisuals.length >= 2 && index >= filteredVisuals.length - 2;
                           const isEvenInLastTwo = isLastTwo && (index - (filteredVisuals.length - 2)) % 2 === 0;
