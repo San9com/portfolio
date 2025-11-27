@@ -556,9 +556,6 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
                   <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-light leading-[1.1] tracking-tight">
                     {project.slug === "stmpd-records" ? "STMPD Records (Martin Garrix)" : project.title}
                   </h1>
-                  {content.intro ? (
-                    <p className="max-w-2xl text-base leading-[1.7] text-white/65">{content.intro}</p>
-                  ) : null}
                 </div>
                 <span className="text-[clamp(2rem,3.5vw,3rem)] font-light leading-none text-foreground/70 lg:pt-2">
                   {project.year}
