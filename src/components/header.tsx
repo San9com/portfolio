@@ -501,7 +501,8 @@ export function Header({ overlay = false }: HeaderProps) {
                       href={linkHref}
                       onClick={handleClick}
                       className={clsx(
-                        "flex flex-1 items-center px-10 text-[min(16vw,4rem)] font-light text-foreground/90 transition-colors hover:text-foreground",
+                        "flex flex-1 items-center w-[95vw] text-[min(16vw,4rem)] font-light text-foreground/90 transition-colors hover:text-foreground",
+                        "md:w-auto md:px-10",
                         index !== navigationLinks.length - 1 && "border-b border-white/[0.08]"
                       )}
                     >

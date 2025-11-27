@@ -101,19 +101,32 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
   }, [isDesktop, viewport.height, viewport.width]);
 
   const targetOffsetY = Math.max(viewport.height - targetHeight, 0);
-  const width = useTransform(scrollYProgress, [0, 0.62], [startWidth, targetWidth]);
-  const height = useTransform(scrollYProgress, [0, 0.62], [startHeight, targetHeight]);
-  const y = useTransform(scrollYProgress, [0, 0.62], [0, targetOffsetY]);
-  const borderRadius = useTransform(
-    scrollYProgress,
-    [0.08, 0.7],
-    [0, isDesktop ? 32 : 20],
-  );
+  
+  // Always call hooks, but use values conditionally
+  const widthDesktop = useTransform(scrollYProgress, [0, 0.62], [startWidth, targetWidth]);
+  const widthMobile = useTransform(scrollYProgress, [0, 1], [startWidth, startWidth]);
+  const heightDesktop = useTransform(scrollYProgress, [0, 0.62], [startHeight, targetHeight]);
+  const heightMobile = useTransform(scrollYProgress, [0, 1], [startHeight, startHeight]);
+  const yDesktop = useTransform(scrollYProgress, [0, 0.62], [0, targetOffsetY]);
+  const yMobile = useTransform(scrollYProgress, [0, 1], [0, -100]); // Parallax effect on mobile
+  const borderRadiusDesktop = useTransform(scrollYProgress, [0.08, 0.7], [0, 32]);
+  const borderRadiusMobile = useTransform(scrollYProgress, [0.08, 0.7], [0, 0]);
   const frameOpacity = useTransform(scrollYProgress, [0.68, 0.88], [0, isDesktop ? 1 : 0]);
-  const clipPath = useTransform(scrollYProgress, [0.64, 0.86], [
+  const clipPathDesktop = useTransform(scrollYProgress, [0.64, 0.86], [
     "inset(0% 0% 0% 0% round 0px)",
     `inset(0% ${screenSideInset}% ${screenTopInset}% ${screenSideInset}% round 12px)`,
   ]);
+  const clipPathMobile = useTransform(scrollYProgress, [0.64, 0.86], [
+    "inset(0% 0% 0% 0% round 0px)",
+    "inset(0% 0% 0% 0% round 0px)",
+  ]);
+  
+  // Use appropriate values based on device
+  const width = isDesktop ? widthDesktop : widthMobile;
+  const height = isDesktop ? heightDesktop : heightMobile;
+  const y = isDesktop ? yDesktop : yMobile;
+  const borderRadius = isDesktop ? borderRadiusDesktop : borderRadiusMobile;
+  const clipPath = isDesktop ? clipPathDesktop : clipPathMobile;
 
   const [frameVisible, setFrameVisible] = useState(false);
 
@@ -126,7 +139,7 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
     return (
       <section
         ref={sectionRef}
-        className="relative flex min-h-[220svh] w-full flex-col justify-start"
+        className="relative flex min-h-[150svh] md:min-h-[220svh] w-full flex-col justify-start"
         aria-label="Project visual immersion"
       >
         <div className="pointer-events-none sticky top-0 h-[100svh] overflow-hidden">
@@ -150,21 +163,36 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-[220svh] w-full flex-col justify-start"
+      className="relative flex min-h-[150svh] md:min-h-[220svh] w-full flex-col justify-start"
       aria-label="Project visual immersion"
     >
       <div className="pointer-events-none sticky top-0 h-[100svh] overflow-hidden">
         <motion.div
           style={{
-            width,
-            height,
+            width: isDesktop ? width : undefined, // Only use width transform on desktop
+            height: isDesktop ? height : undefined, // Only use height transform on desktop
             y,
-            borderRadius,
+            borderRadius: isDesktop ? borderRadius : undefined, // Only use border radius on desktop
           }}
-          className="absolute left-1/2 top-0 -translate-x-1/2 overflow-hidden"
+          className={isDesktop 
+            ? "absolute left-1/2 top-0 -translate-x-1/2 overflow-hidden"
+            : "absolute inset-0 overflow-hidden" // Full width on mobile
+          }
         >
           <div className="relative h-full w-full">
-            <motion.div style={{ clipPath }} className="absolute inset-0">
+            {isDesktop ? (
+              <motion.div style={{ clipPath }} className="absolute inset-0">
+                <Image 
+                  src={image} 
+                  alt={alt} 
+                  fill 
+                  priority 
+                  sizes="100vw" 
+                  className="object-cover" 
+                  style={{ filter: `brightness(${brightness})` }}
+                />
+              </motion.div>
+            ) : (
               <Image 
                 src={image} 
                 alt={alt} 
@@ -174,9 +202,9 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
                 className="object-cover" 
                 style={{ filter: `brightness(${brightness})` }}
               />
-            </motion.div>
+            )}
             <div className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-t from-black via-black/25 to-transparent" />
-            {frameVisible ? (
+            {frameVisible && isDesktop ? (
               <motion.img
                 src="/Pro Display XDR.svg"
                 alt="Pro Display XDR Frame"
