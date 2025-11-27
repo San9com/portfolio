@@ -18,8 +18,13 @@ type HeroCanvasProps = {
 function HeroScene({ portraitSrc }: HeroCanvasProps) {
   const { viewport } = useThree();
 
-  // Load SVG title texture
+  // Load SVG title texture - always use desktop version, mobile will be handled in layout
   const titleTexture = useTexture("/title.svg", (texture) => {
+    texture.colorSpace = SRGBColorSpace;
+  });
+  
+  // Load mobile SVG texture separately
+  const mobileTitleTexture = useTexture("/hero-title-mobile.svg", (texture) => {
     texture.colorSpace = SRGBColorSpace;
   });
 
@@ -88,12 +93,46 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
 
   // Clean centered layout: Text and image side by side, centered, smaller
   const layout = useMemo(() => {
-    const margin = viewport.width * 0.1; // Generous clean margins
-    const gap = viewport.width * 0.04; // Clean gap between elements
-    
-    // Calculate sizes - make both smaller
+    const isMobile = viewport.width < 768;
     const svgAspect = 1072 / 427; // title.svg aspect ratio
     const portraitAspect = 1;
+    
+    if (isMobile) {
+      // Mobile: Image on top, text SVG below, both screen wide
+      const sideMargin = viewport.width * 0.06; // Small side margins
+      const gap = viewport.height * 0.04; // Gap between image and text
+      
+      // Both elements are screen wide (with small margins)
+      const elementWidth = viewport.width - sideMargin * 2;
+      
+      // Portrait/image: full width, takes up top portion
+      const portraitHeight = elementWidth / portraitAspect * 0.6; // 60% height to match mask
+      const portraitWidth = elementWidth;
+      
+      // Text SVG: full width, positioned below
+      const svgHeight = elementWidth / svgAspect;
+      const svgWidth = elementWidth;
+      
+      // Center horizontally
+      const centerX = 0;
+      
+      // Position vertically: image on top, text below
+      const topPadding = viewport.height * 0.15; // Top padding
+      const portraitY = viewport.height / 2 - portraitHeight / 2 - gap / 2 - topPadding;
+      const svgY = viewport.height / 2 + svgHeight / 2 + gap / 2 - topPadding;
+      
+      return {
+        svgPosition: [centerX, svgY, -0.2] as [number, number, number],
+        svgSize: [svgWidth, svgHeight] as [number, number],
+        portraitPosition: [centerX, portraitY, -0.2] as [number, number, number],
+        portraitSize: [portraitWidth, portraitHeight] as [number, number],
+        glassPositions: [] as [number, number, number][],
+      };
+    }
+    
+    // Desktop: side by side layout
+    const margin = viewport.width * 0.1; // Generous clean margins
+    const gap = viewport.width * 0.04; // Clean gap between elements
     
     // Portrait: smaller size
     const portraitWidth = viewport.width * 0.31;
@@ -140,10 +179,14 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
         castShadow={false}
       />
 
-      {/* SVG Title on the left */}
+      {/* SVG Title - use mobile version on mobile, desktop version on desktop */}
       <mesh position={layout.svgPosition}>
         <planeGeometry args={layout.svgSize} />
-        <meshBasicMaterial map={titleTexture} toneMapped={false} transparent />
+        <meshBasicMaterial 
+          map={viewport.width < 768 ? mobileTitleTexture : titleTexture} 
+          toneMapped={false} 
+          transparent 
+        />
       </mesh>
 
       {/* Portrait on the right */}
@@ -152,15 +195,17 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
         <meshBasicMaterial map={portraitTexture} toneMapped={false} transparent />
       </mesh>
 
-      {/* Single magnifying glass lens following cursor over text */}
-      <GlassLens
-        position={[layout.svgPosition[0], layout.svgPosition[1], 0.3]}
-        speed={0.15}
-        startOffset={0}
-        radius={0.84}
-        scale={2.1}
-        travelWidth={layout.svgSize[0]}
-      />
+      {/* Single magnifying glass lens following cursor over text - desktop only */}
+      {viewport.width >= 768 && (
+        <GlassLens
+          position={[layout.svgPosition[0], layout.svgPosition[1], 0.3]}
+          speed={0.15}
+          startOffset={0}
+          radius={0.84}
+          scale={2.1}
+          travelWidth={layout.svgSize[0]}
+        />
+      )}
 
       <Environment resolution={256}>
         <group>
