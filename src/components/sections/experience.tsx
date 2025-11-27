@@ -13,7 +13,7 @@ export function ExperienceSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start 0.8", "end start"],
+    offset: ["start end", "end start"],
   });
 
   // Subtle parallax - elegant and simple

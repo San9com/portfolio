@@ -4,6 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
+import { BackHomeButton } from "@/components/back-home-button";
 import { projects } from "@/data/projects";
 import { CaseVisualShowcase } from "@/components/case/case-visual";
 
@@ -546,12 +547,7 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
           <section className="w-full bg-black px-6 pb-32 pt-16 sm:px-10 sm:pt-24 lg:px-16">
             <div className="mx-auto flex w-full max-w-[1400px] flex-col gap-16">
               <div className="sticky top-24 z-20 flex items-center justify-between gap-8 text-foreground sm:top-28">
-                <Link
-                  href="/"
-                  className="inline-flex items-center gap-2 text-sm font-normal tracking-wider text-foreground/60 transition-colors hover:text-foreground"
-                >
-                  ← Back home
-                </Link>
+                <BackHomeButton />
               </div>
 
               {/* Hero Section - Matches reference style */}
