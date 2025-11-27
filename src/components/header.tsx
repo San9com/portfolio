@@ -327,8 +327,10 @@ export function Header({ overlay = false }: HeaderProps) {
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
+          className="flex items-center gap-2"
           >
-            murashka
+            <span className="md:!text-white">murashka</span>
+            <span className="hidden text-white/50 md:inline">iOS/UI/UX designer</span>
           </motion.span>
         </Link>
 
