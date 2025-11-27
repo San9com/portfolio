@@ -102,7 +102,8 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
     target: ref,
     offset: ["start end", "end start"],
   });
-  const translateY = useTransform(scrollYProgress, [0, 1], [-40, 40]);
+  // Stronger parallax on mobile, standard on desktop
+  const translateY = useTransform(scrollYProgress, [0, 1], isDesktop ? [-40, 40] : [-80, 80]);
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = useCallback(() => {
