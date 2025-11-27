@@ -26,12 +26,12 @@ type CaseContent = {
 const caseContent: Record<string, CaseContent> = {
   "fidb-redesign": {
     intro:
-      "FiDB already had loyal Formula One fans, organic downloads, and good data, yet it looked like something from 2018. The challenge was not to rebuild it but to help it catch up with the present.",
+      "FiDB came from a different time. It had loyal Formula One followers, a dedicated user base, and decent organic growth. Yet visually and structurally, it felt rooted in the aesthetic language of 2018. The app had potential but needed a refresh that respected its heritage while aligning it with modern expectations.",
     phases: [
       {
         title: "An app stuck in an older world",
         body: [
-          "FiDB already had loyal Formula One fans, organic downloads, and good data, yet it looked like something from 2018. The challenge was not to rebuild it but to help it catch up with the present.",
+          "FiDB came from a different time. It had loyal Formula One followers, a dedicated user base, and decent organic growth. Yet visually and structurally, it felt rooted in the aesthetic language of 2018. The app had potential but needed a refresh that respected its heritage while aligning it with modern expectations.",
         ],
         visuals: [
           {
@@ -47,21 +47,21 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "Sharper and more confident",
         body: [
-          "We reviewed the entire flow, updated the visuals, and reorganized features so users could understand the value more quickly. Modernizing meant removing friction, not adding layers.",
+          "We analyzed the entire architecture, refined flows, and introduced visual patterns that felt more intentional. The goal was not to reinvent the experience but to remove unnecessary complexity, making it easier for users to find value. By polishing old elements and introducing new ones, the app gained a sense of clarity and confidence that it had previously lacked.",
         ],
         visuals: [],
       },
       {
         title: "Design that supports conversions",
         body: [
-          "The redesign focused on clarity and trust, because people subscribe only when they feel grounded. Every decision centered around making that commitment easier.",
+          "Improving conversion required more than surface changes. We needed to build trust through transparency, predictability, and visual integrity. Users subscribe when they feel the product understands them, and the redesign emphasized this feeling. We reorganized information so that the benefits became clearer, and the trial journey felt less abrupt.",
         ],
         visuals: [],
       },
       {
         title: "A quiet improvement",
         body: [
-          "This project was not loud, it reshaped the app in subtle ways that made it feel fresh again, without losing its identity.",
+          "The changes did not scream, yet they brought the app forward. FiDB became more elegant, cleaner, and easier to understand. In many ways, the redesign gave the product a new voice without changing its heart.",
         ],
         visuals: [],
       },
@@ -69,12 +69,12 @@ const caseContent: Record<string, CaseContent> = {
   },
   "elvou-app-concept": {
     intro:
-      "Elvou sells products for health and wellbeing, from supplements to fitness accessories. Their physical brand was strong, but there was no digital space that matched their identity. That is where the Elevate Club concept was born.",
+      "Elvou operates in a world of health, wellness, and lifestyle products. Their physical identity was strong, their tone felt premium, but the digital side lacked a central place where customers could experience the brand. This absence became the starting point for Elevate Club, a concept meant to extend their presence into a more interactive, emotional space.",
     phases: [
       {
         title: "A brand with potential waiting to be unlocked",
         body: [
-          "Elvou sells products for health and wellbeing, from supplements to fitness accessories. Their physical brand was strong, but there was no digital space that matched their identity. That is where the Elevate Club concept was born.",
+          "Elvou operates in a world of health, wellness, and lifestyle products. Their physical identity was strong, their tone felt premium, but the digital side lacked a central place where customers could experience the brand. This absence became the starting point for Elevate Club, a concept meant to extend their presence into a more interactive, emotional space.",
         ],
         visuals: [
           {
@@ -86,7 +86,7 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "A companion rather than an app",
         body: [
-          "The idea was to build a tracker that also hosted meditations, product browsing, and an Apple Health connection. Something that felt like the natural extension of their premium brand, not just a catalog of items.",
+          "The vision behind the app was simple. It should not feel like a store, or a dashboard, or a tool. It should feel like a companion that supports a healthier routine. The app combines tracking, meditations, mindful practices, and access to the brand's products in a way that feels integrated. Apple Health connectivity adds a layer of intelligence, connecting the user's body data with the broader experience of the brand.",
         ],
         visuals: [
           {
@@ -98,7 +98,7 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "A calm and focused identity",
         body: [
-          "The interface stays clean and soft, allowing the brand to breathe. No unnecessary shine, only a sense of balance that supports the user rather than distracts them.",
+          "The visual direction aims to reflect the softness and clarity associated with wellness. We avoided heavy ornamentation and leaned instead into gentle motion, balanced spacing, and a mood that invites calm. The identity stays consistent across features, allowing users to move from tracking to meditation to browsing without feeling shifts in personality.",
         ],
         visuals: [
           {
@@ -110,7 +110,7 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "A concept worth pitching",
         body: [
-          "The result gives Elvou a way to expand their presence and help customers experience more than just a product. It becomes a lifestyle they can actually feel.",
+          "This proposal is designed to elevate the Elvou brand and expand the value it offers customers. It provides a quiet digital home for a wellness lifestyle rather than a simple catalog of products.",
         ],
         visuals: [],
       },
@@ -118,12 +118,12 @@ const caseContent: Record<string, CaseContent> = {
   },
   "iotspot-case": {
     intro:
-      "When I stepped into the world of iotSpot, the app felt like a busy hallway where everyone talked at once. Maps lived in one corner, lists lived in another, and users had to constantly switch perspectives just to understand where they were going. I knew people needed something calmer, something that guided them without asking for effort every time.",
+      "When I first stepped into the iotSpot ecosystem, I felt something almost paradoxical. The app was full of potential, full of features, full of ideas, but the experience itself felt busy and slightly overwhelmed. People were given maps and lists, sometimes even different entry points for simple tasks, and the product expected them to understand how everything worked together.",
     phases: [
       {
         title: "A quiet beginning",
         body: [
-          "When I stepped into the world of iotSpot, the app felt like a busy hallway where everyone talked at once. Maps lived in one corner, lists lived in another, and users had to constantly switch perspectives just to understand where they were going. I knew people needed something calmer, something that guided them without asking for effort every time.",
+          "When I first stepped into the iotSpot ecosystem, I felt something almost paradoxical. The app was full of potential, full of features, full of ideas, but the experience itself felt busy and slightly overwhelmed. People were given maps and lists, sometimes even different entry points for simple tasks, and the product expected them to understand how everything worked together. I could see users constantly shifting their attention, opening one view, closing another, trying to connect meaning that the interface never fully communicated. It was clear that the app needed not more features but more calmness, more guidance, more invisible structure. I wanted to create a product that greeted people with clarity the moment they opened it, something that felt helpful before they even touched the screen.",
         ],
         visuals: [
           {
@@ -135,7 +135,7 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "Iteration as a habit",
         body: [
-          "We moved through more than fifteen iterations, each one tested with real users, each one teaching us something new. I treated the process the way a craftsman treats a tool, returning to it again and again, polishing it until the edges made sense. Nothing rushed, nothing accidental.",
+          "We began a long process of refinement, and the word long is not an exaggeration. We made more than fifteen iterations, each one built on insights from real user tests. Every round gave us another small clue, something we could polish, something we could adjust. I treated the work almost like sculpting, slowly removing unnecessary edges, discovering what the product was trying to become. Some days the changes were tiny, barely noticeable to anyone else, but they mattered, because I knew the product had to feel effortless, not impressive. The deeper we went, the more I realized that true improvement often happens in the quiet parts of the process, in the details you only notice when you care enough to look twice.",
         ],
         visuals: [
           {
@@ -147,7 +147,7 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "A floating idea that changed everything",
         body: [
-          "The moment things shifted was when I introduced a floating navigation bar. It was simple, almost modest, but it solved an old problem in a new way. Switching between map and hierarchy finally felt natural. We added filters inside it too, a detail that looks small on a screen but changes how people experience a product.",
+          "The breakthrough came unexpectedly, during one of the many moments when we tried to map user behavior. I realized that people were not confused by the content itself, they were confused by the transitions, the movement between the map and the hierarchical list of spaces. This led to the idea of a floating navigation element, something always present, always ready, but never intrusive. When we placed it inside the interface, something clicked. It allowed people to move between contexts without being forced to \"reset\" their mental model. We added filters inside it, letting users control their view with a single gesture. It felt like a small detail, but it reshaped the entire experience, giving the product a sense of confidence that had been missing before.",
         ],
         visuals: [
           {
@@ -159,7 +159,7 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "Design with a quieter confidence",
         body: [
-          "IotSpot ended up reflecting how I think about design, structured, patient, almost meditative. It became cleaner, softer, more respectful of the people who depend on it during their workday.",
+          "By the end, the app transformed into something that felt more intentional, more thoughtful. The design became lighter, the flows became smoother, and the overall experience gained a sense of quiet maturity. IotSpot became a product that respects the user's cognitive load, acknowledging that people do not want to fight with their workspace tools. They want something that behaves like a reliable companion, not a puzzle. This project grew into a reflection of how I design, structured at the core, patient in process, and always striving for clarity that feels almost invisible.",
         ],
         visuals: [],
       },
@@ -167,12 +167,12 @@ const caseContent: Record<string, CaseContent> = {
   },
   "gaiazoo-companion": {
     intro:
-      "GaiaZoo invited us to propose a new version of their app. Because I had worked on their previous product, I already knew what families loved, especially the map and the children's games. These small details gave me a direction before the work even began.",
+      "GaiaZoo invited us to create a concept for a new app, and because I had worked with their previous version, I already had a connection to the environment. The zoo has an emotional presence that goes beyond attractions. Families create memories there, children experience animals for the first time, and the day becomes a story that starts long before they enter the gates.",
     phases: [
       {
         title: "Breathing new life into a zoo",
         body: [
-          "GaiaZoo invited us to propose a new version of their app. Because I had worked on their previous product, I already knew what families loved, especially the map and the children's games. These small details gave me a direction before the work even began.",
+          "GaiaZoo invited us to create a concept for a new app, and because I had worked with their previous version, I already had a connection to the environment. The zoo has an emotional presence that goes beyond attractions. Families create memories there, children experience animals for the first time, and the day becomes a story that starts long before they enter the gates. The old app captured some of this but struggled with clarity. We felt a responsibility to shape something that did justice to the atmosphere of the place.",
         ],
         visuals: [
           {
@@ -184,7 +184,7 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "Research in the real world",
         body: [
-          "We walked the paths of the Kerkrade zoo, studied reviews, watched how visitors planned their day, and listened to what frustrated them. The problem was not drama, it was clarity. People simply needed better guidance.",
+          "We decided early that research should not happen through screens. We visited the zoo in Kerkrade, walked the full route, watched how families moved, where they paused, what confused them, and what delighted them. We studied visitor reviews, looked for patterns, and discovered that people wanted better structure, clearer maps, easier planning, and a more intuitive digital companion. Observing behavior in real space allowed us to understand not just what users said but what they needed.",
         ],
         visuals: [
           {
@@ -200,7 +200,7 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "Carrying the old into the new",
         body: [
-          "We kept what worked, improved what felt outdated, modernized the visuals, and added features like Apple Wallet passes and smarter navigation. It felt like giving the zoo a new voice without erasing its character.",
+          "The previous app had features that people genuinely loved, especially the children's games and the interactive map. We decided to protect these elements, polishing them without removing their charm. We redesigned navigation, modernized the interface, improved information architecture, and added thoughtful touches like Apple Wallet passes and simplified day planning tools. It felt like giving the app a new personality without erasing its history.",
         ],
         visuals: [
           {
@@ -216,7 +216,7 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "A strong concept that finished second",
         body: [
-          "We did not win the tender, a large agency did, yet our concept was praised and placed second. It remains one of the projects I am proud of, because it was built on empathy before anything else.",
+          "Although we did not win the tender, we placed second, which was meaningful considering the scale of the agencies we competed with. Our concept was praised for its structure, empathy, and attention to human behavior. The project reaffirmed my belief that a thoughtful process can create value even when it does not lead to a contract.",
         ],
         visuals: [
           {
@@ -233,12 +233,12 @@ const caseContent: Record<string, CaseContent> = {
   },
   "current-ev-charging-app": {
     intro:
-      "Current EV is the project where I guided everything, from the first workshop to the final pixel. I followed a complete Double Diamond, with all its phases, all deliverables, all research sessions and testing rounds. The structure was not just a method, it was part of the story.",
+      "Current EV became a rare opportunity for me to guide a product through an entire structured journey, from the earliest discovery work to the final visual details. I followed a complete Double Diamond, embracing every phase with discipline and clarity.",
     phases: [
       {
         title: "The project from the first step to the last",
         body: [
-          "Current EV is the project where I guided everything, from the first workshop to the final pixel. I followed a complete Double Diamond, with all its phases, all deliverables, all research sessions and testing rounds. The structure was not just a method, it was part of the story.",
+          "Current EV became a rare opportunity for me to guide a product through an entire structured journey, from the earliest discovery work to the final visual details. I followed a complete Double Diamond, embracing every phase with discipline and clarity. We conducted research sessions, mapped user journeys, created personas, analyzed energy pricing behaviors, and facilitated workshops with real drivers, all to capture the complexity of how people negotiate charging in their daily routines. The structure gave the project a solid backbone, something that allowed creativity and engineering to work together instead of competing for space.",
         ],
         visuals: [
           {
@@ -254,7 +254,7 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "Charging that listens to real life",
         body: [
-          "This app was built to do more than charge a car. It predicts electricity prices, understands a user's schedule through Outlook, and chooses the best moment to start charging. Early meetings, late-night shifts, unexpected plans, everything becomes part of a smarter rhythm.",
+          "The goal was not simply to control electricity. The app needed to understand life. We built an intelligent system that monitors electricity prices, aligns with the user's Outlook schedule, and balances convenience with cost. The app learns from the rhythm of a person's days, recognizing when they need their car ready early, when they drive late, and when they unexpectedly stay home. Instead of forcing people into patterns, it adapts to them. This made the product feel less like a utility and more like a quiet assistant, something that works in the background without demanding attention.",
         ],
         visuals: [
           {
@@ -266,7 +266,7 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "Workshops that shaped the outcome",
         body: [
-          "I facilitated every workshop myself, making sure decisions grew from evidence. Nothing was added because it sounded exciting, everything was added because it made sense.",
+          "Throughout the project, I facilitated workshops that brought together drivers, managers, stakeholders, developers, and energy experts. Each session became a way to refine assumptions, surface blind spots, and build alignment. We tested concepts early, explored misunderstandings, validated ideas, and allowed the product to evolve naturally. Every workshop brought us a step closer to an experience that felt grounded in reality rather than abstraction.",
         ],
         visuals: [
           {
@@ -278,7 +278,7 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "A design that earns trust",
         body: [
-          "The result is clear, calm, and reliable. The interface reflects the intelligence behind it, and every flow respects the user's time. It is one of those projects where structure becomes invisible, which is when you know it is working.",
+          "The final design is clean and calm, intentionally restrained, focused on clarity instead of decoration. We wanted users to trust the app, and trust comes from predictability and honesty. Every screen follows a logic that feels natural, every flow leads the user gently to the next step. Current EV became a project where structure and emotion work together, something that reflects the discipline of the process as much as the empathy behind it.",
         ],
         visuals: [
           {
@@ -291,12 +291,12 @@ const caseContent: Record<string, CaseContent> = {
   },
   "mkb-brandstof": {
     intro:
-      "Mkb Brandstof had lost trust in their previous development partner and invited several agencies to pitch. We ended up competing against some of the biggest names in the Netherlands, which made the challenge even more meaningful.",
+      "Mkb Brandstof had reached a moment where they no longer trusted their existing development partner, and they invited multiple agencies to propose a fresh approach. The context was competitive and serious, with some of the largest Dutch digital agencies presenting their solutions.",
     phases: [
       {
         title: "A client in search of clarity",
         body: [
-          "Mkb Brandstof had lost trust in their previous development partner and invited several agencies to pitch. We ended up competing against some of the biggest names in the Netherlands, which made the challenge even more meaningful.",
+          "Mkb Brandstof had reached a moment where they no longer trusted their existing development partner, and they invited multiple agencies to propose a fresh approach. The context was competitive and serious, with some of the largest Dutch digital agencies presenting their solutions. For us, this was an opportunity to show what thoughtful design can do, even with a small team.",
         ],
         visuals: [
           {
@@ -308,7 +308,7 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "Finding the real issue",
         body: [
-          "Users constantly forgot whether a parking session was active, something that annoyed them and cost them money. The frustration was small but persistent, exactly the kind of problem worth solving.",
+          "We looked at user behavior, reviews, and support tickets, and discovered that the biggest frustration came from uncertainty. People often did not remember if a parking session was still active, which led to unnecessary payments or unexpected fines. It was a small problem in appearance, but for users it became a regular source of stress. Solving it required clarity more than innovation.",
         ],
         visuals: [
           {
@@ -320,14 +320,14 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "Live activities as a simple answer",
         body: [
-          "I designed a Live Activities concept that showed everything at a glance, the timer, the location, the status. It made the whole experience feel calmer, almost effortless.",
+          "I designed a concept using Apple Live Activities, which allowed users to see their parking status directly on the lock screen. It gave them an immediate overview, without having to open the app or guess. The timer, location, and state all lived in one place, accessible the moment they looked at their phone. It made the experience feel more predictable, more human, and more considerate of daily routines.",
         ],
         visuals: [],
       },
       {
         title: "A near win against large teams",
         body: [
-          "We finished second because bigger agencies had bigger development capacity. The concept itself scored very high, and that validated the work more than winning the tender would have.",
+          "We finished second, largely because larger agencies could offer bigger development resources for long term support. Still, our concept was praised for its clarity and practicality. The project demonstrated that thoughtful design can stand strong even in the middle of heavy competition.",
         ],
         visuals: [],
       },
@@ -335,12 +335,12 @@ const caseContent: Record<string, CaseContent> = {
   },
   "stmpd-records": {
     intro:
-      "Not many student teams are handed the chance to redesign the identity of the studio behind Martin Garrix. Stmpd Records is not just a label, it is a place where creative work breathes, where the city of Amsterdam becomes sound. Being chosen to rethink how such a space presents itself felt like a responsibility rather than a task.",
+      "The invitation to work on the identity of Stmpd Records felt extraordinary. It is not every day that a student team is trusted with a project connected to one of the most respected creative studios in Amsterdam, a studio rooted in the work of Martin Garrix and the artists who surround him.",
     phases: [
       {
         title: "A rare invitation",
         body: [
-          "Not many student teams are handed the chance to redesign the identity of the studio behind Martin Garrix. Stmpd Records is not just a label, it is a place where creative work breathes, where the city of Amsterdam becomes sound. Being chosen to rethink how such a space presents itself felt like a responsibility rather than a task.",
+          "The invitation to work on the identity of Stmpd Records felt extraordinary. It is not every day that a student team is trusted with a project connected to one of the most respected creative studios in Amsterdam, a studio rooted in the work of Martin Garrix and the artists who surround him. When we first stepped into this world, we felt the gravity of the place. It was not simply a recording space, it was a cultural environment where sound, image, personality, and atmosphere lived together. Being chosen to reimagine how such a place presents itself demanded sensitivity, curiosity, and a willingness to look deeper than aesthetics.",
         ],
         visuals: [
           {
@@ -352,7 +352,7 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "Searching for the true character",
         body: [
-          "This was never about making something louder. Loud is easy. The challenge was to show the studio as something alive, a meeting point for artists, a place where collaboration is more important than the expensive gear around it.",
+          "Early on, we understood that the challenge was not to make something louder or more dramatic. Loudness, after all, is simple. What Stmpd needed was something more honest, something that captured the studio's creative rhythm rather than its surface-level glamour. We spent time studying how artists behave inside the space, how collaborators communicate, how ideas move from the first spark to the final export. We discovered that the studio was less about the equipment and more about the relationships, the trust, the environment where people feel safe to experiment. This became the emotional foundation we wanted the identity to express, a quiet confidence rather than a loud brand voice.",
         ],
         visuals: [
           {
@@ -364,14 +364,14 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "Building the concept",
         body: [
-          "We researched, sketched, argued, explored tone and emotion, and slowly built a direction that felt honest. It treated the studio not as a brand but as a story, something you discover rather than something you are told.",
+          "We explored different visual directions, each built on conversations, sketches, mood explorations, and emotional mappings. We played with the contrast between intimacy and scale, between raw creative energy and polished final outputs. We studied the materials inside the studio, the light, the texture of the spaces, even the rhythm of the workflow. Slowly, a concept formed that treated the studio as a story rather than a logo. It felt more like a narrative, something that unfolds, something that invites the audience inside instead of pushing them away with intensity.",
         ],
         visuals: [],
       },
       {
         title: "Still in motion",
         body: [
-          "The project continues, and every week adds a new layer. It is the kind of work that reminds you why design matters, because it helps people see themselves more clearly.",
+          "The project is still developing, and every week adds new depth. There is something rewarding about work that breathes and grows rather than ending abruptly. Stmpd Records has become a reminder of the type of design I love, design that requires listening before creating, design that treats identity as something alive. It is a project that keeps teaching me to stay curious.",
         ],
         visuals: [],
       },
@@ -379,12 +379,12 @@ const caseContent: Record<string, CaseContent> = {
   },
   "apperium-website-redesign": {
     intro:
-      "This was the first major website redesign I led. It was for Apperium, the company where I first interned and later worked part-time. After their rebrand, they moved to a Squarespace site that I maintained, and over time I saw how many limitations it had.",
+      "This redesign meant more than a project to me. It was for Apperium, the company where I started as an intern and eventually worked part time. I had lived with their Squarespace site long enough to see its limitations, from the restricted layouts to the difficulty of maintaining consistency.",
     phases: [
       {
         title: "A return to a familiar place",
         body: [
-          "This was the first major website redesign I led. It was for Apperium, the company where I first interned and later worked part-time. After their rebrand, they moved to a Squarespace site that I maintained, and over time I saw how many limitations it had.",
+          "This redesign meant more than a project to me. It was for Apperium, the company where I started as an intern and eventually worked part time. I had lived with their Squarespace site long enough to see its limitations, from the restricted layouts to the difficulty of maintaining consistency. The brand had evolved, but the website had not. It needed a new foundation.",
         ],
         visuals: [
           {
@@ -396,7 +396,7 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "Rebuilding from the foundation",
         body: [
-          "I created a new style guide and visual identity, something futuristic and memorable, with a touch of Liquid Glass. It needed to stand out, to avoid the generic agency look that is so common in this industry.",
+          "I developed a new style guide that captured a modern, forward looking identity. The visuals leaned into the futuristic, with touches of Liquid Glass and confident typography. The goal was to create a digital presence that felt memorable rather than generic. Many app agencies blend together visually, and I wanted Apperium to stand apart with a personality that felt intentional and bold.",
         ],
         visuals: [
           {
@@ -408,7 +408,7 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "Iterating with intention",
         body: [
-          "I designed everything in Figma, tested it internally, collected feedback, adjusted, refined, and only then moved on to development. Structure guided every step.",
+          "I designed everything in Figma, reviewing it internally with the team, collecting feedback, and making thoughtful adjustments. Each iteration brought the site closer to a balance between clarity and personality. The process felt structured, almost methodical, yet never rigid. It allowed creativity to find its place inside a strong framework.",
         ],
         visuals: [
           {
@@ -420,7 +420,7 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "Bringing it to life on Framer",
         body: [
-          "I rebuilt the site on Framer to keep it light and flexible. The final result is live, modern, and already receiving positive reactions.",
+          "After the design matured, I rebuilt the entire site inside Framer, giving it flexibility and motion that traditional builders often lack. The final product reflects the rhythm of the brand, and it continues to grow with new cases and stories. It now lives online as a confident expression of what Apperium stands for.",
         ],
         visuals: [],
       },
