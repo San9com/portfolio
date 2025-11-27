@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useMemo, useEffect, useRef } from "react";
+import { Suspense, useMemo, useEffect, useRef, useState } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { Environment, Float, Lightformer, useTexture } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
@@ -17,6 +17,19 @@ type HeroCanvasProps = {
 
 function HeroScene({ portraitSrc }: HeroCanvasProps) {
   const { viewport } = useThree();
+  const [windowWidth, setWindowWidth] = useState(() => {
+    if (typeof window !== "undefined") return window.innerWidth;
+    return 1920; // Default to desktop
+  });
+
+  useEffect(() => {
+    const updateWidth = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
 
   // Load SVG title texture
   const titleTexture = useTexture("/title.svg", (texture) => {
@@ -86,8 +99,8 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
     return grayscaleTexture;
   }, [basePortraitTexture]);
 
-  // Detect mobile vs desktop
-  const isMobile = viewport.width < 768;
+  // Detect mobile vs desktop using actual window width
+  const isMobile = windowWidth < 768;
 
   // Clean centered layout: Text and image side by side, centered, smaller (DESKTOP)
   // Mobile: Image on top of text, both screen wide
@@ -160,7 +173,7 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
       portraitSize: [portraitWidth, portraitHeight] as [number, number],
       glassPositions,
     };
-  }, [viewport.width, viewport.height, isMobile]);
+  }, [viewport.width, viewport.height, windowWidth]);
 
   return (
     <>
