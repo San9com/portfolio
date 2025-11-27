@@ -48,7 +48,7 @@ export function ExperienceSection() {
             className="max-w-md text-base leading-relaxed text-muted/90 sm:text-lg lg:max-w-lg"
           >
             <AnimatedTextReveal
-              text="From solo product experiments to collaborative agency work, every chapter explores how motion, storytelling, and research elevate the interface."
+              text="From solo product experiments to app agency work. As every chapter brings something new, my love for great design stays."
               delay={0.2}
               stagger={0.02}
             />
