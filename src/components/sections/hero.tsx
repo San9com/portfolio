@@ -62,7 +62,7 @@ export function HeroSection() {
     <section
       id="top"
       ref={sectionRef}
-      className="relative isolate flex min-h-[75svh] w-full items-end justify-center overflow-hidden bg-black px-3 pb-24 pt-40 sm:px-10 sm:pb-20 sm:pt-28 lg:pb-24 hero-no-cursor"
+      className="relative isolate flex min-h-[75svh] w-full items-end justify-center overflow-hidden bg-black px-3 pb-32 pt-56 sm:px-10 sm:pb-20 sm:pt-28 lg:pb-24 hero-no-cursor"
       style={{ zIndex: 1, cursor: "none" }}
       onMouseEnter={(e) => {
         e.currentTarget.style.cursor = "none";
