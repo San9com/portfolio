@@ -208,10 +208,10 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         </motion.h3>
         
         <motion.p 
-          className="text-sm leading-relaxed text-muted"
+          className="hidden text-sm leading-relaxed text-muted md:block"
           initial={false}
           animate={{ 
-            opacity: 1, // Always visible on mobile
+            opacity: 1, // Always visible on desktop
             y: 0,
           }}
           transition={{ 
