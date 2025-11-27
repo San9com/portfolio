@@ -7,10 +7,15 @@ import { Header } from "@/components/header";
 import { projects } from "@/data/projects";
 import { CaseVisualShowcase } from "@/components/case/case-visual";
 
+type CaseVisual = {
+  image: string;
+  alt: string;
+};
+
 type CasePhase = {
   title: string;
   body: string[];
-  visuals: string[];
+  visuals: CaseVisual[];
 };
 
 type CaseContent = {
@@ -30,42 +35,36 @@ const caseContent: Record<string, CaseContent> = {
           "Clustered high-intent search terms and App Store reviews, revealing that fans arrived for telemetry snapshots yet met a static paywall before they felt the value.",
         ],
         visuals: [
-          "Analytics dashboard showing race weekend traffic patterns and conversion drop-off points.",
-          "User journey map highlighting friction points before premium trial activation.",
+          {
+            image: "/FiDB - Dark subscreen.png",
+            alt: "Analytics dashboard showing race weekend traffic patterns and conversion drop-off points.",
+          },
+          {
+            image: "/FiDB - Light standings.png",
+            alt: "User journey map highlighting friction points before premium trial activation.",
+          },
         ],
       },
       {
         title: "Define — conversion hypotheses that feel helpful",
         body: [
           "Established a value ladder that opens premium deltas inside free cards, so each upgrade prompt emerges inside the narrative of a race weekend.",
-          "Reordered navigation around ‘Weekend story, Driver duel, Season arc’ so fans feel guided rather than siloed into features.",
         ],
-        visuals: [
-          "Value ladder visualization showing premium features integrated into free content.",
-          "Navigation restructure with Weekend story, Driver duel, and Season arc sections.",
-        ],
+        visuals: [],
       },
       {
         title: "Design — a tile system built for upsell moments",
         body: [
           "Crafted a modular stat tile with live deltas, heroing what the subscription unlocks through subtle glass layers and motion affordances.",
-          "Reimagined onboarding into a three-step warm-up with social proof, driver spotlights, and calendar hooks leading toward trial activation.",
         ],
-        visuals: [
-          "Modular stat tile design with live deltas and glass layer effects showcasing premium features.",
-          "Three-step onboarding flow with social proof, driver spotlights, and calendar integration.",
-        ],
+        visuals: [],
       },
       {
         title: "Prepare — experiments before the next lights out",
         body: [
           "Outlined multi-variant experiments for trial wording, referral codes, and weekend-specific upgrade banners.",
-          "Partnered with marketing on a race-week content cadence so organic spikes in traffic route directly into the new upgrade loops.",
         ],
-        visuals: [
-          "Multi-variant experiment designs for trial wording and referral code placement.",
-          "Race-week content calendar and upgrade banner designs for marketing integration.",
-        ],
+        visuals: [],
       },
     ],
   },
@@ -76,35 +75,38 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "Immersion in daily rituals",
         body: [
-          "Interviewed Apperium stakeholders about friction in today’s wellness purchases and reframed products as guided rituals that adapt to energy, mood, and time of day.",
+          "Interviewed Apperium stakeholders about friction in today's wellness purchases and reframed products as guided rituals that adapt to energy, mood, and time of day.",
           "Segmented routines—recovery, focus, wind-down—into sensory cues that the app could anticipate with ambient sound, pacing, and reminders.",
         ],
         visuals: [
-          "Stakeholder interview insights and friction points in current wellness purchase flows.",
-          "Ritual segmentation framework showing recovery, focus, and wind-down routines.",
+          {
+            image: "/Case-Elvou-app-concept.png",
+            alt: "Stakeholder interview insights and friction points in current wellness purchase flows.",
+          },
+          {
+            image: "/elvou screen 2.png",
+            alt: "Ritual segmentation framework showing recovery, focus, and wind-down routines.",
+          },
         ],
       },
       {
         title: "Narrative architecture for guided commerce",
         body: [
           "Mapped flows where every product recommendation is introduced as a step in a breathing or movement ritual, reducing the feeling of being sold to.",
-          "Built a bilingual microcopy matrix to keep the tone soft, reassuring, and consultative across Dutch and English surfaces.",
         ],
         visuals: [
-          "Product recommendation flows integrated into breathing and movement rituals.",
-          "Bilingual microcopy matrix for Dutch and English with consultative tone guidelines.",
+          {
+            image: "/elvou screen 3.png",
+            alt: "Product recommendation flows integrated into breathing and movement rituals.",
+          },
         ],
       },
       {
         title: "Pitch delivery with sensory storytelling",
         body: [
           "Packaged the concept into a sales deck that paired metrics (higher ritual completion, repeat orders) with emotive storytelling.",
-          "Presented an interactive prototype with subtle parallax, allowing stakeholders to sense how rituals would evolve with each purchase.",
         ],
-        visuals: [
-          "Sales deck design pairing metrics with emotive storytelling for stakeholder presentation.",
-          "Interactive prototype with subtle parallax effects showing ritual evolution with purchases.",
-        ],
+        visuals: [],
       },
     ],
   },
@@ -119,31 +121,34 @@ const caseContent: Record<string, CaseContent> = {
           "Benchmarked the current experience, measuring completion time and confidence to establish a clear baseline for the redesign.",
         ],
         visuals: [
-          "Corporate pilot listening session findings and pain points in desk finding workflows.",
-          "Current experience benchmark metrics showing completion time and confidence levels.",
+          {
+            image: "/Case-Iotspot.png",
+            alt: "Corporate pilot listening session findings and pain points in desk finding workflows.",
+          },
+          {
+            image: "/iotspot-iterations.png",
+            alt: "Current experience benchmark metrics showing completion time and confidence levels.",
+          },
         ],
       },
       {
         title: "Experience layer rebuilt from the map out",
         body: [
           "Switched the information architecture to start with interactive maps so context, availability, and etiquette live on one canvas.",
-          "Designed teammate locator microinteractions and predictive search chips that surface likely choices before users ask.",
         ],
         visuals: [
-          "Interactive map interface design with context, availability, and etiquette on one canvas.",
-          "Teammate locator microinteractions and predictive search chip designs.",
+          {
+            image: "/images/project-iotspot.png",
+            alt: "Interactive map interface design with context, availability, and etiquette on one canvas.",
+          },
         ],
       },
       {
         title: "Launch prep for a smoother rollout",
         body: [
           "Partnered with engineering to translate the vision into a performant React Native build with budgets for sub-second pinch-zoom.",
-          "Co-wrote the ‘sneak peek’ campaign with product marketing, showcasing visuals that mirror the new navigation flow.",
         ],
-        visuals: [
-          "React Native build architecture with performance budgets for sub-second pinch-zoom.",
-          "Sneak peek campaign visuals mirroring the new navigation flow for product marketing.",
-        ],
+        visuals: [],
       },
     ],
   },
@@ -158,8 +163,14 @@ const caseContent: Record<string, CaseContent> = {
           "Mapped pain points in wayfinding, especially during peak hours when visitors struggle to find exhibits and facilities.",
         ],
         visuals: [
-          "Visitor journey maps showing navigation patterns and engagement drop-off points.",
-          "Conservation messaging audit revealing missed opportunities for deeper connection.",
+          {
+            image: "/Gaia Zoo - Pitch - Persona 1.jpg",
+            alt: "Visitor journey maps showing navigation patterns and engagement drop-off points.",
+          },
+          {
+            image: "/Gaia Zoo - Pitch - Affinity Map (Findings).jpg",
+            alt: "Conservation messaging audit revealing missed opportunities for deeper connection.",
+          },
         ],
       },
       {
@@ -169,8 +180,14 @@ const caseContent: Record<string, CaseContent> = {
           "Created reward system that gamifies conservation learning, encouraging visitors to complete animal discovery challenges.",
         ],
         visuals: [
-          "Adaptive map interface showing dynamic routing based on real-time crowd data.",
-          "Reward system design with conservation challenges and achievement unlocks.",
+          {
+            image: "/Gaia Zoo - Pitch - Feature prioritization matrix.jpg",
+            alt: "Adaptive map interface showing dynamic routing based on real-time crowd data.",
+          },
+          {
+            image: "/Gaia Zoo - Pitch - MoSCoW.jpg",
+            alt: "Reward system design with conservation challenges and achievement unlocks.",
+          },
         ],
       },
       {
@@ -180,8 +197,14 @@ const caseContent: Record<string, CaseContent> = {
           "Designed wayfinding system with clear visual hierarchy and accessibility features for all visitors.",
         ],
         visuals: [
-          "Conservation storytelling interface with narrative-driven content at each exhibit.",
-          "Accessible wayfinding design with clear visual hierarchy and navigation cues.",
+          {
+            image: "/GaiaZoo 2.webp",
+            alt: "Conservation storytelling interface with narrative-driven content at each exhibit.",
+          },
+          {
+            image: "/GaiaZoo 3.webp",
+            alt: "Accessible wayfinding design with clear visual hierarchy and navigation cues.",
+          },
         ],
       },
       {
@@ -191,8 +214,14 @@ const caseContent: Record<string, CaseContent> = {
           "Measured increased visitor engagement with conservation content and improved navigation satisfaction scores.",
         ],
         visuals: [
-          "Final app interface showing real-time map updates and active challenges.",
-          "Analytics dashboard displaying improved engagement metrics and visitor satisfaction.",
+          {
+            image: "/GaiaZoo - summary.png",
+            alt: "Final app interface showing real-time map updates and active challenges.",
+          },
+          {
+            image: "/Gaiazoo 4.webp",
+            alt: "Analytics dashboard displaying improved engagement metrics and visitor satisfaction.",
+          },
         ],
       },
     ],
@@ -208,8 +237,14 @@ const caseContent: Record<string, CaseContent> = {
           "Identified key friction points in wayfinding and the lack of transparency in pricing structures across different networks.",
         ],
         visuals: [
-          "User research findings showing pain points in charger discovery and pricing transparency.",
-          "Journey maps highlighting friction in the charging experience from discovery to payment.",
+          {
+            image: "/Current - empathy map.png.webp",
+            alt: "User research findings showing pain points in charger discovery and pricing transparency.",
+          },
+          {
+            image: "/Current - value+proposition+canvas.webp",
+            alt: "Journey maps highlighting friction in the charging experience from discovery to payment.",
+          },
         ],
       },
       {
@@ -219,31 +254,177 @@ const caseContent: Record<string, CaseContent> = {
           "Defined loyalty program structure that rewards frequent users while maintaining clear value proposition.",
         ],
         visuals: [
-          "Design principles framework and user experience goals for the charging companion.",
-          "Loyalty program structure and reward system design.",
+          {
+            image: "/Current - low-fid.webp",
+            alt: "Design principles framework and user experience goals for the charging companion.",
+          },
+          {
+            image: "/Current 2.webp",
+            alt: "Loyalty program structure and reward system design.",
+          },
         ],
       },
       {
         title: "Design",
         body: [
           "Created intuitive wayfinding interface with real-time charger availability and clear pricing information.",
-          "Designed seamless payment flow and loyalty program integration that rewards consistent usage.",
         ],
         visuals: [
-          "Wayfinding interface design with real-time availability and pricing transparency.",
-          "Payment flow and loyalty program integration showing reward accumulation.",
+          {
+            image: "/Current - high-fid.webp",
+            alt: "Wayfinding interface design with real-time availability and pricing transparency.",
+          },
         ],
       },
       {
         title: "Deliver",
         body: [
           "Launched app with comprehensive charger network coverage and transparent pricing across all locations.",
-          "Achieved high user satisfaction scores for wayfinding clarity and loyalty program engagement.",
         ],
         visuals: [
-          "Final app interface showing comprehensive charger network and pricing information.",
-          "Analytics dashboard displaying user satisfaction metrics and loyalty program engagement.",
+          {
+            image: "/Current 2.webp",
+            alt: "Final app interface showing comprehensive charger network and pricing information.",
+          },
         ],
+      },
+    ],
+  },
+  "mkb-brandstof": {
+    intro:
+      "A digital transformation project for fuel management, streamlining operations and improving user experience for small and medium businesses in the fuel industry.",
+    phases: [
+      {
+        title: "Discover",
+        body: [
+          "Conducted research with MKB Brandstof stakeholders to understand pain points in fuel management operations and identify opportunities for digital improvement.",
+          "Analyzed current workflows and identified key friction points in order processing, inventory management, and customer communication.",
+        ],
+        visuals: [
+          {
+            image: "/MKB-Brandstof-1.png",
+            alt: "Current workflow analysis highlighting friction points in order processing and inventory management.",
+          },
+        ],
+      },
+      {
+        title: "Define",
+        body: [
+          "Established design principles focused on efficiency, clarity, and ease of use for fuel management operations.",
+        ],
+        visuals: [
+          {
+            image: "/MKB-Brandstof-Summary.png",
+            alt: "Design principles framework and user experience goals for the fuel management platform.",
+          },
+        ],
+      },
+      {
+        title: "Design",
+        body: [
+          "Created intuitive interface designs that simplify fuel order management and inventory tracking.",
+        ],
+        visuals: [],
+      },
+      {
+        title: "Deliver",
+        body: [
+          "Launched the digital platform with comprehensive fuel management features and improved user workflows.",
+        ],
+        visuals: [],
+      },
+    ],
+  },
+  "stmpd-records": {
+    intro:
+      "Redesigning the digital experience for STMPD Records, creating a platform that showcases artists and connects fans with the music they love through an immersive, modern interface.",
+    phases: [
+      {
+        title: "Discover",
+        body: [
+          "Researched the music label's brand identity and audience to understand how fans engage with electronic music labels.",
+          "Analyzed competitor platforms and identified opportunities to create a unique digital experience that reflects STMPD's energy and creativity.",
+        ],
+        visuals: [
+          {
+            image: "/STMPD 1.png",
+            alt: "Research findings showing brand identity analysis and fan engagement patterns with electronic music labels.",
+          },
+          {
+            image: "/STMPD Artifacts.png",
+            alt: "Competitive analysis and opportunity mapping for creating a unique digital music label experience.",
+          },
+        ],
+      },
+      {
+        title: "Define",
+        body: [
+          "Established design principles that capture STMPD's bold, energetic brand while maintaining usability and accessibility.",
+        ],
+        visuals: [],
+      },
+      {
+        title: "Design",
+        body: [
+          "Created immersive interface designs that showcase music releases with dynamic visuals and smooth interactions.",
+        ],
+        visuals: [],
+      },
+      {
+        title: "Deliver",
+        body: [
+          "Launched the redesigned platform with enhanced artist showcases and improved fan engagement features.",
+        ],
+        visuals: [],
+      },
+    ],
+  },
+  "apperium-website-redesign": {
+    intro:
+      "A complete redesign of the Apperium website, creating a modern digital presence that reflects the agency's creative capabilities and client work through an immersive, portfolio-driven experience.",
+    phases: [
+      {
+        title: "Discover",
+        body: [
+          "Analyzed the existing Apperium website to understand brand positioning and identify opportunities for a more compelling digital presence.",
+          "Researched competitor agency websites and gathered insights on how creative agencies showcase their work and attract clients.",
+        ],
+        visuals: [
+          {
+            image: "/Apperium - website redesign 1.png",
+            alt: "Analysis of existing Apperium website showing brand positioning and opportunities for improvement.",
+          },
+          {
+            image: "/Apperium website redesign 2.png",
+            alt: "Competitive research and insights on how creative agencies showcase their work effectively.",
+          },
+        ],
+      },
+      {
+        title: "Define",
+        body: [
+          "Established design principles that balance creative expression with clear communication of services and capabilities.",
+        ],
+        visuals: [
+          {
+            image: "/Apperium website redesign 3.png",
+            alt: "Design principles framework balancing creative expression with clear service communication.",
+          },
+        ],
+      },
+      {
+        title: "Design",
+        body: [
+          "Created immersive homepage designs that showcase portfolio work with dynamic interactions and smooth transitions.",
+        ],
+        visuals: [],
+      },
+      {
+        title: "Deliver",
+        body: [
+          "Launched the redesigned website with enhanced portfolio showcases and improved user experience.",
+        ],
+        visuals: [],
       },
     ],
   },
@@ -258,8 +439,14 @@ const defaultCaseContent: CaseContent = {
         "Analysis of existing solutions and identification of opportunities for improvement.",
       ],
       visuals: [
-        "User research findings and discovery insights.",
-        "Competitive analysis and opportunity mapping.",
+        {
+          image: "/images/project-stellar.png",
+          alt: "User research findings and discovery insights.",
+        },
+        {
+          image: "/images/project-stellar.png",
+          alt: "Competitive analysis and opportunity mapping.",
+        },
       ],
     },
     {
@@ -269,8 +456,14 @@ const defaultCaseContent: CaseContent = {
         "Iterative design process with user testing and feedback integration.",
       ],
       visuals: [
-        "Design concepts and user interface explorations.",
-        "Final design solutions and implementation details.",
+        {
+          image: "/images/project-stellar.png",
+          alt: "Design concepts and user interface explorations.",
+        },
+        {
+          image: "/images/project-stellar.png",
+          alt: "Final design solutions and implementation details.",
+        },
       ],
     },
   ],
@@ -278,14 +471,22 @@ const defaultCaseContent: CaseContent = {
 
 function CaseImage({ image, alt }: { image: string; alt: string }) {
   return (
-    <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#0a0a0a]">
-      <Image
-        src={image}
-        alt={alt}
-        fill
-        className="object-cover"
-        sizes="(max-width: 768px) 100vw, 50vw"
-      />
+    <div className="relative w-full overflow-hidden bg-[#0a0a0a]">
+      <div className="relative mx-auto w-full" style={{ maxWidth: "min(100%, 1400px)" }}>
+        <Image
+          src={image}
+          alt={alt}
+          width={1400}
+          height={1400}
+          className="h-auto w-full object-contain"
+          style={{ 
+            maxWidth: "100%", 
+            height: "auto",
+            display: "block"
+          }}
+          sizes="(max-width: 1400px) 100vw, 1400px"
+        />
+      </div>
     </div>
   );
 }
@@ -331,7 +532,11 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
       <main className="bg-black text-foreground">
         <Header overlay />
         <article className="mx-auto flex w-full flex-col">
-          <CaseVisualShowcase image={project.image} alt={`${project.title} hero visual`} />
+          <CaseVisualShowcase 
+            image={project.image} 
+            alt={`${project.title} hero visual`} 
+            brightness={project.slug === "apperium-website-redesign" ? 1.02 : 1}
+          />
           <section className="w-full bg-black px-6 pb-32 pt-16 sm:px-10 sm:pt-24 lg:px-16">
             <div className="mx-auto flex w-full max-w-[1400px] flex-col gap-16">
               <div className="flex items-center justify-between gap-8 text-foreground">
@@ -375,17 +580,20 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
                     
                     {/* Full-width visuals section */}
                     <div className="flex flex-col gap-6">
-                      {phase.visuals.map((label, index) => {
-                        const isLastTwo = phase.visuals.length >= 2 && index >= phase.visuals.length - 2;
-                        const isEvenInLastTwo = isLastTwo && (index - (phase.visuals.length - 2)) % 2 === 0;
-                        const nextIsAlsoLast = isLastTwo && index < phase.visuals.length - 1;
+                      {phase.visuals
+                        .filter((visual) => visual.image !== project.image)
+                        .map((visual, index, filteredVisuals) => {
+                          const isLastTwo = filteredVisuals.length >= 2 && index >= filteredVisuals.length - 2;
+                          const isEvenInLastTwo = isLastTwo && (index - (filteredVisuals.length - 2)) % 2 === 0;
+                          const nextIsAlsoLast = isLastTwo && index < filteredVisuals.length - 1;
                         
                         // If this is the first of the last two items, render both in a grid
                         if (isEvenInLastTwo && nextIsAlsoLast) {
+                            const nextVisual = filteredVisuals[index + 1];
                           return (
                             <div key={`${phase.title}-visual-grid-${index}`} className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-                              <CaseImage image={project.image} alt={`${project.title} - ${label}`} />
-                              <CaseImage image={project.image} alt={`${project.title} - ${phase.visuals[index + 1]}`} />
+                                <CaseImage image={visual.image} alt={visual.alt} />
+                                <CaseImage image={nextVisual.image} alt={nextVisual.alt} />
                             </div>
                           );
                         }
@@ -396,7 +604,7 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
                         }
                         
                         // Render single full-width visual
-                        return <CaseImage key={`${phase.title}-visual-${index}`} image={project.image} alt={`${project.title} - ${label}`} />;
+                          return <CaseImage key={`${phase.title}-visual-${index}`} image={visual.image} alt={visual.alt} />;
                       })}
                     </div>
                   </section>

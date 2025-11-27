@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useMemo } from "react";
+import { Suspense, useMemo, useEffect, useRef } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { Environment, Float, Lightformer, useTexture } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
@@ -194,22 +194,63 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
 }
 
 export function HeroCanvas(props: HeroCanvasProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const hideCursor = () => {
+      if (containerRef.current) {
+        const canvas = containerRef.current.querySelector("canvas");
+        if (canvas) {
+          canvas.style.cursor = "none";
+        }
+      }
+    };
+
+    // Hide cursor immediately
+    hideCursor();
+
+    // Also hide on any mouse events
+    const handleMouseMove = () => {
+      hideCursor();
+      document.body.style.cursor = "none";
+      document.documentElement.style.cursor = "none";
+    };
+
+    document.addEventListener("mousemove", handleMouseMove);
+    
+    // Use MutationObserver to catch canvas when it's added
+    const observer = new MutationObserver(hideCursor);
+    if (containerRef.current) {
+      observer.observe(containerRef.current, {
+        childList: true,
+        subtree: true,
+      });
+    }
+
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      observer.disconnect();
+    };
+  }, []);
+
   return (
-    <Canvas
-      className="h-full w-full hero-no-cursor"
-      style={{ cursor: "none" }}
-      camera={{ position: [0, 0, 10], fov: 50 }}
-      dpr={[1, 2]}
-      gl={{ 
-        antialias: true,
-        alpha: true,
-        powerPreference: "high-performance",
-      }}
-      frameloop="always"
-    >
-      <Suspense fallback={null}>
-        <HeroScene {...props} />
-      </Suspense>
-    </Canvas>
+    <div ref={containerRef} className="h-full w-full hero-no-cursor" style={{ cursor: "none" }}>
+      <Canvas
+        className="h-full w-full hero-no-cursor"
+        style={{ cursor: "none" }}
+        camera={{ position: [0, 0, 10], fov: 50 }}
+        dpr={[1, 2]}
+        gl={{ 
+          antialias: true,
+          alpha: true,
+          powerPreference: "high-performance",
+        }}
+        frameloop="always"
+      >
+        <Suspense fallback={null}>
+          <HeroScene {...props} />
+        </Suspense>
+      </Canvas>
+    </div>
   );
 }

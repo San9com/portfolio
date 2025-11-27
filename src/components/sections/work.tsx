@@ -39,7 +39,7 @@ export function WorkSection() {
             className="flex items-center gap-2 text-sm text-foreground/70"
             delay={0.1}
           >
-            <span>Discover projects</span>
+            <span>These are my favourite</span>
             <span aria-hidden="true" className="text-base leading-none">
               ↓
             </span>
@@ -115,7 +115,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
       onKeyDown={handleKeyDown}
       initial={false}
       animate={{
-        flex: isActive ? 1.5 : 0.55,
+        flex: isActive ? 2.2 : 0.4,
       }}
       transition={{ 
         duration: 0.35, // Faster for better performance

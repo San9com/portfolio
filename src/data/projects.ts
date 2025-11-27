@@ -15,7 +15,7 @@ export const projects: Project[] = [
     title: "FiDB Redesign",
     description:
       "Repositioning the beloved F1 stats companion to convert organic race-week traffic into subscription momentum.",
-    image: "/Case-fidb.png",
+    image: "/FiDB - Dark subscreen.png",
     slug: "fidb-redesign",
     accent: "#a8b4ff",
   },
@@ -58,6 +58,36 @@ export const projects: Project[] = [
     image: "/images/project-stellar.png",
     slug: "current-ev-charging-app",
     accent: "#ef92c2",
+  },
+  {
+    id: "mkb-brandstof",
+    year: "2024",
+    title: "MKB Brandstof",
+    description:
+      "A digital transformation project for fuel management, streamlining operations and improving user experience for small and medium businesses.",
+    image: "/Case-MKB-Brandstof.png",
+    slug: "mkb-brandstof",
+    accent: "#ffa85c",
+  },
+  {
+    id: "stmpd",
+    year: "2024",
+    title: "STMPD Records",
+    description:
+      "Redesigning the digital experience for STMPD Records, creating a platform that showcases artists and connects fans with the music they love.",
+    image: "/STMPD 1.png",
+    slug: "stmpd-records",
+    accent: "#8b5cf6",
+  },
+  {
+    id: "apperium-website",
+    year: "2024",
+    title: "Apperium Website Redesign",
+    description:
+      "A complete redesign of the Apperium website, creating a modern digital presence that reflects the agency's creative capabilities and client work.",
+    image: "/Apperium - website redesign 1.png",
+    slug: "apperium-website-redesign",
+    accent: "#6b9fff",
   },
 ];
 

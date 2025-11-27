@@ -8,11 +8,12 @@ import { getLenis } from "@/components/providers/smooth-scroll-provider";
 type CaseVisualShowcaseProps = {
   image: string;
   alt: string;
+  brightness?: number;
 };
 
 const FRAME_RATIO = 3082 / 2287;
 
-export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
+export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualShowcaseProps) {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -130,7 +131,15 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
       >
         <div className="pointer-events-none sticky top-0 h-[100svh] overflow-hidden">
           <div className="relative h-full w-full">
-            <Image src={image} alt={alt} fill priority sizes="100vw" className="object-cover" />
+            <Image 
+              src={image} 
+              alt={alt} 
+              fill 
+              priority 
+              sizes="100vw" 
+              className="object-cover" 
+              style={{ filter: `brightness(${brightness})` }}
+            />
             <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-black via-black/25 to-transparent" style={{ willChange: "opacity" }} />
           </div>
         </div>
@@ -156,7 +165,15 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
         >
           <div className="relative h-full w-full">
             <motion.div style={{ clipPath }} className="absolute inset-0">
-              <Image src={image} alt={alt} fill priority sizes="100vw" className="object-cover" />
+              <Image 
+                src={image} 
+                alt={alt} 
+                fill 
+                priority 
+                sizes="100vw" 
+                className="object-cover" 
+                style={{ filter: `brightness(${brightness})` }}
+              />
             </motion.div>
             <div className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-t from-black via-black/25 to-transparent" />
             {frameVisible ? (

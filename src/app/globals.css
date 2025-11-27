@@ -276,7 +276,12 @@ a {
 section[id="top"],
 section[id="top"] *,
 section[id="top"] *::before,
-section[id="top"] *::after {
+section[id="top"] *::after,
+section[id="top"] canvas,
+section[id="top"] canvas *,
+section[id="top"] > div,
+section[id="top"] > div *,
+section[id="top"] > div canvas {
   cursor: none !important;
   pointer-events: auto;
 }
@@ -287,7 +292,9 @@ body.hero-cursor-hidden *,
 body.hero-cursor-hidden *::before,
 body.hero-cursor-hidden *::after,
 html.hero-cursor-hidden,
-html.hero-cursor-hidden * {
+html.hero-cursor-hidden *,
+body.hero-cursor-hidden canvas,
+html.hero-cursor-hidden canvas {
   cursor: none !important;
 }
 

@@ -64,6 +64,16 @@ export function HeroSection() {
       ref={sectionRef}
       className="relative isolate flex min-h-[75svh] w-full items-end justify-center overflow-hidden bg-black px-3 pb-16 pt-28 sm:px-10 sm:pb-20 lg:pb-24 hero-no-cursor"
       style={{ zIndex: 1, cursor: "none" }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.cursor = "none";
+        document.body.style.cursor = "none";
+        document.documentElement.style.cursor = "none";
+      }}
+      onMouseMove={(e) => {
+        e.currentTarget.style.cursor = "none";
+        document.body.style.cursor = "none";
+        document.documentElement.style.cursor = "none";
+      }}
     >
       <div className="sr-only">
         <p>{heroCopy.introScript}</p>
@@ -78,6 +88,16 @@ export function HeroSection() {
         transition={{ delay: 0.2, duration: 0.9, ease: "easeOut" }}
         className="absolute inset-0 hero-no-cursor"
         style={{ cursor: "none" }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.cursor = "none";
+          const canvas = e.currentTarget.querySelector("canvas");
+          if (canvas) canvas.style.cursor = "none";
+        }}
+        onMouseMove={(e) => {
+          e.currentTarget.style.cursor = "none";
+          const canvas = e.currentTarget.querySelector("canvas");
+          if (canvas) canvas.style.cursor = "none";
+        }}
       >
         <HeroCanvas
           headlineLines={headlineLines}
