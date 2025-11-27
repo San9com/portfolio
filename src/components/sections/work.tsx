@@ -150,7 +150,6 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         backfaceVisibility: "hidden",
       }}
       tabIndex={0}
-      style={{ backfaceVisibility: "hidden" }}
     >
       {/* Subtle hover glow - optimized */}
       <motion.div

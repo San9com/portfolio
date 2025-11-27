@@ -423,7 +423,7 @@ export function Header({ overlay = false }: HeaderProps) {
         <motion.button
           type="button"
           className={clsx(
-            "flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-base text-foreground transition-colors hover:border-white/40 hover:text-white md:hidden",
+            "flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-sm text-foreground transition-colors hover:border-white/40 hover:text-white md:hidden",
             mobileButtonClasses
           )}
           onClick={() => setMenuOpen((prev) => !prev)}
