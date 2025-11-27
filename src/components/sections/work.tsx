@@ -46,7 +46,7 @@ export function WorkSection() {
           </AnimatedText>
         </div>
 
-        <div className="flex flex-col gap-6 lg:h-[48rem] lg:flex-row">
+        <div className="flex flex-col gap-6 md:gap-6 lg:h-[48rem] lg:flex-row">
           {projects.map((project, index) => {
             const isActive = activeIndex === index;
 
@@ -122,7 +122,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         ease: [0.4, 0, 0.2, 1],
         layout: { duration: 0.35 } // Faster layout transitions
       }}
-      className="group relative flex min-h-[112rem] md:min-h-[33rem] flex-1 flex-col justify-end overflow-hidden rounded bg-black/40 will-change-[flex] cursor-pointer touch-manipulation"
+      className="group relative flex min-h-[200vh] md:min-h-[33rem] flex-1 flex-col justify-end overflow-hidden rounded bg-black/40 will-change-[flex] cursor-pointer touch-manipulation"
       tabIndex={0}
       style={{ backfaceVisibility: "hidden", WebkitTapHighlightColor: "transparent" }}
     >

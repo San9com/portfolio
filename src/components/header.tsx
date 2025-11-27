@@ -500,11 +500,11 @@ export function Header({ overlay = false }: HeaderProps) {
                       key={link.href}
                       href={linkHref}
                       onClick={handleClick}
-                className={clsx(
-                        "flex flex-1 items-center w-[95vw] text-[min(20vw,6rem)] font-light text-foreground/90 transition-colors hover:text-foreground",
+                      className={clsx(
+                        "flex flex-1 items-center w-[95vw] text-[min(35vw,10rem)] font-light text-foreground/90 transition-colors hover:text-foreground",
                         "md:w-auto md:px-10 md:text-[min(16vw,4rem)]",
                         index !== navigationLinks.length - 1 && "border-b border-white/[0.08]"
-                )}
+                      )}
               >
                       {link.label.charAt(0).toUpperCase() + link.label.slice(1)}
               </Link>
