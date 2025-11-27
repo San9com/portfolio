@@ -51,7 +51,7 @@ export const projects: Project[] = [
   },
   {
     id: "current",
-    year: "2025",
+    year: "2024",
     title: "Current EV Charging App",
     description:
       "An EV charging companion structured around design thinking sprints for wayfinding, pricing clarity, and loyalty loops.",
@@ -71,7 +71,7 @@ export const projects: Project[] = [
   },
   {
     id: "stmpd",
-    year: "2024",
+    year: "2025-2026",
     title: "STMPD Records",
     description:
       "Redesigning the digital experience for STMPD Records, creating a platform that showcases artists and connects fans with the music they love.",
@@ -81,7 +81,7 @@ export const projects: Project[] = [
   },
   {
     id: "apperium-website",
-    year: "2024",
+    year: "2025",
     title: "Apperium Website Redesign",
     description:
       "A complete redesign of the Apperium website, creating a modern digital presence that reflects the agency's creative capabilities and client work.",
