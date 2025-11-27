@@ -122,9 +122,9 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         ease: [0.4, 0, 0.2, 1],
         layout: { duration: 0.35 } // Faster layout transitions
       }}
-      className="group relative flex min-h-[56rem] md:min-h-[33rem] flex-1 flex-col justify-end overflow-hidden rounded bg-black/40 will-change-[flex] cursor-pointer touch-manipulation"
+      className="group relative flex min-h-[33rem] flex-1 flex-col justify-end overflow-hidden rounded bg-black/40 will-change-[flex] cursor-pointer"
       tabIndex={0}
-      style={{ backfaceVisibility: "hidden", WebkitTapHighlightColor: "transparent" }}
+      style={{ backfaceVisibility: "hidden" }}
     >
       {/* Subtle hover glow - optimized */}
       <motion.div
@@ -173,7 +173,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
 
       {/* Content with smooth animations */}
       <motion.div
-        className="relative z-10 flex flex-col gap-4 p-6 mobile-always-visible"
+        className="relative z-10 flex flex-col gap-4 p-6"
         initial={false}
         animate={{
           y: isActive ? 0 : 10,
@@ -190,7 +190,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         }}
       >
         <motion.div 
-          className="text-xs text-white/80 mobile-always-visible"
+          className="text-xs text-white/80"
           initial={false}
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 0.2, delay: isActive ? 0.05 : 0 }}
@@ -199,7 +199,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         </motion.div>
         
         <motion.h3 
-          className="text-3xl text-foreground lg:text-[2.4rem] mobile-always-visible"
+          className="text-3xl text-foreground lg:text-[2.4rem]"
           initial={false}
           animate={{ opacity: isActive ? 1 : 0 }}
           transition={{ duration: 0.25, delay: isActive ? 0.08 : 0 }}
@@ -208,7 +208,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         </motion.h3>
         
         <motion.p 
-          className="text-sm leading-relaxed text-muted mobile-always-visible"
+          className="text-sm leading-relaxed text-muted"
           initial={false}
           animate={{ 
             opacity: isActive ? 1 : 0,
@@ -224,7 +224,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         </motion.p>
         
         <motion.span
-          className="pointer-events-none mt-3 inline-flex items-center gap-2 text-sm font-normal text-white mobile-always-visible"
+          className="pointer-events-none mt-3 inline-flex items-center gap-2 text-sm font-normal text-white"
           initial={false}
           animate={{ 
             opacity: isActive ? 1 : 0,

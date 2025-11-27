@@ -46,22 +46,22 @@ export function Footer() {
             <p className="text-white/80">{profile.name}</p>
             <p className="text-white/60">{profile.title}</p>
             <p className="text-white/50">{contact.location}</p>
-          </div>
+        </div>
 
           <div className="space-y-3">
             <div className="flex flex-col gap-2">
-              {contact.socials.map((social) => (
+            {contact.socials.map((social) => (
                 <motion.a
-                  key={social.label}
-                  href={social.href}
+                key={social.label}
+                href={social.href}
                   className="w-fit text-white/70 transition-colors hover:text-white"
                   whileHover={{ x: 6 }}
-                  target={social.href.startsWith("http") ? "_blank" : undefined}
-                  rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                >
-                  {social.label}
+                target={social.href.startsWith("http") ? "_blank" : undefined}
+                rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
+              >
+                {social.label}
                 </motion.a>
-              ))}
+            ))}
             </div>
           </div>
 
@@ -116,20 +116,20 @@ export function Footer() {
                 
                 return (
                   <motion.div key={item.href} whileHover={{ x: 6 }}>
-                    <Link
+          <Link
                       href={linkHref}
                       onClick={handleClick}
                       className="w-fit transition-colors hover:text-white"
-                    >
+          >
                       {item.label}
-                    </Link>
+          </Link>
                   </motion.div>
                 );
               })}
             </div>
           </div>
         </div>
-      </div>
+        </div>
 
       <div className="overflow-hidden border-t border-white/10 bg-black">
         <div className="flex flex-col items-center gap-8 py-12 sm:gap-10 sm:py-16">

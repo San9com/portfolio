@@ -322,9 +322,9 @@ export function Header({ overlay = false }: HeaderProps) {
       <div className="pointer-events-auto relative mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-6 sm:px-10">
         <Link href="/" className={clsx("text-sm transition-colors", brandTextClasses)}>
           <motion.span
-          initial={{ opacity: 0, y: -12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
           >
             murashka
           </motion.span>
@@ -379,11 +379,11 @@ export function Header({ overlay = false }: HeaderProps) {
             
             return (
               <MotionLink
-              key={link.href}
+                key={link.href}
                 href={linkHref}
                 onClick={handleClick}
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: -12 }}
+                animate={{ opacity: 1, y: 0 }}
                 className={clsx("text-sm transition-colors", navLinkClasses)}
               >
                 <MotionSpan
@@ -423,8 +423,7 @@ export function Header({ overlay = false }: HeaderProps) {
         <button
           type="button"
           className={clsx(
-            "flex scale-125 items-center justify-center gap-2 rounded px-4 py-2 text-base transition-colors md:hidden",
-            "min-h-[44px] min-w-[44px] touch-manipulation",
+            "flex scale-125 items-center gap-2 rounded px-4 py-2 text-base transition-colors md:hidden",
             mobileButtonClasses
           )}
           onClick={() => setMenuOpen((prev) => !prev)}
@@ -448,7 +447,7 @@ export function Header({ overlay = false }: HeaderProps) {
             >
               <motion.button
                 type="button"
-                className="absolute right-6 top-6 rounded-full border border-white/20 px-4 py-2 text-sm text-foreground transition-colors hover:border-white/40 hover:text-white min-h-[44px] min-w-[44px] touch-manipulation"
+                className="absolute right-6 top-6 rounded-full border border-white/20 px-4 py-2 text-sm text-foreground transition-colors hover:border-white/40 hover:text-white"
                 onClick={() => setMenuOpen(false)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.96 }}
@@ -496,18 +495,17 @@ export function Header({ overlay = false }: HeaderProps) {
                     : link.href;
                   
                   return (
-              <Link
+                    <Link
                       key={link.href}
                       href={linkHref}
                       onClick={handleClick}
                       className={clsx(
-                        "flex flex-1 items-center w-[95vw] text-[min(35vw,10rem)] font-light text-foreground/90 transition-colors hover:text-foreground",
-                        "md:w-auto md:px-10 md:text-[min(16vw,4rem)]",
+                        "flex flex-1 items-center px-10 text-[min(16vw,4rem)] font-light text-foreground/90 transition-colors hover:text-foreground",
                         index !== navigationLinks.length - 1 && "border-b border-white/[0.08]"
                       )}
-              >
+                    >
                       {link.label.charAt(0).toUpperCase() + link.label.slice(1)}
-              </Link>
+                    </Link>
                   );
                 })}
               </div>

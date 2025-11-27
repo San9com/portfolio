@@ -544,14 +544,14 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
             alt={`${project.title} hero visual`} 
             brightness={project.slug === "apperium-website-redesign" ? 1.02 : 1}
           />
-          <section className="w-full bg-black px-6 pb-32 pt-6 sm:px-10 sm:pt-12 md:pt-16 lg:px-16 lg:pt-24">
-            <div className="mx-auto flex w-full max-w-[1400px] flex-col gap-8 md:gap-16">
-              <div className="sticky top-20 z-20 flex items-center justify-between gap-8 text-foreground sm:top-24 md:top-28">
+          <section className="w-full bg-black px-6 pb-32 pt-16 sm:px-10 sm:pt-24 lg:px-16">
+            <div className="mx-auto flex w-full max-w-[1400px] flex-col gap-16">
+              <div className="sticky top-24 z-20 flex items-center justify-between gap-8 text-foreground sm:top-28">
                 <BackHomeButton />
               </div>
 
               {/* Hero Section - Matches reference style */}
-              <div className="flex flex-col gap-6 text-foreground md:gap-8 lg:flex-row lg:items-start lg:justify-between lg:gap-16">
+              <div className="flex flex-col gap-8 text-foreground lg:flex-row lg:items-start lg:justify-between lg:gap-16">
                 <div className="flex flex-col gap-6 lg:flex-1">
                   <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-light leading-[1.1] tracking-tight">
                     {project.slug === "stmpd-records" ? "STMPD Records (Martin Garrix)" : project.title}

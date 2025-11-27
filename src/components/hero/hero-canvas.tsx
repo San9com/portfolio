@@ -86,48 +86,8 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
     return grayscaleTexture;
   }, [basePortraitTexture]);
 
-  // Detect mobile
-  const isMobile = viewport.width < 768;
-
   // Clean centered layout: Text and image side by side, centered, smaller
   const layout = useMemo(() => {
-    if (isMobile) {
-      // Mobile: Image on top, text below, both scaled to screen width
-      const margin = viewport.width * 0.05; // Small margins
-      const gap = viewport.height * 0.03; // Gap between image and text
-      
-      const svgAspect = 1072 / 427; // title.svg aspect ratio
-      const portraitAspect = 1;
-      
-      // Scale to screen width (with small margins)
-      const contentWidth = viewport.width - margin * 2;
-      
-      // Portrait: full width
-      const portraitWidth = contentWidth;
-      const portraitHeight = (portraitWidth / portraitAspect) * 0.6; // 60% height to match mask
-      
-      // Text: also full width
-      const svgWidth = contentWidth;
-      const svgHeight = svgWidth / svgAspect;
-      
-      // Center horizontally
-      const svgX = 0;
-      const portraitX = 0;
-      
-      // Stack vertically: image on top, text below
-      const portraitY = viewport.height * 0.15; // Start from top
-      const svgY = portraitY - portraitHeight / 2 - gap - svgHeight / 2; // Text below image
-
-      return {
-        svgPosition: [svgX, svgY, -0.2] as [number, number, number],
-        svgSize: [svgWidth, svgHeight] as [number, number],
-        portraitPosition: [portraitX, portraitY, -0.2] as [number, number, number],
-        portraitSize: [portraitWidth, portraitHeight] as [number, number],
-        glassPositions: [] as [number, number, number][],
-      };
-    }
-    
-    // Desktop: original side-by-side layout
     const margin = viewport.width * 0.1; // Generous clean margins
     const gap = viewport.width * 0.04; // Clean gap between elements
     
@@ -163,7 +123,7 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
       portraitSize: [portraitWidth, portraitHeight] as [number, number],
       glassPositions,
     };
-  }, [viewport.width, viewport.height, isMobile]);
+  }, [viewport.width, viewport.height]);
 
   return (
     <>
@@ -192,7 +152,7 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
         <meshBasicMaterial map={portraitTexture} toneMapped={false} transparent />
       </mesh>
 
-      {/* Single magnifying glass lens following cursor over text (desktop) or gyroscope physics (mobile) */}
+      {/* Single magnifying glass lens following cursor over text */}
       <GlassLens
         position={[layout.svgPosition[0], layout.svgPosition[1], 0.3]}
         speed={0.15}
@@ -200,7 +160,6 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
         radius={0.84}
         scale={2.1}
         travelWidth={layout.svgSize[0]}
-        isMobile={isMobile}
       />
 
       <Environment resolution={256}>
