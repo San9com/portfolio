@@ -143,7 +143,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         ease: [0.4, 0, 0.2, 1],
         layout: { duration: 0.35 } // Faster layout transitions
       } : {}}
-      className="group relative flex min-h-[28rem] flex-1 flex-col justify-end overflow-hidden rounded bg-black/40 will-change-[flex] cursor-pointer sm:min-h-[33rem]"
+      className="group relative flex min-h-[42rem] flex-1 flex-col justify-end overflow-hidden rounded bg-black/40 will-change-[flex] cursor-pointer lg:min-h-[33rem]"
       tabIndex={0}
       style={{ backfaceVisibility: "hidden" }}
     >
@@ -193,78 +193,114 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
       />
 
       {/* Content with smooth animations */}
-      <motion.div
-        className="relative z-10 flex flex-col gap-4 p-6"
-        initial={false}
-        animate={isDesktop ? {
-          y: isActive ? 0 : 10,
-          opacity: isActive ? 1 : 0,
-        } : {
-          y: 0,
-          opacity: 1,
-        }}
-        transition={isDesktop ? {
-          duration: 0.35,
-          ease: [0.4, 0, 0.2, 1],
-          opacity: { duration: 0.25 }
-        } : {}}
-        style={{
-          pointerEvents: isDesktop ? (isActive ? "auto" : "none") : "auto",
-          willChange: "transform, opacity",
-        }}
-      >
-        <motion.div 
-          className="text-xs text-white/80"
+      {isDesktop ? (
+        <motion.div
+          className="relative z-10 flex flex-col gap-4 p-6"
           initial={false}
-          animate={{ opacity: isDesktop ? (isActive ? 1 : 0) : 1 }}
-          transition={{ duration: 0.2, delay: isDesktop && isActive ? 0.05 : 0 }}
+          animate={{
+            y: isActive ? 0 : 10,
+            opacity: isActive ? 1 : 0,
+          }}
+          transition={{
+            duration: 0.35,
+            ease: [0.4, 0, 0.2, 1],
+            opacity: { duration: 0.25 }
+          }}
+          style={{
+            pointerEvents: isActive ? "auto" : "none",
+            willChange: "transform, opacity",
+          }}
         >
-          {project.year}
+          <motion.div 
+            className="text-xs text-white/80"
+            initial={false}
+            animate={{ opacity: isActive ? 1 : 0 }}
+            transition={{ duration: 0.2, delay: isActive ? 0.05 : 0 }}
+          >
+            {project.year}
+          </motion.div>
+          
+          <motion.h3 
+            className="text-3xl text-foreground lg:text-[2.4rem]"
+            initial={false}
+            animate={{ opacity: isActive ? 1 : 0 }}
+            transition={{ duration: 0.25, delay: isActive ? 0.08 : 0 }}
+          >
+            {project.title}
+          </motion.h3>
+          
+          <motion.p 
+            className="text-sm leading-relaxed text-muted"
+            initial={false}
+            animate={{ 
+              opacity: isActive ? 1 : 0,
+              y: isActive ? 0 : 8,
+            }}
+            transition={{ 
+              duration: 0.3, 
+              delay: isActive ? 0.12 : 0,
+              ease: [0.4, 0, 0.2, 1]
+            }}
+          >
+            {project.description}
+          </motion.p>
+          
+          <motion.span
+            className="pointer-events-none mt-3 inline-flex items-center gap-2 text-sm font-normal text-white"
+            initial={false}
+            animate={{ 
+              opacity: isActive ? 1 : 0,
+              x: isHovered ? 4 : 0,
+            }}
+            transition={{ 
+              opacity: { duration: 0.25, delay: isActive ? 0.15 : 0 },
+              x: { duration: 0.2, ease: "easeOut" }
+            }}
+          >
+            Read case
+            <span aria-hidden="true" className="text-lg">
+              ↗
+            </span>
+          </motion.span>
         </motion.div>
-        
-        <motion.h3 
-          className="text-3xl text-foreground lg:text-[2.4rem]"
-          initial={false}
-          animate={{ opacity: isDesktop ? (isActive ? 1 : 0) : 1 }}
-          transition={{ duration: 0.25, delay: isDesktop && isActive ? 0.08 : 0 }}
-        >
-          {project.title}
-        </motion.h3>
-        
-        <motion.p 
-          className="text-sm leading-relaxed text-muted"
-          initial={false}
-          animate={{ 
-            opacity: isDesktop ? (isActive ? 1 : 0) : 1,
-            y: isDesktop ? (isActive ? 0 : 8) : 0,
-          }}
-          transition={{ 
-            duration: 0.3, 
-            delay: isDesktop && isActive ? 0.12 : 0,
-            ease: [0.4, 0, 0.2, 1]
-          }}
-        >
-          {project.description}
-        </motion.p>
-        
-        <motion.span
-          className="pointer-events-none mt-3 inline-flex items-center gap-2 text-sm font-normal text-white"
-          initial={false}
-          animate={{ 
-            opacity: isDesktop ? (isActive ? 1 : 0) : 1,
-            x: isHovered ? 4 : 0,
-          }}
-          transition={{ 
-            opacity: { duration: 0.25, delay: isDesktop && isActive ? 0.15 : 0 },
-            x: { duration: 0.2, ease: "easeOut" }
-          }}
-        >
-          Read case
-          <span aria-hidden="true" className="text-lg">
-            ↗
-          </span>
-        </motion.span>
-      </motion.div>
+      ) : (
+        <div className="relative z-10 flex flex-col gap-4 p-6">
+          <AnimatedText
+            as="div"
+            className="text-xs text-white/80"
+            delay={0.1 + index * 0.08}
+          >
+            {project.year}
+          </AnimatedText>
+          
+          <AnimatedText
+            as="h3"
+            className="text-3xl text-foreground"
+            delay={0.15 + index * 0.08}
+          >
+            {project.title}
+          </AnimatedText>
+          
+          <AnimatedText
+            as="p"
+            className="text-sm leading-relaxed text-muted"
+            delay={0.2 + index * 0.08}
+          >
+            {project.description}
+          </AnimatedText>
+          
+          <AnimatedText
+            as="span"
+            className="pointer-events-none mt-3 inline-flex items-center gap-2 text-sm font-normal text-white"
+            delay={0.25 + index * 0.08}
+          >
+            Read case
+            <span aria-hidden="true" className="text-lg">
+              ↗
+            </span>
+          </AnimatedText>
+        </div>
+      )}
     </motion.article>
   );
 }
