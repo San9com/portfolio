@@ -322,9 +322,9 @@ export function Header({ overlay = false }: HeaderProps) {
       <div className="pointer-events-auto relative mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-6 sm:px-10">
         <Link href="/" className={clsx("text-sm transition-colors", brandTextClasses)}>
           <motion.span
-            initial={{ opacity: 0, y: -12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+          initial={{ opacity: 0, y: -12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           >
             murashka
           </motion.span>
@@ -379,11 +379,11 @@ export function Header({ overlay = false }: HeaderProps) {
             
             return (
               <MotionLink
-                key={link.href}
+              key={link.href}
                 href={linkHref}
                 onClick={handleClick}
-                initial={{ opacity: 0, y: -12 }}
-                animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
                 className={clsx("text-sm transition-colors", navLinkClasses)}
               >
                 <MotionSpan
@@ -410,7 +410,7 @@ export function Header({ overlay = false }: HeaderProps) {
                           },
                         },
                       }}
-                    >
+            >
                       {char}
                     </MotionSpan>
                   ))}
@@ -420,19 +420,21 @@ export function Header({ overlay = false }: HeaderProps) {
           })}
         </nav>
 
-        <button
+        <motion.button
           type="button"
           className={clsx(
-            "flex scale-125 items-center gap-2 rounded px-4 py-2 text-base transition-colors md:hidden",
+            "rounded-full border border-white/20 px-5 py-3 text-base text-foreground transition-colors hover:border-white/40 hover:text-white md:hidden",
             mobileButtonClasses
           )}
           onClick={() => setMenuOpen((prev) => !prev)}
           aria-expanded={menuOpen}
           aria-controls="mobile-nav"
           aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.96 }}
         >
           {menuOpen ? "Close" : "☰"}
-        </button>
+        </motion.button>
 
         <AnimatePresence>
           {menuOpen ? (
@@ -517,8 +519,8 @@ export function Header({ overlay = false }: HeaderProps) {
                         >
                           {link.label.charAt(0).toUpperCase() + link.label.slice(1)}
                         </motion.span>
-                      </Link>
-                    </motion.div>
+              </Link>
+            </motion.div>
                   );
                 })}
               </div>
