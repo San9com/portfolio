@@ -34,7 +34,7 @@ export function WorkSection() {
     <section
       id="work"
       ref={sectionRef}
-      className="bg-black px-6 pb-32 sm:px-10 sm:pb-40 lg:sticky lg:top-0"
+      className="bg-black px-6 pt-16 pb-32 sm:px-10 sm:pb-40 lg:sticky lg:top-0 lg:pt-0"
       style={{ zIndex: 2 }}
     >
       <motion.div
@@ -151,10 +151,10 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
-        initial={false}
-        animate={{
+                initial={false}
+                animate={{
           opacity: isHovered ? 0.12 : 0,
-        }}
+                }}
         transition={{ duration: 0.3, ease: "easeOut" }}
         style={{
           background: "radial-gradient(circle at center, rgba(255,255,255,0.2), transparent 70%)",
@@ -169,17 +169,17 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
           y: translateY,
           willChange: "transform",
         }}
-      >
-        <Image
-          src={project.image}
-          alt={`${project.title} preview`}
-          fill
+              >
+                <Image
+                  src={project.image}
+                  alt={`${project.title} preview`}
+                  fill
           className={clsx(
             "h-full w-full object-cover transition-all duration-500 ease-out will-change-transform",
             isHovered ? "scale-[1.02] grayscale" : "scale-100 grayscale-0"
           )}
-          priority={index === 0}
-        />
+                  priority={index === 0}
+                />
       </motion.div>
 
       {/* Gradient overlay */}
@@ -190,7 +190,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
           opacity: isDesktop ? (isActive ? 1 : 0.6) : 1,
         }}
         transition={{ duration: 0.3 }}
-      />
+                />
 
       {/* Content with smooth animations */}
       {isDesktop ? (
@@ -216,7 +216,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
             initial={false}
             animate={{ opacity: isActive ? 1 : 0 }}
             transition={{ duration: 0.2, delay: isActive ? 0.05 : 0 }}
-          >
+                >
             {project.year}
           </motion.div>
           
@@ -260,7 +260,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
             Read case
             <span aria-hidden="true" className="text-lg">
               ↗
-            </span>
+                    </span>
           </motion.span>
         </motion.div>
       ) : (
@@ -293,11 +293,11 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
             as="span"
             className="pointer-events-none mt-3 inline-flex items-center gap-2 text-sm font-normal text-white"
             delay={0.25 + index * 0.08}
-          >
-            Read case
+                  >
+                    Read case
             <span aria-hidden="true" className="text-lg">
               ↗
-            </span>
+                    </span>
           </AnimatedText>
         </div>
       )}
