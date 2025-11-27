@@ -122,9 +122,9 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         ease: [0.4, 0, 0.2, 1],
         layout: { duration: 0.35 } // Faster layout transitions
       }}
-      className="group relative flex min-h-[33rem] flex-1 flex-col justify-end overflow-hidden rounded bg-black/40 will-change-[flex] cursor-pointer"
+      className="group relative flex min-h-[33rem] flex-1 flex-col justify-end overflow-hidden rounded bg-black/40 will-change-[flex] cursor-pointer touch-manipulation"
       tabIndex={0}
-      style={{ backfaceVisibility: "hidden" }}
+      style={{ backfaceVisibility: "hidden", WebkitTapHighlightColor: "transparent" }}
     >
       {/* Subtle hover glow - optimized */}
       <motion.div

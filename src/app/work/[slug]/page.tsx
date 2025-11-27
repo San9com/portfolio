@@ -546,7 +546,7 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
           />
           <section className="w-full bg-black px-6 pb-32 pt-16 sm:px-10 sm:pt-24 lg:px-16">
             <div className="mx-auto flex w-full max-w-[1400px] flex-col gap-16">
-              <div className="sticky top-24 z-20 flex items-center justify-between gap-8 text-foreground sm:top-28">
+              <div className="sticky top-20 z-20 flex items-center justify-between gap-8 text-foreground sm:top-24 md:top-28">
                 <BackHomeButton />
               </div>
 

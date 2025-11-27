@@ -423,7 +423,8 @@ export function Header({ overlay = false }: HeaderProps) {
         <button
           type="button"
           className={clsx(
-            "flex scale-125 items-center gap-2 rounded px-4 py-2 text-base transition-colors md:hidden",
+            "flex scale-125 items-center justify-center gap-2 rounded px-4 py-2 text-base transition-colors md:hidden",
+            "min-h-[44px] min-w-[44px] touch-manipulation",
             mobileButtonClasses
           )}
           onClick={() => setMenuOpen((prev) => !prev)}
@@ -447,7 +448,7 @@ export function Header({ overlay = false }: HeaderProps) {
             >
               <motion.button
                 type="button"
-                className="absolute right-6 top-6 rounded-full border border-white/20 px-4 py-2 text-sm text-foreground transition-colors hover:border-white/40 hover:text-white"
+                className="absolute right-6 top-6 rounded-full border border-white/20 px-4 py-2 text-sm text-foreground transition-colors hover:border-white/40 hover:text-white min-h-[44px] min-w-[44px] touch-manipulation"
                 onClick={() => setMenuOpen(false)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.96 }}

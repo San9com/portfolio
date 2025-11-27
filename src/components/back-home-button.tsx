@@ -229,7 +229,13 @@ export function BackHomeButton() {
     <Link
       ref={buttonRef}
       href="/"
-      className={clsx("inline-flex items-center gap-2 text-sm font-normal tracking-wider transition-colors", buttonClasses)}
+      className={clsx(
+        "inline-flex items-center gap-2 text-sm font-normal tracking-wider transition-colors",
+        "min-h-[44px] min-w-[44px] touch-manipulation",
+        "px-2 py-2 -ml-2", // Add padding for better touch target
+        buttonClasses
+      )}
+      style={{ WebkitTapHighlightColor: "transparent" }}
     >
       ← Back home
     </Link>

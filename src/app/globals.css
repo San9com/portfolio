@@ -53,13 +53,18 @@
   box-sizing: border-box;
 }
 
-html,
-body {
-  height: 100%;
-}
-
 html {
   scrollbar-width: none;
+  /* Prevent horizontal scroll on mobile */
+  overflow-x: hidden;
+  /* Safe area insets for notched devices */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+body {
+  height: 100%;
+  /* Prevent horizontal scroll */
+  overflow-x: hidden;
 }
 
 body {
@@ -223,9 +228,29 @@ th {
   line-height: 1;
 }
 
+/* Mobile responsiveness improvements */
 @media (max-width: 768px) {
+  html {
+    /* Prevent text size adjustment on iOS */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
   body {
     padding: 0;
+    /* Prevent pull-to-refresh overscroll on mobile */
+    overscroll-behavior-y: contain;
+  }
+
+  /* Ensure touch targets are at least 44x44px */
+  button,
+  a,
+  [role="button"],
+  [role="link"],
+  input[type="button"],
+  input[type="submit"] {
+    min-height: 44px;
+    min-width: 44px;
   }
 
   header,
@@ -233,14 +258,17 @@ th {
   footer {
     padding-left: 0;
     padding-right: 0;
+    /* Safe area insets */
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
   }
 
   [class~="px-6"],
   [class~="px-10"],
   [class~="px-12"],
   [class~="px-16"] {
-    padding-left: 12px !important;
-    padding-right: 12px !important;
+    padding-left: max(12px, env(safe-area-inset-left)) !important;
+    padding-right: max(12px, env(safe-area-inset-right)) !important;
   }
 
   [class~="py-5"],
@@ -248,14 +276,63 @@ th {
   [class~="py-16"],
   [class~="py-24"],
   [class~="py-32"] {
-    padding-top: 20px !important;
-    padding-bottom: 20px !important;
+    padding-top: max(20px, env(safe-area-inset-top)) !important;
+    padding-bottom: max(20px, env(safe-area-inset-bottom)) !important;
   }
 
   [class~="gap-6"],
   [class~="gap-10"],
   [class~="gap-12"] {
     gap: 12px !important;
+  }
+
+  /* Improve text readability on mobile */
+  p,
+  li,
+  td,
+  th {
+    line-height: 1.6 !important;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Prevent horizontal overflow */
+  * {
+    max-width: 100%;
+  }
+
+  img,
+  video,
+  canvas,
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Better table handling on mobile */
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Improve sticky positioning on mobile */
+  [class*="sticky"] {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+
+  /* Better image loading on mobile */
+  img {
+    loading: lazy;
+    decoding: async;
+  }
+
+  /* Improve form inputs on mobile */
+  input,
+  textarea,
+  select {
+    font-size: 16px !important; /* Prevents zoom on iOS */
   }
 }
 
@@ -301,6 +378,22 @@ html.hero-cursor-hidden canvas {
 ::selection {
   background: rgba(246, 197, 143, 0.32);
   color: var(--foreground);
+}
+
+/* Touch optimization */
+.touch-manipulation {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Prevent text selection on mobile for better UX (optional, can be removed if needed) */
+@media (max-width: 768px) {
+  button,
+  a[role="button"],
+  [role="button"] {
+    -webkit-user-select: none;
+    user-select: none;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
