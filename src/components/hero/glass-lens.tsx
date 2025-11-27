@@ -50,14 +50,14 @@ export function GlassLens({
     if (!ref.current) return;
 
     if (isMobile) {
-      // On mobile, continuously loop from left to right
+      // On mobile, continuously loop from left to right, going well beyond the right edge
       const time = state.clock.getElapsedTime();
       const slowSpeed = 0.15; // Movement speed
-      // Calculate full travel width (from left edge to right edge of viewport)
-      const fullTravelWidth = viewport.width;
+      // Calculate full travel width - extend well beyond viewport for better disappearing effect
+      const fullTravelWidth = viewport.width * 1.8; // Go 80% further than viewport width
       // Linear progression that loops (0 to 1, then wraps)
       const progress = (time * slowSpeed) % 1;
-      // Position from left edge (-viewport.width/2) to right edge (+viewport.width/2)
+      // Position from left edge (-viewport.width/2) to well beyond right edge
       const x = -viewport.width / 2 + progress * fullTravelWidth;
       const y = position[1];
       const worldPosition = new Vector3(x, y, position[2]);
