@@ -55,16 +55,18 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
     const id = requestAnimationFrame(() => {
       setMounted(true);
       
-      // Recalculate scroll height after mount
+      // Recalculate scroll height after mount (only on desktop where animation is used)
       const recalculateScroll = () => {
         const lenis = getLenis();
-        if (lenis) {
+        if (lenis && window.innerWidth >= 768) {
           lenis.resize();
         }
       };
       
-      // Single recalculation after a short delay
-      setTimeout(recalculateScroll, 100);
+      // Single recalculation after a short delay (only on desktop)
+      if (window.innerWidth >= 768) {
+        setTimeout(recalculateScroll, 100);
+      }
     });
     
     window.addEventListener("resize", updateViewport);
@@ -129,8 +131,8 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
     setFrameVisible((prev) => (prev === nextVisible ? prev : nextVisible));
   });
 
-  // On mobile, use simpler layout without animation
-  const sectionMinHeight = isDesktop ? "min-h-[220svh]" : "min-h-[100svh]";
+  // On mobile, use simpler layout without animation - no sticky, just a regular image
+  const sectionMinHeight = isDesktop ? "min-h-[220svh]" : "min-h-[100vh]";
 
   if (!mounted) {
     return (
@@ -139,8 +141,23 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
         className={`relative flex ${sectionMinHeight} w-full flex-col justify-start`}
         aria-label="Project visual immersion"
       >
-        <div className="pointer-events-none sticky top-0 h-[100svh] overflow-hidden">
-          <div className="relative h-full w-full">
+        {isDesktop ? (
+          <div className="pointer-events-none sticky top-0 h-[100svh] overflow-hidden">
+            <div className="relative h-full w-full">
+              <Image 
+                src={image} 
+                alt={alt} 
+                fill 
+                priority 
+                sizes="100vw" 
+                className="object-cover" 
+                style={{ filter: `brightness(${brightness})` }}
+              />
+              <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-black via-black/25 to-transparent" style={{ willChange: "opacity" }} />
+            </div>
+          </div>
+        ) : (
+          <div className="relative h-[70vh] w-full overflow-hidden">
             <Image 
               src={image} 
               alt={alt} 
@@ -150,34 +167,32 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
               className="object-cover" 
               style={{ filter: `brightness(${brightness})` }}
             />
-            <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-black via-black/25 to-transparent" style={{ willChange: "opacity" }} />
+            <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-black via-black/25 to-transparent" />
           </div>
-        </div>
+        )}
       </section>
     );
   }
 
-  // On mobile, render simple static image without animation
+  // On mobile, render simple static image without animation - no sticky positioning
   if (!isDesktop) {
     return (
       <section
         ref={sectionRef}
-        className={`relative flex ${sectionMinHeight} w-full flex-col justify-start`}
+        className="relative flex w-full flex-col justify-start"
         aria-label="Project visual immersion"
       >
-        <div className="pointer-events-none sticky top-0 h-[100svh] overflow-hidden">
-          <div className="relative h-full w-full">
-            <Image 
-              src={image} 
-              alt={alt} 
-              fill 
-              priority 
-              sizes="100vw" 
-              className="object-cover" 
-              style={{ filter: `brightness(${brightness})` }}
-            />
-            <div className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-t from-black via-black/25 to-transparent" />
-          </div>
+        <div className="relative h-[70vh] w-full overflow-hidden">
+          <Image 
+            src={image} 
+            alt={alt} 
+            fill 
+            priority 
+            sizes="100vw" 
+            className="object-cover" 
+            style={{ filter: `brightness(${brightness})` }}
+          />
+          <div className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-t from-black via-black/25 to-transparent" />
         </div>
       </section>
     );
