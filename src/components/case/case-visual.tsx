@@ -38,6 +38,7 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
             alt={alt} 
             fill 
             priority 
+            quality={95}
             sizes="100vw" 
             className="object-cover" 
             style={{ filter: `brightness(${brightness})` }}
@@ -170,6 +171,7 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
               alt={alt} 
               fill 
               priority 
+              quality={95}
               sizes="100vw" 
               className="object-cover" 
               style={{ filter: `brightness(${brightness})` }}
@@ -205,6 +207,7 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
                 alt={alt} 
                 fill 
                 priority 
+                quality={95}
                 sizes="100vw" 
                 className="object-cover" 
                 style={{ filter: `brightness(${brightness})` }}
