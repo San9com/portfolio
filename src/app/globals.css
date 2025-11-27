@@ -298,6 +298,14 @@ html.hero-cursor-hidden canvas {
   cursor: none !important;
 }
 
+/* Show cursor in footer - override hero cursor hiding */
+footer,
+footer *,
+footer *::before,
+footer *::after {
+  cursor: auto !important;
+}
+
 ::selection {
   background: rgba(246, 197, 143, 0.32);
   color: var(--foreground);
