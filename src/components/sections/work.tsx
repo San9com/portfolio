@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import clsx from "clsx";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
@@ -10,6 +10,7 @@ import { AnimatedText } from "@/components/animated-text";
 
 export function WorkSection() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -17,14 +18,23 @@ export function WorkSection() {
     offset: ["start end", "end start"],
   });
 
-  // Subtle parallax - elegant and simple
-  const y = useTransform(scrollYProgress, [0, 1], [0, 30]);
+  useEffect(() => {
+    const checkDesktop = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    checkDesktop();
+    window.addEventListener("resize", checkDesktop);
+    return () => window.removeEventListener("resize", checkDesktop);
+  }, []);
+
+  // Subtle parallax - elegant and simple (desktop only)
+  const y = useTransform(scrollYProgress, [0, 1], [0, isDesktop ? 30 : 0]);
 
   return (
     <section
       id="work"
       ref={sectionRef}
-      className="sticky top-0 bg-black px-6 pb-32 sm:px-10 sm:pb-40"
+      className="bg-black px-6 pb-32 sm:px-10 sm:pb-40 lg:sticky lg:top-0"
       style={{ zIndex: 2 }}
     >
       <motion.div
@@ -32,8 +42,8 @@ export function WorkSection() {
         style={{ y }}
         className="relative"
       >
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-12">
-        <div className="flex flex-col items-center gap-2 -mt-[99.9vh] pt-[100vh] pb-6 text-center">
+      <div id="work-content" className="mx-auto flex w-full max-w-7xl flex-col gap-12">
+        <div className="flex flex-col items-center gap-2 pb-6 text-center lg:-mt-[99.9vh] lg:pt-[100vh]">
           <AnimatedText
             as="p"
             className="flex items-center gap-2 text-sm text-foreground/70"
@@ -77,11 +87,22 @@ type ProjectCardProps = {
 function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps) {
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+  
+  useEffect(() => {
+    const checkDesktop = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    checkDesktop();
+    window.addEventListener("resize", checkDesktop);
+    return () => window.removeEventListener("resize", checkDesktop);
+  }, []);
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
-  const translateY = useTransform(scrollYProgress, [0, 1], [-40, 40]);
+  const translateY = useTransform(scrollYProgress, [0, 1], isDesktop ? [-40, 40] : [0, 0]);
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = useCallback(() => {
@@ -114,15 +135,15 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
       onClick={handleClick}
       onKeyDown={handleKeyDown}
       initial={false}
-      animate={{
+      animate={isDesktop ? {
         flex: isActive ? 2.2 : 0.4,
-      }}
-      transition={{ 
+      } : {}}
+      transition={isDesktop ? { 
         duration: 0.35, // Faster for better performance
         ease: [0.4, 0, 0.2, 1],
         layout: { duration: 0.35 } // Faster layout transitions
-      }}
-      className="group relative flex min-h-[33rem] flex-1 flex-col justify-end overflow-hidden rounded bg-black/40 will-change-[flex] cursor-pointer"
+      } : {}}
+      className="group relative flex min-h-[28rem] flex-1 flex-col justify-end overflow-hidden rounded bg-black/40 will-change-[flex] cursor-pointer sm:min-h-[33rem]"
       tabIndex={0}
       style={{ backfaceVisibility: "hidden" }}
     >
@@ -166,7 +187,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         className="pointer-events-none absolute inset-x-0 bottom-0 h-full bg-gradient-to-t from-black via-black/30 to-transparent md:via-black/20"
         initial={false}
         animate={{
-          opacity: isActive ? 1 : 0.6,
+          opacity: isDesktop ? (isActive ? 1 : 0.6) : 1,
         }}
         transition={{ duration: 0.3 }}
       />
@@ -175,25 +196,28 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
       <motion.div
         className="relative z-10 flex flex-col gap-4 p-6"
         initial={false}
-        animate={{
+        animate={isDesktop ? {
           y: isActive ? 0 : 10,
           opacity: isActive ? 1 : 0,
+        } : {
+          y: 0,
+          opacity: 1,
         }}
-        transition={{
+        transition={isDesktop ? {
           duration: 0.35,
           ease: [0.4, 0, 0.2, 1],
           opacity: { duration: 0.25 }
-        }}
+        } : {}}
         style={{
-          pointerEvents: isActive ? "auto" : "none",
+          pointerEvents: isDesktop ? (isActive ? "auto" : "none") : "auto",
           willChange: "transform, opacity",
         }}
       >
         <motion.div 
           className="text-xs text-white/80"
           initial={false}
-          animate={{ opacity: isActive ? 1 : 0 }}
-          transition={{ duration: 0.2, delay: isActive ? 0.05 : 0 }}
+          animate={{ opacity: isDesktop ? (isActive ? 1 : 0) : 1 }}
+          transition={{ duration: 0.2, delay: isDesktop && isActive ? 0.05 : 0 }}
         >
           {project.year}
         </motion.div>
@@ -201,8 +225,8 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         <motion.h3 
           className="text-3xl text-foreground lg:text-[2.4rem]"
           initial={false}
-          animate={{ opacity: isActive ? 1 : 0 }}
-          transition={{ duration: 0.25, delay: isActive ? 0.08 : 0 }}
+          animate={{ opacity: isDesktop ? (isActive ? 1 : 0) : 1 }}
+          transition={{ duration: 0.25, delay: isDesktop && isActive ? 0.08 : 0 }}
         >
           {project.title}
         </motion.h3>
@@ -211,12 +235,12 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
           className="text-sm leading-relaxed text-muted"
           initial={false}
           animate={{ 
-            opacity: isActive ? 1 : 0,
-            y: isActive ? 0 : 8,
+            opacity: isDesktop ? (isActive ? 1 : 0) : 1,
+            y: isDesktop ? (isActive ? 0 : 8) : 0,
           }}
           transition={{ 
             duration: 0.3, 
-            delay: isActive ? 0.12 : 0,
+            delay: isDesktop && isActive ? 0.12 : 0,
             ease: [0.4, 0, 0.2, 1]
           }}
         >
@@ -227,11 +251,11 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
           className="pointer-events-none mt-3 inline-flex items-center gap-2 text-sm font-normal text-white"
           initial={false}
           animate={{ 
-            opacity: isActive ? 1 : 0,
+            opacity: isDesktop ? (isActive ? 1 : 0) : 1,
             x: isHovered ? 4 : 0,
           }}
           transition={{ 
-            opacity: { duration: 0.25, delay: isActive ? 0.15 : 0 },
+            opacity: { duration: 0.25, delay: isDesktop && isActive ? 0.15 : 0 },
             x: { duration: 0.2, ease: "easeOut" }
           }}
         >
