@@ -341,8 +341,13 @@ const caseContent: Record<string, CaseContent> = {
         title: "A rare invitation",
         body: [
           "The invitation to work on the identity of Stmpd Records felt extraordinary. It is not every day that a student team is trusted with a project connected to one of the most respected creative studios in Amsterdam, a studio rooted in the work of Martin Garrix and the artists who surround him. When we first stepped into this world, we felt the gravity of the place. It was not simply a recording space, it was a cultural environment where sound, image, personality, and atmosphere lived together. Being chosen to reimagine how such a place presents itself demanded sensitivity, curiosity, and a willingness to look deeper than aesthetics.",
+          "Visiting the studio left me deeply impressed by its exclusivity and history. Walking through the same space where some of the most iconic tracks were created felt surreal. I learned that Lady Gaga recorded \"Bad Romance\" there some time ago, which added another layer to understanding the weight and significance of this place. The studio carries an energy that goes beyond its physical walls—it is a space where creative legends have worked, where ideas have transformed into cultural moments.",
         ],
         visuals: [
+          {
+            image: "/Image2667.webp",
+            alt: "The STMPD Records studio space showing its exclusive creative environment.",
+          },
           {
             image: "/STMPD 1.png",
             alt: "The STMPD Records studio space and creative environment.",
