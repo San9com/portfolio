@@ -443,11 +443,11 @@ export function Header({ overlay = false }: HeaderProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="fixed inset-0 z-40 flex min-h-screen flex-col bg-black/95 text-foreground md:hidden"
+              className="fixed inset-0 z-40 flex min-h-screen flex-col bg-black text-foreground md:hidden"
             >
               <motion.button
                 type="button"
-                className="absolute right-6 top-6 rounded-full border border-white/20 px-4 py-2 text-sm text-foreground transition-colors hover:border-white/40 hover:text-white"
+                className="absolute right-6 top-6 z-50 rounded-full border border-white/20 px-5 py-3 text-base text-foreground transition-colors hover:border-white/40 hover:text-white"
                 onClick={() => setMenuOpen(false)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.96 }}
@@ -455,7 +455,7 @@ export function Header({ overlay = false }: HeaderProps) {
                 Close
               </motion.button>
 
-              <div className="flex h-full flex-col pt-24 pb-12">
+              <div className="flex h-full flex-col justify-center px-6 py-20">
                 {navigationLinks.map((link, index) => {
                   const handleClick = (e: React.MouseEvent) => {
                     setMenuOpen(false);
@@ -495,17 +495,30 @@ export function Header({ overlay = false }: HeaderProps) {
                     : link.href;
                   
                   return (
-                    <Link
+                    <motion.div
                       key={link.href}
-                      href={linkHref}
-                      onClick={handleClick}
-                      className={clsx(
-                        "flex flex-1 items-center px-10 text-[min(16vw,4rem)] font-light text-foreground/90 transition-colors hover:text-foreground",
-                        index !== navigationLinks.length - 1 && "border-b border-white/[0.08]"
-                      )}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ 
+                        duration: 0.5, 
+                        delay: index * 0.1,
+                        ease: [0.4, 0, 0.2, 1]
+                      }}
                     >
-                      {link.label.charAt(0).toUpperCase() + link.label.slice(1)}
-                    </Link>
+                      <Link
+                        href={linkHref}
+                        onClick={handleClick}
+                        className="block py-6"
+                      >
+                        <motion.span
+                          className="block text-[clamp(3.5rem,18vw,8rem)] font-light leading-[0.9] text-foreground transition-colors hover:text-white"
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          {link.label.charAt(0).toUpperCase() + link.label.slice(1)}
+                        </motion.span>
+                      </Link>
+                    </motion.div>
                   );
                 })}
               </div>
