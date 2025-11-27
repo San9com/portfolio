@@ -109,20 +109,18 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
     const portraitAspect = 1;
 
     if (isMobile) {
-      // MOBILE LAYOUT: Image on top, text below, both screen wide
-      const sideMargin = viewport.width * 0.05; // Small side margins
+      // MOBILE LAYOUT: Image on top, text below, image edge to edge, text with margins
+      const textSideMargin = viewport.width * 0.05; // Small side margins for text only
       const gap = viewport.height * 0.05; // Vertical gap between image and text
       
-      // Both elements are screen wide (with small margins)
-      const elementWidth = viewport.width - sideMargin * 2;
+      // Image: edge to edge (full width)
+      const portraitWidth = viewport.width;
+      const portraitHeight = (portraitWidth / portraitAspect) * 0.6; // 60% height to match mask
       
-      // Image: screen wide, maintain aspect ratio
-      const portraitHeight = (elementWidth / portraitAspect) * 0.6; // 60% height to match mask
-      const portraitWidth = elementWidth;
-      
-      // Text: screen wide, maintain aspect ratio
-      const svgHeight = (elementWidth / svgAspect);
-      const svgWidth = elementWidth;
+      // Text: screen wide with small margins
+      const textWidth = viewport.width - textSideMargin * 2;
+      const svgHeight = (textWidth / svgAspect);
+      const svgWidth = textWidth;
       
       // Position: Image on top, text below
       // In Three.js viewport, (0,0) is center, Y increases upward
