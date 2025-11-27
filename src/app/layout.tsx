@@ -64,11 +64,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-        <link rel="apple-touch-icon" href="/favicon.png" />
-      </head>
       <body className={clsx(sans.variable, serif.variable, script.variable, "antialiased")}>
         <AppProviders>{children}</AppProviders>
       </body>
