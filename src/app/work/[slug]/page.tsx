@@ -490,12 +490,12 @@ export async function generateMetadata({ params }: WorkPageProps): Promise<Metad
 
   if (!project) {
     return {
-      title: "Case not found",
+      title: "case not found",
     };
   }
 
   return {
-    title: `${project.title} · Case Study`,
+    title: project.title.toLowerCase(),
     description: project.description,
   };
 }

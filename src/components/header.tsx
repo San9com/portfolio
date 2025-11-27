@@ -422,8 +422,9 @@ export function Header({ overlay = false }: HeaderProps) {
 
         <motion.button
           type="button"
+          layout
           className={clsx(
-            "flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-sm text-foreground transition-colors hover:border-white/40 hover:text-white md:hidden",
+            "relative flex min-w-[4.5rem] items-center justify-center rounded-full border border-white/20 px-5 py-3 text-sm text-foreground transition-colors hover:border-white/40 hover:text-white md:hidden",
             mobileButtonClasses
           )}
           onClick={() => setMenuOpen((prev) => !prev)}
@@ -432,8 +433,20 @@ export function Header({ overlay = false }: HeaderProps) {
           aria-label={menuOpen ? "Close navigation" : "Open navigation"}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.96 }}
+          transition={{ layout: { duration: 0.3, ease: "easeInOut" } }}
         >
-          {menuOpen ? "Close" : "Menu"}
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={menuOpen ? "close" : "menu"}
+              initial={{ opacity: 0, x: -4 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 4 }}
+              transition={{ duration: 0.2 }}
+              className="inline-block"
+            >
+              {menuOpen ? "Close" : "Menu"}
+            </motion.span>
+          </AnimatePresence>
         </motion.button>
 
         <AnimatePresence>
