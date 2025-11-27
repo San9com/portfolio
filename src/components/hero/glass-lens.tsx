@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { MeshTransmissionMaterial } from "@react-three/drei";
-import { Group, Vector3 } from "three";
+import { Group, Vector3, MathUtils } from "three";
 
 type GlassLensProps = {
   position?: [number, number, number];
@@ -28,35 +28,46 @@ export function GlassLens({
   const lensRef = useRef<Group>(null);
   const { size, viewport } = useThree();
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const scrollTarget = useRef(0);
+  const scrollCurrent = useRef(0);
 
   useEffect(() => {
     if (isMobile) {
-      // On mobile, don't listen to mouse
-      return;
+      // On mobile, track scroll position for smooth animation
+      const onScroll = () => {
+        // Normalize scroll position (0 to 1) based on viewport height
+        const scrollProgress = window.scrollY / (window.innerHeight * 2); // Use 2x viewport height for smoother range
+        scrollTarget.current = scrollProgress % 1; // Loop from 0 to 1
+      };
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+      return () => window.removeEventListener("scroll", onScroll);
+    } else {
+      // Desktop: track mouse
+      const handleMouseMove = (event: MouseEvent) => {
+        // Convert mouse coordinates to normalized device coordinates (-1 to +1)
+        const x = (event.clientX / size.width) * 2 - 1;
+        const y = -(event.clientY / size.height) * 2 + 1;
+        setMouse({ x, y });
+      };
+
+      window.addEventListener("mousemove", handleMouseMove);
+      return () => window.removeEventListener("mousemove", handleMouseMove);
     }
-
-    const handleMouseMove = (event: MouseEvent) => {
-      // Convert mouse coordinates to normalized device coordinates (-1 to +1)
-      const x = (event.clientX / size.width) * 2 - 1;
-      const y = -(event.clientY / size.height) * 2 + 1;
-      setMouse({ x, y });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [size, isMobile]);
 
   useFrame((state, delta) => {
     if (!ref.current) return;
 
     if (isMobile) {
-      // On mobile, continuously loop from left to right, going well beyond the right edge
-      const time = state.clock.getElapsedTime();
-      const slowSpeed = 0.15; // Movement speed
+      // Smooth scroll interpolation for mobile
+      const lerpFactor = 0.1; // Smooth lerp for scroll-based movement
+      scrollCurrent.current = MathUtils.lerp(scrollCurrent.current, scrollTarget.current, lerpFactor);
+      
       // Calculate full travel width - extend well beyond viewport for better disappearing effect
       const fullTravelWidth = viewport.width * 1.8; // Go 80% further than viewport width
-      // Linear progression that loops (0 to 1, then wraps)
-      const progress = (time * slowSpeed) % 1;
+      // Use scroll progress to position blob (0 to 1, loops)
+      const progress = scrollCurrent.current % 1;
       // Position from left edge (-viewport.width/2) to well beyond right edge
       const x = -viewport.width / 2 + progress * fullTravelWidth;
       const y = position[1];
