@@ -26,43 +26,42 @@ type CaseContent = {
 const caseContent: Record<string, CaseContent> = {
   "fidb-redesign": {
     intro:
-      "FiDB already delighted F1 obsessives with its depth. I reframed the journey so that organic race-week visitors glide toward subscription moments instead of bouncing after a single stat lookup.",
+      "FiDB already had loyal Formula One fans, organic downloads, and good data, yet it looked like something from 2018. The challenge was not to rebuild it but to help it catch up with the present.",
     phases: [
       {
-        title: "Discover — where organic momentum leaks",
+        title: "An app stuck in an older world",
         body: [
-          "Audited analytics, session replays, and support threads to understand how race weekend spikes failed to translate into sustained premium trials.",
-          "Clustered high-intent search terms and App Store reviews, revealing that fans arrived for telemetry snapshots yet met a static paywall before they felt the value.",
+          "FiDB already had loyal Formula One fans, organic downloads, and good data, yet it looked like something from 2018. The challenge was not to rebuild it but to help it catch up with the present.",
         ],
         visuals: [
           {
             image: "/FiDB - Dark subscreen.png",
-            alt: "Analytics dashboard showing race weekend traffic patterns and conversion drop-off points.",
+            alt: "The original FiDB interface showing its dated design from 2018.",
           },
           {
             image: "/FiDB - Light standings.png",
-            alt: "User journey map highlighting friction points before premium trial activation.",
+            alt: "The app's existing features and loyal user base.",
           },
         ],
       },
       {
-        title: "Define — conversion hypotheses that feel helpful",
+        title: "Sharper and more confident",
         body: [
-          "Established a value ladder that opens premium deltas inside free cards, so each upgrade prompt emerges inside the narrative of a race weekend.",
+          "We reviewed the entire flow, updated the visuals, and reorganized features so users could understand the value more quickly. Modernizing meant removing friction, not adding layers.",
         ],
         visuals: [],
       },
       {
-        title: "Design — a tile system built for upsell moments",
+        title: "Design that supports conversions",
         body: [
-          "Crafted a modular stat tile with live deltas, heroing what the subscription unlocks through subtle glass layers and motion affordances.",
+          "The redesign focused on clarity and trust, because people subscribe only when they feel grounded. Every decision centered around making that commitment easier.",
         ],
         visuals: [],
       },
       {
-        title: "Prepare — experiments before the next lights out",
+        title: "A quiet improvement",
         body: [
-          "Outlined multi-variant experiments for trial wording, referral codes, and weekend-specific upgrade banners.",
+          "This project was not loud, it reshaped the app in subtle ways that made it feel fresh again, without losing its identity.",
         ],
         visuals: [],
       },
@@ -70,41 +69,48 @@ const caseContent: Record<string, CaseContent> = {
   },
   "elvou-app-concept": {
     intro:
-      "Elvou doesn’t just sell wellness products — it curates them as part of personalised rituals that support body and mind. We positioned the concept as a sales pitch for Apperium, proving how soundscapes, magnesium mixes, and breathing sprays could feel orchestrated instead of transactional.",
+      "Elvou sells products for health and wellbeing, from supplements to fitness accessories. Their physical brand was strong, but there was no digital space that matched their identity. That is where the Elevate Club concept was born.",
     phases: [
       {
-        title: "Immersion in daily rituals",
+        title: "A brand with potential waiting to be unlocked",
         body: [
-          "Interviewed Apperium stakeholders about friction in today's wellness purchases and reframed products as guided rituals that adapt to energy, mood, and time of day.",
-          "Segmented routines—recovery, focus, wind-down—into sensory cues that the app could anticipate with ambient sound, pacing, and reminders.",
+          "Elvou sells products for health and wellbeing, from supplements to fitness accessories. Their physical brand was strong, but there was no digital space that matched their identity. That is where the Elevate Club concept was born.",
         ],
         visuals: [
           {
             image: "/Case-Elvou-app-concept.png",
-            alt: "Stakeholder interview insights and friction points in current wellness purchase flows.",
-          },
-          {
-            image: "/elvou screen 2.png",
-            alt: "Ritual segmentation framework showing recovery, focus, and wind-down routines.",
+            alt: "Elvou's physical brand identity and the gap in digital presence.",
           },
         ],
       },
       {
-        title: "Narrative architecture for guided commerce",
+        title: "A companion rather than an app",
         body: [
-          "Mapped flows where every product recommendation is introduced as a step in a breathing or movement ritual, reducing the feeling of being sold to.",
+          "The idea was to build a tracker that also hosted meditations, product browsing, and an Apple Health connection. Something that felt like the natural extension of their premium brand, not just a catalog of items.",
+        ],
+        visuals: [
+          {
+            image: "/elvou screen 2.png",
+            alt: "The Elevate Club concept showing tracker, meditations, and product integration.",
+          },
+        ],
+      },
+      {
+        title: "A calm and focused identity",
+        body: [
+          "The interface stays clean and soft, allowing the brand to breathe. No unnecessary shine, only a sense of balance that supports the user rather than distracts them.",
         ],
         visuals: [
           {
             image: "/elvou screen 3.png",
-            alt: "Product recommendation flows integrated into breathing and movement rituals.",
+            alt: "Clean and soft interface design that reflects the brand's calm identity.",
           },
         ],
       },
       {
-        title: "Pitch delivery with sensory storytelling",
+        title: "A concept worth pitching",
         body: [
-          "Packaged the concept into a sales deck that paired metrics (higher ritual completion, repeat orders) with emotive storytelling.",
+          "The result gives Elvou a way to expand their presence and help customers experience more than just a product. It becomes a lifestyle they can actually feel.",
         ],
         visuals: [],
       },
@@ -112,41 +118,48 @@ const caseContent: Record<string, CaseContent> = {
   },
   "iotspot-case": {
     intro:
-      "The new iotspot app is almost here. We reimagined every tap so hybrid workers can find the right desk, teammates, or room without guesswork — all while running faster than the legacy build.",
+      "When I stepped into the world of iotSpot, the app felt like a busy hallway where everyone talked at once. Maps lived in one corner, lists lived in another, and users had to constantly switch perspectives just to understand where they were going. I knew people needed something calmer, something that guided them without asking for effort every time.",
     phases: [
       {
-        title: "Groundwork with hybrid teams",
+        title: "A quiet beginning",
         body: [
-          "Ran listening sessions with corporate pilots to surface the moments when finding a spot felt like a chore, from Monday rush hours to ad-hoc war rooms.",
-          "Benchmarked the current experience, measuring completion time and confidence to establish a clear baseline for the redesign.",
+          "When I stepped into the world of iotSpot, the app felt like a busy hallway where everyone talked at once. Maps lived in one corner, lists lived in another, and users had to constantly switch perspectives just to understand where they were going. I knew people needed something calmer, something that guided them without asking for effort every time.",
         ],
         visuals: [
           {
             image: "/Case-Iotspot.png",
-            alt: "Corporate pilot listening session findings and pain points in desk finding workflows.",
-          },
-          {
-            image: "/iotspot-iterations.png",
-            alt: "Current experience benchmark metrics showing completion time and confidence levels.",
+            alt: "The original iotSpot interface showing disconnected maps and lists.",
           },
         ],
       },
       {
-        title: "Experience layer rebuilt from the map out",
+        title: "Iteration as a habit",
         body: [
-          "Switched the information architecture to start with interactive maps so context, availability, and etiquette live on one canvas.",
+          "We moved through more than fifteen iterations, each one tested with real users, each one teaching us something new. I treated the process the way a craftsman treats a tool, returning to it again and again, polishing it until the edges made sense. Nothing rushed, nothing accidental.",
+        ],
+        visuals: [
+          {
+            image: "/iotspot-iterations.png",
+            alt: "Evolution of design iterations showing the refinement process.",
+          },
+        ],
+      },
+      {
+        title: "A floating idea that changed everything",
+        body: [
+          "The moment things shifted was when I introduced a floating navigation bar. It was simple, almost modest, but it solved an old problem in a new way. Switching between map and hierarchy finally felt natural. We added filters inside it too, a detail that looks small on a screen but changes how people experience a product.",
         ],
         visuals: [
           {
             image: "/images/project-iotspot.png",
-            alt: "Interactive map interface design with context, availability, and etiquette on one canvas.",
+            alt: "The floating navigation bar design that unified map and hierarchy views.",
           },
         ],
       },
       {
-        title: "Launch prep for a smoother rollout",
+        title: "Design with a quieter confidence",
         body: [
-          "Partnered with engineering to translate the vision into a performant React Native build with budgets for sub-second pinch-zoom.",
+          "IotSpot ended up reflecting how I think about design, structured, patient, almost meditative. It became cleaner, softer, more respectful of the people who depend on it during their workday.",
         ],
         visuals: [],
       },
@@ -154,73 +167,65 @@ const caseContent: Record<string, CaseContent> = {
   },
   "gaiazoo-companion": {
     intro:
-      "Reimagining a day at the zoo with adaptive maps, conservation storytelling, and rewards that deepen empathy for wildlife and their habitats.",
+      "GaiaZoo invited us to propose a new version of their app. Because I had worked on their previous product, I already knew what families loved, especially the map and the children's games. These small details gave me a direction before the work even began.",
     phases: [
       {
-        title: "Discover",
+        title: "Breathing new life into a zoo",
         body: [
-          "Conducted visitor research to understand how families navigate the zoo and where they lose engagement with conservation messaging.",
-          "Mapped pain points in wayfinding, especially during peak hours when visitors struggle to find exhibits and facilities.",
+          "GaiaZoo invited us to propose a new version of their app. Because I had worked on their previous product, I already knew what families loved, especially the map and the children's games. These small details gave me a direction before the work even began.",
         ],
         visuals: [
           {
             image: "/Gaia Zoo - Pitch - Persona 1.jpg",
-            alt: "Visitor journey maps showing navigation patterns and engagement drop-off points.",
-          },
-          {
-            image: "/Gaia Zoo - Pitch - Affinity Map (Findings).jpg",
-            alt: "Conservation messaging audit revealing missed opportunities for deeper connection.",
+            alt: "Understanding what families loved from the previous app experience.",
           },
         ],
       },
       {
-        title: "Define",
+        title: "Research in the real world",
         body: [
-          "Designed adaptive map system that adjusts routes based on crowd density and visitor preferences.",
-          "Created reward system that gamifies conservation learning, encouraging visitors to complete animal discovery challenges.",
+          "We walked the paths of the Kerkrade zoo, studied reviews, watched how visitors planned their day, and listened to what frustrated them. The problem was not drama, it was clarity. People simply needed better guidance.",
         ],
         visuals: [
           {
-            image: "/Gaia Zoo - Pitch - Feature prioritization matrix.jpg",
-            alt: "Adaptive map interface showing dynamic routing based on real-time crowd data.",
+            image: "/Gaia Zoo - Pitch - Affinity Map (Findings).jpg",
+            alt: "Research findings from walking the zoo paths and studying visitor behavior.",
           },
           {
-            image: "/Gaia Zoo - Pitch - MoSCoW.jpg",
-            alt: "Reward system design with conservation challenges and achievement unlocks.",
+            image: "/Gaia Zoo - Pitch - Feature prioritization matrix.jpg",
+            alt: "Analysis of visitor reviews and planning patterns.",
           },
         ],
       },
       {
-        title: "Design",
+        title: "Carrying the old into the new",
         body: [
-          "Built storytelling framework that weaves conservation facts into engaging narratives at each exhibit.",
-          "Designed wayfinding system with clear visual hierarchy and accessibility features for all visitors.",
+          "We kept what worked, improved what felt outdated, modernized the visuals, and added features like Apple Wallet passes and smarter navigation. It felt like giving the zoo a new voice without erasing its character.",
         ],
         visuals: [
           {
             image: "/GaiaZoo 2.webp",
-            alt: "Conservation storytelling interface with narrative-driven content at each exhibit.",
+            alt: "Modernized visuals and new features like Apple Wallet integration.",
           },
           {
             image: "/GaiaZoo 3.webp",
-            alt: "Accessible wayfinding design with clear visual hierarchy and navigation cues.",
+            alt: "Improved navigation and wayfinding features.",
           },
         ],
       },
       {
-        title: "Deliver",
+        title: "A strong concept that finished second",
         body: [
-          "Launched companion app with real-time map updates and conservation challenge system.",
-          "Measured increased visitor engagement with conservation content and improved navigation satisfaction scores.",
+          "We did not win the tender, a large agency did, yet our concept was praised and placed second. It remains one of the projects I am proud of, because it was built on empathy before anything else.",
         ],
         visuals: [
           {
             image: "/GaiaZoo - summary.png",
-            alt: "Final app interface showing real-time map updates and active challenges.",
+            alt: "The final concept presentation that placed second in the tender.",
           },
           {
             image: "/Gaiazoo 4.webp",
-            alt: "Analytics dashboard displaying improved engagement metrics and visitor satisfaction.",
+            alt: "Key features and design decisions that made the concept strong.",
           },
         ],
       },
@@ -228,63 +233,57 @@ const caseContent: Record<string, CaseContent> = {
   },
   "current-ev-charging-app": {
     intro:
-      "An EV charging companion structured around design thinking sprints for wayfinding, pricing clarity, and loyalty loops that make charging seamless.",
-      phases: [
+      "Current EV is the project where I guided everything, from the first workshop to the final pixel. I followed a complete Double Diamond, with all its phases, all deliverables, all research sessions and testing rounds. The structure was not just a method, it was part of the story.",
+    phases: [
       {
-        title: "Discover",
+        title: "The project from the first step to the last",
         body: [
-          "Researched EV driver pain points around finding available chargers, understanding pricing, and managing charging sessions.",
-          "Identified key friction points in wayfinding and the lack of transparency in pricing structures across different networks.",
+          "Current EV is the project where I guided everything, from the first workshop to the final pixel. I followed a complete Double Diamond, with all its phases, all deliverables, all research sessions and testing rounds. The structure was not just a method, it was part of the story.",
         ],
         visuals: [
           {
             image: "/Current - empathy map.png.webp",
-            alt: "User research findings showing pain points in charger discovery and pricing transparency.",
+            alt: "The complete design process from workshops to final design.",
           },
           {
             image: "/Current - value+proposition+canvas.webp",
-            alt: "Journey maps highlighting friction in the charging experience from discovery to payment.",
+            alt: "Design thinking phases and deliverables throughout the project.",
           },
         ],
       },
       {
-        title: "Define",
+        title: "Charging that listens to real life",
         body: [
-          "Established design principles focused on clarity, trust, and convenience for EV drivers.",
-          "Defined loyalty program structure that rewards frequent users while maintaining clear value proposition.",
+          "This app was built to do more than charge a car. It predicts electricity prices, understands a user's schedule through Outlook, and chooses the best moment to start charging. Early meetings, late-night shifts, unexpected plans, everything becomes part of a smarter rhythm.",
         ],
         visuals: [
           {
             image: "/Current - low-fid.webp",
-            alt: "Design principles framework and user experience goals for the charging companion.",
-          },
-          {
-            image: "/Current 2.webp",
-            alt: "Loyalty program structure and reward system design.",
+            alt: "Smart charging features that adapt to user schedules and electricity prices.",
           },
         ],
       },
       {
-        title: "Design",
+        title: "Workshops that shaped the outcome",
         body: [
-          "Created intuitive wayfinding interface with real-time charger availability and clear pricing information.",
+          "I facilitated every workshop myself, making sure decisions grew from evidence. Nothing was added because it sounded exciting, everything was added because it made sense.",
+        ],
+        visuals: [
+          {
+            image: "/Current 2.webp",
+            alt: "Workshop sessions and evidence-based decision making process.",
+          },
+        ],
+      },
+      {
+        title: "A design that earns trust",
+        body: [
+          "The result is clear, calm, and reliable. The interface reflects the intelligence behind it, and every flow respects the user's time. It is one of those projects where structure becomes invisible, which is when you know it is working.",
         ],
         visuals: [
           {
             image: "/Current - high-fid.webp",
-            alt: "Wayfinding interface design with real-time availability and pricing transparency.",
-          },
-        ],
-      },
-      {
-        title: "Deliver",
-        body: [
-          "Launched app with comprehensive charger network coverage and transparent pricing across all locations.",
-        ],
-        visuals: [
-          {
-            image: "/Current 2.webp",
-            alt: "Final app interface showing comprehensive charger network and pricing information.",
+            alt: "The final interface design showing clarity, calm, and reliability.",
           },
         ],
       },
@@ -292,44 +291,43 @@ const caseContent: Record<string, CaseContent> = {
   },
   "mkb-brandstof": {
     intro:
-      "A digital transformation project for fuel management, streamlining operations and improving user experience for small and medium businesses in the fuel industry.",
+      "Mkb Brandstof had lost trust in their previous development partner and invited several agencies to pitch. We ended up competing against some of the biggest names in the Netherlands, which made the challenge even more meaningful.",
     phases: [
       {
-        title: "Discover",
+        title: "A client in search of clarity",
         body: [
-          "Conducted research with MKB Brandstof stakeholders to understand pain points in fuel management operations and identify opportunities for digital improvement.",
-          "Analyzed current workflows and identified key friction points in order processing, inventory management, and customer communication.",
+          "Mkb Brandstof had lost trust in their previous development partner and invited several agencies to pitch. We ended up competing against some of the biggest names in the Netherlands, which made the challenge even more meaningful.",
         ],
         visuals: [
           {
             image: "/MKB-Brandstof-1.png",
-            alt: "Current workflow analysis highlighting friction points in order processing and inventory management.",
+            alt: "The challenge of competing against larger agencies in the pitch process.",
           },
         ],
       },
       {
-        title: "Define",
+        title: "Finding the real issue",
         body: [
-          "Established design principles focused on efficiency, clarity, and ease of use for fuel management operations.",
+          "Users constantly forgot whether a parking session was active, something that annoyed them and cost them money. The frustration was small but persistent, exactly the kind of problem worth solving.",
         ],
         visuals: [
           {
             image: "/MKB-Brandstof-Summary.png",
-            alt: "Design principles framework and user experience goals for the fuel management platform.",
+            alt: "User research showing the parking session confusion and its impact.",
           },
         ],
       },
       {
-        title: "Design",
+        title: "Live activities as a simple answer",
         body: [
-          "Created intuitive interface designs that simplify fuel order management and inventory tracking.",
+          "I designed a Live Activities concept that showed everything at a glance, the timer, the location, the status. It made the whole experience feel calmer, almost effortless.",
         ],
         visuals: [],
       },
       {
-        title: "Deliver",
+        title: "A near win against large teams",
         body: [
-          "Launched the digital platform with comprehensive fuel management features and improved user workflows.",
+          "We finished second because bigger agencies had bigger development capacity. The concept itself scored very high, and that validated the work more than winning the tender would have.",
         ],
         visuals: [],
       },
@@ -337,43 +335,43 @@ const caseContent: Record<string, CaseContent> = {
   },
   "stmpd-records": {
     intro:
-      "Redesigning the digital experience for STMPD Records, creating a platform that showcases artists and connects fans with the music they love through an immersive, modern interface.",
+      "Not many student teams are handed the chance to redesign the identity of the studio behind Martin Garrix. Stmpd Records is not just a label, it is a place where creative work breathes, where the city of Amsterdam becomes sound. Being chosen to rethink how such a space presents itself felt like a responsibility rather than a task.",
     phases: [
       {
-        title: "Discover",
+        title: "A rare invitation",
         body: [
-          "Researched the music label's brand identity and audience to understand how fans engage with electronic music labels.",
-          "Analyzed competitor platforms and identified opportunities to create a unique digital experience that reflects STMPD's energy and creativity.",
+          "Not many student teams are handed the chance to redesign the identity of the studio behind Martin Garrix. Stmpd Records is not just a label, it is a place where creative work breathes, where the city of Amsterdam becomes sound. Being chosen to rethink how such a space presents itself felt like a responsibility rather than a task.",
         ],
         visuals: [
           {
             image: "/STMPD 1.png",
-            alt: "Research findings showing brand identity analysis and fan engagement patterns with electronic music labels.",
+            alt: "The STMPD Records studio space and creative environment.",
           },
+        ],
+      },
+      {
+        title: "Searching for the true character",
+        body: [
+          "This was never about making something louder. Loud is easy. The challenge was to show the studio as something alive, a meeting point for artists, a place where collaboration is more important than the expensive gear around it.",
+        ],
+        visuals: [
           {
             image: "/STMPD Artifacts.png",
-            alt: "Competitive analysis and opportunity mapping for creating a unique digital music label experience.",
+            alt: "Research and exploration of the studio's true character and collaborative spirit.",
           },
         ],
       },
       {
-        title: "Define",
+        title: "Building the concept",
         body: [
-          "Established design principles that capture STMPD's bold, energetic brand while maintaining usability and accessibility.",
+          "We researched, sketched, argued, explored tone and emotion, and slowly built a direction that felt honest. It treated the studio not as a brand but as a story, something you discover rather than something you are told.",
         ],
         visuals: [],
       },
       {
-        title: "Design",
+        title: "Still in motion",
         body: [
-          "Created immersive interface designs that showcase music releases with dynamic visuals and smooth interactions.",
-        ],
-        visuals: [],
-      },
-      {
-        title: "Deliver",
-        body: [
-          "Launched the redesigned platform with enhanced artist showcases and improved fan engagement features.",
+          "The project continues, and every week adds a new layer. It is the kind of work that reminds you why design matters, because it helps people see themselves more clearly.",
         ],
         visuals: [],
       },
@@ -381,48 +379,48 @@ const caseContent: Record<string, CaseContent> = {
   },
   "apperium-website-redesign": {
     intro:
-      "A complete redesign of the Apperium website, creating a modern digital presence that reflects the agency's creative capabilities and client work through an immersive, portfolio-driven experience.",
+      "This was the first major website redesign I led. It was for Apperium, the company where I first interned and later worked part-time. After their rebrand, they moved to a Squarespace site that I maintained, and over time I saw how many limitations it had.",
     phases: [
       {
-        title: "Discover",
+        title: "A return to a familiar place",
         body: [
-          "Analyzed the existing Apperium website to understand brand positioning and identify opportunities for a more compelling digital presence.",
-          "Researched competitor agency websites and gathered insights on how creative agencies showcase their work and attract clients.",
+          "This was the first major website redesign I led. It was for Apperium, the company where I first interned and later worked part-time. After their rebrand, they moved to a Squarespace site that I maintained, and over time I saw how many limitations it had.",
         ],
         visuals: [
           {
             image: "/Apperium - website redesign 1.png",
-            alt: "Analysis of existing Apperium website showing brand positioning and opportunities for improvement.",
-          },
-          {
-            image: "/Apperium website redesign 2.png",
-            alt: "Competitive research and insights on how creative agencies showcase their work effectively.",
+            alt: "The original Squarespace site and its limitations.",
           },
         ],
       },
       {
-        title: "Define",
+        title: "Rebuilding from the foundation",
         body: [
-          "Established design principles that balance creative expression with clear communication of services and capabilities.",
+          "I created a new style guide and visual identity, something futuristic and memorable, with a touch of Liquid Glass. It needed to stand out, to avoid the generic agency look that is so common in this industry.",
+        ],
+        visuals: [
+          {
+            image: "/Apperium website redesign 2.png",
+            alt: "The new style guide and visual identity with Liquid Glass elements.",
+          },
+        ],
+      },
+      {
+        title: "Iterating with intention",
+        body: [
+          "I designed everything in Figma, tested it internally, collected feedback, adjusted, refined, and only then moved on to development. Structure guided every step.",
         ],
         visuals: [
           {
             image: "/Apperium website redesign 3.png",
-            alt: "Design principles framework balancing creative expression with clear service communication.",
+            alt: "The iterative design process in Figma with testing and refinement.",
           },
         ],
       },
       {
-        title: "Design",
+        title: "Bringing it to life on Framer",
         body: [
-          "Created immersive homepage designs that showcase portfolio work with dynamic interactions and smooth transitions.",
-        ],
-        visuals: [],
-      },
-      {
-        title: "Deliver",
-        body: [
-          "Launched the redesigned website with enhanced portfolio showcases and improved user experience.",
+          "I rebuilt the site on Framer to keep it light and flexible. The final result is live, modern, and already receiving positive reactions.",
         ],
         visuals: [],
       },
