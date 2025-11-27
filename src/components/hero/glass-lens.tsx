@@ -43,10 +43,10 @@ export function GlassLens({
   }, [posX, posY, posZ]);
   
   // Physics constants
-  const GRAVITY = -0.02;
-  const BOUNCE_DAMPING = 0.7;
-  const FRICTION = 0.95;
-  const GYRO_SENSITIVITY = 0.01;
+  const GRAVITY = -0.05;
+  const BOUNCE_DAMPING = 0.8;
+  const FRICTION = 0.98;
+  const GYRO_SENSITIVITY = 0.002; // Increased sensitivity for gyroscope
   
   // Initialize bounds based on viewport
   const BOUNDS = useRef({
@@ -78,11 +78,11 @@ export function GlassLens({
 
     // Mobile: gyroscope
     const handleDeviceOrientation = (event: DeviceOrientationEvent) => {
-      if (event.beta !== null && event.gamma !== null && event.alpha !== null) {
+      if (event.beta !== null && event.gamma !== null) {
         setGyroData({
-          beta: event.beta, // Front-back tilt (-180 to 180)
-          gamma: event.gamma, // Left-right tilt (-90 to 90)
-          alpha: event.alpha, // Compass direction (0 to 360)
+          beta: event.beta || 0, // Front-back tilt (-180 to 180)
+          gamma: event.gamma || 0, // Left-right tilt (-90 to 90)
+          alpha: event.alpha || 0, // Compass direction (0 to 360)
         });
       }
     };
@@ -98,15 +98,35 @@ export function GlassLens({
           .requestPermission()
           .then((response: string) => {
             if (response === "granted") {
-              window.addEventListener("deviceorientation", handleDeviceOrientation);
+              window.addEventListener("deviceorientation", handleDeviceOrientation, { passive: true });
             }
           })
           .catch(() => {
             // Permission denied, fallback to mouse
+            console.log("Gyroscope permission denied");
           });
       } else {
-        window.addEventListener("deviceorientation", handleDeviceOrientation);
+        // Android and other browsers
+        window.addEventListener("deviceorientation", handleDeviceOrientation, { passive: true });
       }
+      
+      // Also try deviceorientationabsolute for better accuracy
+      const handleDeviceOrientationAbsolute = (event: DeviceOrientationEvent) => {
+        if (event.beta !== null && event.gamma !== null) {
+          setGyroData({
+            beta: event.beta || 0,
+            gamma: event.gamma || 0,
+            alpha: event.alpha || 0,
+          });
+        }
+      };
+      
+      window.addEventListener("deviceorientationabsolute", handleDeviceOrientationAbsolute, { passive: true });
+      
+      return () => {
+        window.removeEventListener("deviceorientation", handleDeviceOrientation);
+        window.removeEventListener("deviceorientationabsolute", handleDeviceOrientationAbsolute);
+      };
     }
 
     return () => {
@@ -119,13 +139,14 @@ export function GlassLens({
 
     if (isMobile) {
       // Mobile: Physics-based ball jumping with gyroscope
-      // Convert gyroscope data to forces
-      const tiltX = gyroData.gamma * GYRO_SENSITIVITY; // Left-right tilt
-      const tiltY = gyroData.beta * GYRO_SENSITIVITY; // Front-back tilt
+      // Normalize gyroscope data: beta (-180 to 180), gamma (-90 to 90)
+      // Convert to normalized values (-1 to 1) and apply as acceleration
+      const normalizedGamma = Math.max(-1, Math.min(1, gyroData.gamma / 90)); // Left-right tilt
+      const normalizedBeta = Math.max(-1, Math.min(1, (gyroData.beta - 90) / 90)); // Front-back tilt (center at 90)
       
-      // Apply tilt as acceleration
-      velocity.current.x += tiltX;
-      velocity.current.y += tiltY;
+      // Apply tilt as acceleration (stronger effect)
+      velocity.current.x += normalizedGamma * GYRO_SENSITIVITY * 100;
+      velocity.current.y += normalizedBeta * GYRO_SENSITIVITY * 100;
       velocity.current.z += GRAVITY; // Gravity always pulls down
       
       // Apply friction
@@ -134,7 +155,7 @@ export function GlassLens({
       // Update position
       position3D.current.add(velocity.current);
       
-      // Bounce off boundaries
+      // Bounce off boundaries with more visible effect
       if (Math.abs(position3D.current.x) > BOUNDS.current.x) {
         position3D.current.x = Math.sign(position3D.current.x) * BOUNDS.current.x;
         velocity.current.x *= -BOUNCE_DAMPING;
@@ -146,6 +167,8 @@ export function GlassLens({
       if (position3D.current.z < position[2] - 1) {
         position3D.current.z = position[2] - 1;
         velocity.current.z *= -BOUNCE_DAMPING;
+        // Add some upward bounce when hitting bottom
+        velocity.current.z += 0.1;
       }
       if (position3D.current.z > position[2] + 1) {
         position3D.current.z = position[2] + 1;
