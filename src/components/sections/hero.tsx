@@ -22,19 +22,39 @@ export function HeroSection() {
 
     const handleMouseEnter = () => {
       document.body.classList.add("hero-cursor-hidden");
+      document.documentElement.classList.add("hero-cursor-hidden");
+      document.body.style.cursor = "none";
+      document.documentElement.style.cursor = "none";
     };
 
     const handleMouseLeave = () => {
       document.body.classList.remove("hero-cursor-hidden");
+      document.documentElement.classList.remove("hero-cursor-hidden");
+      document.body.style.cursor = "";
+      document.documentElement.style.cursor = "";
+    };
+
+    const handleMouseMove = () => {
+      if (section.matches(":hover")) {
+        document.body.style.cursor = "none";
+        document.documentElement.style.cursor = "none";
+      }
     };
 
     section.addEventListener("mouseenter", handleMouseEnter);
     section.addEventListener("mouseleave", handleMouseLeave);
+    section.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mousemove", handleMouseMove);
 
     return () => {
       section.removeEventListener("mouseenter", handleMouseEnter);
       section.removeEventListener("mouseleave", handleMouseLeave);
+      section.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mousemove", handleMouseMove);
       document.body.classList.remove("hero-cursor-hidden");
+      document.documentElement.classList.remove("hero-cursor-hidden");
+      document.body.style.cursor = "";
+      document.documentElement.style.cursor = "";
     };
   }, []);
 
@@ -43,7 +63,7 @@ export function HeroSection() {
       id="top"
       ref={sectionRef}
       className="relative isolate flex min-h-[75svh] w-full items-end justify-center overflow-hidden bg-black px-3 pb-16 pt-28 sm:px-10 sm:pb-20 lg:pb-24 hero-no-cursor"
-      style={{ zIndex: 1 }}
+      style={{ zIndex: 1, cursor: "none" }}
     >
       <div className="sr-only">
         <p>{heroCopy.introScript}</p>

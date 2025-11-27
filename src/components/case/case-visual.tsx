@@ -19,76 +19,57 @@ export function CaseVisualShowcase({ image, alt }: CaseVisualShowcaseProps) {
     offset: ["start start", "end end"],
   });
 
-  const [viewport, setViewport] = useState({ width: 1280, height: 720 });
+  // Initialize viewport with actual window dimensions to prevent jump
+  const [viewport, setViewport] = useState(() => {
+    if (typeof window !== "undefined") {
+      return { width: window.innerWidth, height: window.innerHeight };
+    }
+    return { width: 1280, height: 720 };
+  });
   const [mounted, setMounted] = useState(false);
 
+  // Single effect to handle viewport updates and scroll reset
   useEffect(() => {
     if (typeof window === "undefined") return;
     
-    // Scroll to top immediately
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    
-    // Force Lenis to recalculate scroll height after content is rendered
-    const recalculateScroll = () => {
-      const lenis = getLenis();
-      if (lenis) {
-        // Force Lenis to recalculate the scroll height
-        lenis.resize();
-        // Also scroll to top to ensure we're at the start
-        lenis.scrollTo(0, { immediate: true });
-      }
-      
-      // Also trigger a resize event to force browser recalculation
-      window.dispatchEvent(new Event("resize"));
-    };
-    
-    // Recalculate after mount and after delays to ensure content is fully rendered
-    // This handles cases where images or other content loads asynchronously
-    const timeouts = [
-      setTimeout(recalculateScroll, 100),
-      setTimeout(recalculateScroll, 300),
-      setTimeout(recalculateScroll, 600),
-      setTimeout(recalculateScroll, 1000),
-    ];
-    
-    return () => {
-      timeouts.forEach(clearTimeout);
-    };
-  }, []);
-
-  useEffect(() => {
-    const update = () => {
+    // Set viewport immediately to prevent jump
+    const updateViewport = () => {
       setViewport({
         width: window.innerWidth,
         height: window.innerHeight,
       });
     };
-
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
-
-  useEffect(() => {
-    // Ensure component is mounted and gradient is visible
+    
+    updateViewport();
+    
+    // Scroll to top immediately and only once
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    
+    const lenis = getLenis();
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true });
+    }
+    
+    // Set mounted state after viewport is set
     const id = requestAnimationFrame(() => {
       setMounted(true);
+      
+      // Recalculate scroll height after mount
+      const recalculateScroll = () => {
+        const lenis = getLenis();
+        if (lenis) {
+          lenis.resize();
+        }
+      };
+      
+      // Single recalculation after a short delay
+      setTimeout(recalculateScroll, 100);
     });
     
-    // Recalculate scroll height once component is fully mounted
-    const recalculateAfterMount = () => {
-      const lenis = getLenis();
-      if (lenis) {
-        lenis.resize();
-      }
-      window.dispatchEvent(new Event("resize"));
-    };
-    
-    // Recalculate after a short delay to ensure DOM is updated
-    const timeout = setTimeout(recalculateAfterMount, 200);
+    window.addEventListener("resize", updateViewport);
     return () => {
       cancelAnimationFrame(id);
-      clearTimeout(timeout);
+      window.removeEventListener("resize", updateViewport);
     };
   }, []);
 

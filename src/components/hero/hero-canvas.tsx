@@ -158,7 +158,7 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
         speed={0.15}
         startOffset={0}
         radius={0.84}
-        scale={1.68}
+        scale={2.1}
         travelWidth={layout.svgSize[0]}
       />
 

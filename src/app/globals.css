@@ -272,12 +272,22 @@ a {
 .hero-no-cursor,
 .hero-no-cursor *,
 .hero-no-cursor *::before,
-.hero-no-cursor *::after {
+.hero-no-cursor *::after,
+section[id="top"],
+section[id="top"] *,
+section[id="top"] *::before,
+section[id="top"] *::after {
   cursor: none !important;
+  pointer-events: auto;
 }
 
 /* Hide cursor on body when mouse is over hero section */
-body.hero-cursor-hidden {
+body.hero-cursor-hidden,
+body.hero-cursor-hidden *,
+body.hero-cursor-hidden *::before,
+body.hero-cursor-hidden *::after,
+html.hero-cursor-hidden,
+html.hero-cursor-hidden * {
   cursor: none !important;
 }
 
