@@ -112,7 +112,7 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "A concept worth pitching",
         body: [
-          "This proposal is designed to elevate the Elvou brand and expand the value it offers customers. It provides a quiet digital home for a wellness lifestyle rather than a simple catalog of products.",
+          "This proposal expands the value Elvou offers customers. It provides a quiet digital home for a wellness lifestyle rather than a simple catalog of products.",
         ],
         visuals: [],
       },
@@ -235,12 +235,12 @@ const caseContent: Record<string, CaseContent> = {
   },
   "current-ev-charging-app": {
     intro:
-      "Current EV became a rare opportunity for me to guide a product through an entire structured journey, from the earliest discovery work to the final visual details. I followed a complete Double Diamond, embracing every phase with discipline and clarity.",
+      "Current EV became a rare opportunity for me to guide a product through an entire structured journey, from the earliest discovery work to the final visual details. I followed a complete Double Diamond process.",
     phases: [
       {
         title: "The project from the first step to the last",
         body: [
-          "Current EV became a rare opportunity for me to guide a product through an entire structured journey, from the earliest discovery work to the final visual details. I followed a complete Double Diamond, embracing every phase with discipline and clarity. We conducted research sessions, mapped user journeys, created personas, analyzed energy pricing behaviors, and facilitated workshops with real drivers, all to capture the complexity of how people negotiate charging in their daily routines. The structure gave the project a solid backbone, something that allowed creativity and engineering to work together instead of competing for space.",
+          "Current EV became a rare opportunity for me to guide a product through an entire structured journey, from the earliest discovery work to the final visual details. I followed a complete Double Diamond process. We conducted research sessions, mapped user journeys, created personas, analyzed energy pricing behaviors, and facilitated workshops with real drivers, all to capture the complexity of how people negotiate charging in their daily routines. The structure gave the project a solid backbone, something that allowed creativity and engineering to work together instead of competing for space.",
         ],
         visuals: [
           {
@@ -280,7 +280,7 @@ const caseContent: Record<string, CaseContent> = {
       {
         title: "A design that earns trust",
         body: [
-          "The final design is clean and calm, intentionally restrained, focused on clarity instead of decoration. We wanted users to trust the app, and trust comes from predictability and honesty. Every screen follows a logic that feels natural, every flow leads the user gently to the next step. Current EV became a project where structure and emotion work together, something that reflects the discipline of the process as much as the empathy behind it.",
+          "The final design is clean and calm, intentionally restrained, focused on clarity instead of decoration. We wanted users to trust the app, and trust comes from predictability and honesty. Every screen follows a logic that feels natural, every flow leads the user gently to the next step. Current EV became a project where structure and emotion work together.",
         ],
         visuals: [
           {

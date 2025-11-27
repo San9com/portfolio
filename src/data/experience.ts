@@ -24,7 +24,7 @@ export const experience: ExperienceItem[] = [
     company: "Student",
     start: "2022",
     end: "Today",
-    summary: "Built a rigorous foundation in user-centered design, service blueprints, and experimentation with emerging motion languages.",
+    summary: "Learning user-centered design, service blueprints, and experimenting with emerging motion languages.",
     image: null,
   },
   {
@@ -33,7 +33,7 @@ export const experience: ExperienceItem[] = [
     company: "Apperium",
     start: "2024",
     end: "2025",
-    summary: "Partnered with clients like GaiaZoo and MKB Brandstof, translating strategy into lovable, measurable multi-platform journeys.",
+    summary: "Worked with clients like GaiaZoo and MKB Brandstof, designing multi-platform experiences.",
     image: null,
   },
   {
