@@ -50,11 +50,15 @@ export function GlassLens({
     if (!ref.current) return;
 
     if (isMobile) {
-      // On mobile, move slowly back and forth along the text
+      // On mobile, continuously loop from left to right
       const time = state.clock.getElapsedTime();
-      const slowSpeed = 0.3; // Slow movement speed
-      const normalizedPosition = (Math.sin(time * slowSpeed) + 1) / 2; // 0 to 1
-      const x = position[0] + (normalizedPosition - 0.5) * travelWidth;
+      const slowSpeed = 0.15; // Movement speed
+      // Calculate full travel width (from left edge to right edge of viewport)
+      const fullTravelWidth = viewport.width;
+      // Linear progression that loops (0 to 1, then wraps)
+      const progress = (time * slowSpeed) % 1;
+      // Position from left edge (-viewport.width/2) to right edge (+viewport.width/2)
+      const x = -viewport.width / 2 + progress * fullTravelWidth;
       const y = position[1];
       const worldPosition = new Vector3(x, y, position[2]);
       ref.current.position.copy(worldPosition);
