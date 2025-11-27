@@ -18,6 +18,13 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
+    // Disable smooth scroll on mobile for better performance
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) {
+      document.documentElement.style.scrollBehavior = "auto";
+      return;
+    }
+
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (mediaQuery.matches) {
       document.documentElement.style.scrollBehavior = "auto";

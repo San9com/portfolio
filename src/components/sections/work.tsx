@@ -102,8 +102,8 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
     target: ref,
     offset: ["start end", "end start"],
   });
-  // Stronger parallax on mobile, standard on desktop
-  const translateY = useTransform(scrollYProgress, [0, 1], isDesktop ? [-40, 40] : [-80, 80]);
+  // Minimal parallax on mobile for better performance, standard on desktop
+  const translateY = useTransform(scrollYProgress, [0, 1], isDesktop ? [-40, 40] : [-20, 20]);
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = useCallback(() => {
@@ -145,6 +145,10 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         layout: { duration: 0.35 } // Faster layout transitions
       } : {}}
       className="group relative flex min-h-[42rem] flex-1 flex-col justify-end overflow-hidden rounded bg-black/40 will-change-[flex] cursor-pointer lg:min-h-[33rem]"
+      style={{ 
+        transform: "translateZ(0)", // Force GPU acceleration
+        backfaceVisibility: "hidden",
+      }}
       tabIndex={0}
       style={{ backfaceVisibility: "hidden" }}
     >
@@ -168,9 +172,10 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         className="absolute inset-0"
         style={{ 
           y: translateY,
-          willChange: "transform",
+          willChange: isDesktop ? "transform" : "auto",
+          transform: "translateZ(0)", // Force GPU acceleration
         }}
-              >
+      >
                 <Image
                   src={project.image}
                   alt={`${project.title} preview`}
