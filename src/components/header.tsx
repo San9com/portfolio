@@ -319,6 +319,8 @@ export function Header({ overlay = false }: HeaderProps) {
       ref={headerRef}
       className={clsx("z-30 flex w-full justify-center", positionClasses, backgroundClasses)}
     >
+      {/* Mobile top gradient dimming */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black/40 to-transparent md:hidden" />
       <div className="pointer-events-auto relative mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-6 sm:px-10">
         <Link href="/" className={clsx("text-sm transition-colors", brandTextClasses)}>
           <motion.span
