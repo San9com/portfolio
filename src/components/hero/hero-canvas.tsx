@@ -202,17 +202,16 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
         <meshBasicMaterial map={portraitTexture} toneMapped={false} transparent />
       </mesh>
 
-      {/* Single magnifying glass lens following cursor over text */}
-      {!isMobile && (
-        <GlassLens
-          position={[layout.svgPosition[0], layout.svgPosition[1], 0.3]}
-          speed={0.15}
-          startOffset={0}
-          radius={0.84}
-          scale={2.1}
-          travelWidth={layout.svgSize[0]}
-        />
-      )}
+      {/* Single magnifying glass lens following cursor over text (desktop) or moving slowly (mobile) */}
+      <GlassLens
+        position={[layout.svgPosition[0], layout.svgPosition[1], 0.3]}
+        speed={0.15}
+        startOffset={0}
+        radius={0.84}
+        scale={2.1}
+        travelWidth={layout.svgSize[0]}
+        isMobile={isMobile}
+      />
 
       <Environment resolution={256}>
         <group>

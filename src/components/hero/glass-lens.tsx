@@ -12,6 +12,7 @@ type GlassLensProps = {
   radius?: number;
   travelWidth?: number;
   scale?: number;
+  isMobile?: boolean;
 };
 
 export function GlassLens({
@@ -21,13 +22,19 @@ export function GlassLens({
   radius = 0.4,
   travelWidth = 8,
   scale = 1,
+  isMobile = false,
 }: GlassLensProps) {
   const ref = useRef<Group>(null);
   const lensRef = useRef<Group>(null);
-  const { camera, size, viewport } = useThree();
+  const { size, viewport } = useThree();
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
+    if (isMobile) {
+      // On mobile, don't listen to mouse
+      return;
+    }
+
     const handleMouseMove = (event: MouseEvent) => {
       // Convert mouse coordinates to normalized device coordinates (-1 to +1)
       const x = (event.clientX / size.width) * 2 - 1;
@@ -37,15 +44,25 @@ export function GlassLens({
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [size]);
+  }, [size, isMobile]);
 
-  useFrame(() => {
+  useFrame((state, delta) => {
     if (!ref.current) return;
 
-    // Convert normalized mouse coordinates to world position
-    const worldPosition = new Vector3(mouse.x * viewport.width / 2, mouse.y * viewport.height / 2, position[2]);
-    
-    ref.current.position.copy(worldPosition);
+    if (isMobile) {
+      // On mobile, move slowly back and forth along the text
+      const time = state.clock.getElapsedTime();
+      const slowSpeed = 0.3; // Slow movement speed
+      const normalizedPosition = (Math.sin(time * slowSpeed) + 1) / 2; // 0 to 1
+      const x = position[0] + (normalizedPosition - 0.5) * travelWidth;
+      const y = position[1];
+      const worldPosition = new Vector3(x, y, position[2]);
+      ref.current.position.copy(worldPosition);
+    } else {
+      // Desktop: follow cursor
+      const worldPosition = new Vector3(mouse.x * viewport.width / 2, mouse.y * viewport.height / 2, position[2]);
+      ref.current.position.copy(worldPosition);
+    }
   });
 
   return (
