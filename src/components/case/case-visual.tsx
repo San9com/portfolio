@@ -14,12 +14,6 @@ type CaseVisualShowcaseProps = {
 const FRAME_RATIO = 3082 / 2287;
 
 export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualShowcaseProps) {
-  const sectionRef = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
-
   // Initialize viewport with actual window dimensions to prevent jump
   const [viewport, setViewport] = useState(() => {
     if (typeof window !== "undefined") {
@@ -29,9 +23,41 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
   });
   const [mounted, setMounted] = useState(false);
 
-  // Single effect to handle viewport updates and scroll reset
+  const isDesktop = viewport.width >= 768;
+
+  // On mobile, render completely static - no scroll tracking, no animations, no interference
+  if (!isDesktop) {
+    return (
+      <section
+        className="relative w-full"
+        aria-label="Project visual immersion"
+      >
+        <div className="relative h-[70vh] w-full overflow-hidden">
+          <Image 
+            src={image} 
+            alt={alt} 
+            fill 
+            priority 
+            sizes="100vw" 
+            className="object-cover" 
+            style={{ filter: `brightness(${brightness})` }}
+          />
+          <div className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-t from-black via-black/25 to-transparent" />
+        </div>
+      </section>
+    );
+  }
+
+  // Desktop version with scroll tracking and animation
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+
+  // Single effect to handle viewport updates and scroll reset (desktop only)
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (typeof window === "undefined" || !isDesktop) return;
     
     // Set viewport immediately to prevent jump
     const updateViewport = () => {
@@ -55,18 +81,16 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
     const id = requestAnimationFrame(() => {
       setMounted(true);
       
-      // Recalculate scroll height after mount (only on desktop where animation is used)
+      // Recalculate scroll height after mount
       const recalculateScroll = () => {
         const lenis = getLenis();
-        if (lenis && window.innerWidth >= 768) {
+        if (lenis) {
           lenis.resize();
         }
       };
       
-      // Single recalculation after a short delay (only on desktop)
-      if (window.innerWidth >= 768) {
-        setTimeout(recalculateScroll, 100);
-      }
+      // Single recalculation after a short delay
+      setTimeout(recalculateScroll, 100);
     });
     
     window.addEventListener("resize", updateViewport);
@@ -74,9 +98,7 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
       cancelAnimationFrame(id);
       window.removeEventListener("resize", updateViewport);
     };
-  }, []);
-
-  const isDesktop = viewport.width >= 768;
+  }, [isDesktop]);
   const {
     targetWidth,
     targetHeight,
@@ -131,8 +153,8 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
     setFrameVisible((prev) => (prev === nextVisible ? prev : nextVisible));
   });
 
-  // On mobile, use simpler layout without animation - no sticky, just a regular image
-  const sectionMinHeight = isDesktop ? "min-h-[220svh]" : "min-h-[100vh]";
+  // Desktop only - section min height for animation
+  const sectionMinHeight = "min-h-[220svh]";
 
   if (!mounted) {
     return (
@@ -141,23 +163,8 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
         className={`relative flex ${sectionMinHeight} w-full flex-col justify-start`}
         aria-label="Project visual immersion"
       >
-        {isDesktop ? (
-          <div className="pointer-events-none sticky top-0 h-[100svh] overflow-hidden">
-            <div className="relative h-full w-full">
-              <Image 
-                src={image} 
-                alt={alt} 
-                fill 
-                priority 
-                sizes="100vw" 
-                className="object-cover" 
-                style={{ filter: `brightness(${brightness})` }}
-              />
-              <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-black via-black/25 to-transparent" style={{ willChange: "opacity" }} />
-            </div>
-          </div>
-        ) : (
-          <div className="relative h-[70vh] w-full overflow-hidden">
+        <div className="pointer-events-none sticky top-0 h-[100svh] overflow-hidden">
+          <div className="relative h-full w-full">
             <Image 
               src={image} 
               alt={alt} 
@@ -167,32 +174,8 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
               className="object-cover" 
               style={{ filter: `brightness(${brightness})` }}
             />
-            <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-black via-black/25 to-transparent" />
+            <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-black via-black/25 to-transparent" style={{ willChange: "opacity" }} />
           </div>
-        )}
-      </section>
-    );
-  }
-
-  // On mobile, render simple static image without animation - no sticky positioning
-  if (!isDesktop) {
-    return (
-      <section
-        ref={sectionRef}
-        className="relative flex w-full flex-col justify-start"
-        aria-label="Project visual immersion"
-      >
-        <div className="relative h-[70vh] w-full overflow-hidden">
-          <Image 
-            src={image} 
-            alt={alt} 
-            fill 
-            priority 
-            sizes="100vw" 
-            className="object-cover" 
-            style={{ filter: `brightness(${brightness})` }}
-          />
-          <div className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-t from-black via-black/25 to-transparent" />
         </div>
       </section>
     );
