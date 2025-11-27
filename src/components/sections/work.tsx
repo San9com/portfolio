@@ -46,7 +46,7 @@ export function WorkSection() {
           </AnimatedText>
         </div>
 
-        <div className="flex flex-col gap-6 md:gap-6 lg:h-[48rem] lg:flex-row">
+        <div className="flex flex-col gap-6 lg:h-[48rem] lg:flex-row">
           {projects.map((project, index) => {
             const isActive = activeIndex === index;
 
@@ -122,7 +122,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         ease: [0.4, 0, 0.2, 1],
         layout: { duration: 0.35 } // Faster layout transitions
       }}
-      className="group relative flex min-h-[200vh] md:min-h-[33rem] flex-1 flex-col justify-end overflow-hidden rounded bg-black/40 will-change-[flex] cursor-pointer touch-manipulation"
+      className="group relative flex min-h-[56rem] md:min-h-[33rem] flex-1 flex-col justify-end overflow-hidden rounded bg-black/40 will-change-[flex] cursor-pointer touch-manipulation"
       tabIndex={0}
       style={{ backfaceVisibility: "hidden", WebkitTapHighlightColor: "transparent" }}
     >
@@ -173,11 +173,11 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
 
       {/* Content with smooth animations */}
       <motion.div
-        className="relative z-10 flex flex-col gap-4 p-6"
+        className="relative z-10 flex flex-col gap-4 p-6 mobile-always-visible"
         initial={false}
         animate={{
           y: isActive ? 0 : 10,
-          opacity: 1, // Always visible on mobile, desktop uses isActive state
+          opacity: isActive ? 1 : 0,
         }}
         transition={{
           duration: 0.35,
@@ -190,32 +190,33 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         }}
       >
         <motion.div 
-          className="text-xs text-white/80"
+          className="text-xs text-white/80 mobile-always-visible"
           initial={false}
-          animate={{ opacity: 1 }} // Always visible on mobile
-          transition={{ duration: 0.2 }}
+          animate={{ opacity: isActive ? 1 : 0 }}
+          transition={{ duration: 0.2, delay: isActive ? 0.05 : 0 }}
         >
           {project.year}
         </motion.div>
         
         <motion.h3 
-          className="text-3xl text-foreground lg:text-[2.4rem]"
+          className="text-3xl text-foreground lg:text-[2.4rem] mobile-always-visible"
           initial={false}
-          animate={{ opacity: 1 }} // Always visible on mobile
-          transition={{ duration: 0.25 }}
+          animate={{ opacity: isActive ? 1 : 0 }}
+          transition={{ duration: 0.25, delay: isActive ? 0.08 : 0 }}
         >
           {project.title}
         </motion.h3>
         
         <motion.p 
-          className="hidden text-sm leading-relaxed text-muted md:block"
+          className="text-sm leading-relaxed text-muted mobile-always-visible"
           initial={false}
           animate={{ 
-            opacity: 1, // Always visible on desktop
-            y: 0,
+            opacity: isActive ? 1 : 0,
+            y: isActive ? 0 : 8,
           }}
           transition={{ 
-            duration: 0.3,
+            duration: 0.3, 
+            delay: isActive ? 0.12 : 0,
             ease: [0.4, 0, 0.2, 1]
           }}
         >
@@ -223,14 +224,14 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
         </motion.p>
         
         <motion.span
-          className="pointer-events-none mt-3 inline-flex items-center gap-2 text-sm font-normal text-white"
+          className="pointer-events-none mt-3 inline-flex items-center gap-2 text-sm font-normal text-white mobile-always-visible"
           initial={false}
-          animate={{
-            opacity: 1, // Always visible on mobile
+          animate={{ 
+            opacity: isActive ? 1 : 0,
             x: isHovered ? 4 : 0,
           }}
           transition={{ 
-            opacity: { duration: 0.25 },
+            opacity: { duration: 0.25, delay: isActive ? 0.15 : 0 },
             x: { duration: 0.2, ease: "easeOut" }
           }}
         >

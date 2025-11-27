@@ -334,6 +334,20 @@ th {
   select {
     font-size: 16px !important; /* Prevents zoom on iOS */
   }
+
+  /* Make project info always visible on mobile */
+  .mobile-always-visible {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+}
+
+/* Reset mobile-always-visible on desktop */
+@media (min-width: 768px) {
+  .mobile-always-visible {
+    opacity: inherit !important;
+    pointer-events: inherit !important;
+  }
 }
 
 body::-webkit-scrollbar {
