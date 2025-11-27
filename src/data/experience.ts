@@ -34,7 +34,7 @@ export const experience: ExperienceItem[] = [
     start: "2024",
     end: "2025",
     summary: "Partnered with clients like GaiaZoo and MKB Brandstof, translating strategy into lovable, measurable multi-platform journeys.",
-    image: "/images/experience-apperium.png",
+    image: null,
   },
   {
     id: "stellar",
