@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import clsx from "clsx";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -11,6 +11,9 @@ import { AnimatedText, AnimatedTextReveal } from "@/components/animated-text";
 export function ExperienceSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLElement | null)[]>([]);
+  const [activeCardIndex, setActiveCardIndex] = useState<number | null>(null);
+  
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
@@ -18,6 +21,42 @@ export function ExperienceSection() {
 
   // Subtle parallax - elegant and simple
   const y = useTransform(scrollYProgress, [0, 1], [0, 40]);
+
+  // Track which card is closest to center
+  useEffect(() => {
+    const handleScroll = () => {
+      const windowHeight = window.innerHeight;
+      const viewportCenter = windowHeight / 2;
+      
+      let closestIndex: number | null = null;
+      let closestDistance = Infinity;
+
+      cardRefs.current.forEach((cardRef, index) => {
+        if (!cardRef) return;
+        
+        const rect = cardRef.getBoundingClientRect();
+        const cardCenter = rect.top + rect.height / 2;
+        const distanceFromCenter = Math.abs(cardCenter - viewportCenter);
+        
+        // Only consider cards that are visible and reasonably close to center
+        if (rect.bottom > 0 && rect.top < windowHeight && distanceFromCenter < closestDistance) {
+          closestDistance = distanceFromCenter;
+          closestIndex = index;
+        }
+      });
+
+      setActiveCardIndex(closestIndex);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, []);
 
   return (
     <section 
@@ -57,7 +96,15 @@ export function ExperienceSection() {
 
         <div className="space-y-10 sm:space-y-12">
           {experience.map((item, index) => (
-            <ExperienceCard key={item.id} item={item} index={index} />
+            <ExperienceCard
+              key={item.id}
+              item={item}
+              index={index}
+              isActive={activeCardIndex === index}
+              cardRef={(el) => {
+                cardRefs.current[index] = el;
+              }}
+            />
           ))}
         </div>
       </div>
@@ -69,10 +116,54 @@ export function ExperienceSection() {
 type ExperienceCardProps = {
   item: (typeof experience)[number];
   index: number;
+  isActive: boolean;
+  cardRef: (el: HTMLElement | null) => void;
 };
 
-function ExperienceCard({ item, index }: ExperienceCardProps) {
+function ExperienceCard({ item, index, isActive, cardRef }: ExperienceCardProps) {
   const ref = useRef<HTMLElement>(null);
+  const [centerProgress, setCenterProgress] = useState(0);
+
+  // Track scroll position relative to viewport center for smooth animation
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!ref.current) return;
+
+      const rect = ref.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const cardCenter = rect.top + rect.height / 2;
+      const viewportCenter = windowHeight / 2;
+      
+      // Calculate distance from center
+      const distanceFromCenter = Math.abs(cardCenter - viewportCenter);
+      const maxDistance = windowHeight * 0.5; // Animation range
+      
+      // Calculate progress: 1 when centered, 0 when far away
+      const progress = 1 - Math.min(distanceFromCenter / maxDistance, 1);
+      setCenterProgress(progress);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, []);
+
+  // Set ref callback
+  useEffect(() => {
+    if (ref.current) {
+      cardRef(ref.current);
+    }
+    return () => {
+      cardRef(null);
+    };
+  }, [cardRef]);
+
+  const isLit = isActive && centerProgress > 0.3;
 
   return (
     <motion.article
@@ -82,13 +173,14 @@ function ExperienceCard({ item, index }: ExperienceCardProps) {
       viewport={{ once: true, margin: "-120px" }}
       transition={{ duration: 0.6, delay: index * 0.08 }}
       className={clsx(
-        "relative overflow-hidden rounded-xl",
-        item.image ? "min-h-[380px]" : "min-h-[340px]"
+        "relative overflow-hidden rounded-xl transition-colors duration-700 ease-out",
+        item.image ? "min-h-[380px]" : "min-h-[340px]",
+        isLit ? "bg-white" : "bg-transparent"
       )}
       style={{ perspective: "1200px" }}
     >
-      {/* 3D rotating clear glass */}
-      <GlassExperienceCardCanvas cardRef={ref} />
+      {/* 3D rotating clear glass - hide when lit */}
+      {!isLit && <GlassExperienceCardCanvas cardRef={ref} />}
 
       {/* HTML text content - crisp and clean */}
       <div className={clsx(
@@ -96,37 +188,42 @@ function ExperienceCard({ item, index }: ExperienceCardProps) {
         item.image && "lg:flex-row lg:items-center lg:gap-16"
       )}>
         <div className="flex flex-1 flex-col gap-6">
-          <AnimatedText
-            as="div"
-            className="flex items-center gap-4 text-sm text-muted/70"
-            delay={0.1}
+          <motion.div
+            className="flex items-center gap-4 text-sm transition-colors duration-700"
+            style={{ color: isLit ? "rgba(0, 0, 0, 0.6)" : "rgba(255, 255, 255, 0.7)" }}
           >
-            <span className="text-foreground/90">{item.start}</span>
-            <span className="h-px w-16 bg-border-subtle/40" aria-hidden="true" />
+            <motion.span
+              style={{ color: isLit ? "rgba(0, 0, 0, 0.9)" : "rgba(255, 255, 255, 0.9)" }}
+              transition={{ duration: 0.7 }}
+            >
+              {item.start}
+            </motion.span>
+            <span
+              className="h-px w-16 transition-colors duration-700"
+              style={{ backgroundColor: isLit ? "rgba(0, 0, 0, 0.2)" : "rgba(255, 255, 255, 0.2)" }}
+              aria-hidden="true"
+            />
             <span>{item.end}</span>
-          </AnimatedText>
+          </motion.div>
           <div className="space-y-4">
-            <AnimatedText
-              as="h3"
-              className="text-[1.75rem] leading-tight text-foreground sm:text-[2rem] lg:text-[2.4rem]"
-              delay={0.15}
+            <motion.h3
+              className="text-[1.75rem] leading-tight sm:text-[2rem] lg:text-[2.4rem] transition-colors duration-700"
+              style={{ color: isLit ? "#000000" : "rgba(255, 255, 255, 1)" }}
             >
               {item.role}
-            </AnimatedText>
-            <AnimatedText
-              as="p"
-              className="text-base text-muted/80 sm:text-lg"
-              delay={0.2}
+            </motion.h3>
+            <motion.p
+              className="text-base sm:text-lg transition-colors duration-700"
+              style={{ color: isLit ? "rgba(0, 0, 0, 0.7)" : "rgba(255, 255, 255, 0.8)" }}
             >
               {item.company}
-            </AnimatedText>
-            <AnimatedText
-              as="p"
-              className="text-base leading-relaxed text-muted sm:text-lg sm:leading-relaxed"
-              delay={0.25}
+            </motion.p>
+            <motion.p
+              className="text-base leading-relaxed sm:text-lg sm:leading-relaxed transition-colors duration-700"
+              style={{ color: isLit ? "rgba(0, 0, 0, 0.7)" : "rgba(255, 255, 255, 0.7)" }}
             >
               {item.summary}
-            </AnimatedText>
+            </motion.p>
           </div>
         </div>
 
