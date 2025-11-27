@@ -423,7 +423,7 @@ export function Header({ overlay = false }: HeaderProps) {
         <motion.button
           type="button"
           className={clsx(
-            "rounded-full border border-white/20 px-5 py-3 text-base text-foreground transition-colors hover:border-white/40 hover:text-white md:hidden",
+            "flex items-center justify-center rounded-full border border-white/20 px-5 py-3 text-base text-foreground transition-colors hover:border-white/40 hover:text-white md:hidden",
             mobileButtonClasses
           )}
           onClick={() => setMenuOpen((prev) => !prev)}
@@ -433,7 +433,7 @@ export function Header({ overlay = false }: HeaderProps) {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.96 }}
         >
-          {menuOpen ? "Close" : "☰"}
+          {menuOpen ? "Close" : "Menu"}
         </motion.button>
 
         <AnimatePresence>
