@@ -203,10 +203,11 @@ const caseContent: Record<string, CaseContent> = {
         title: "Carrying the old into the new",
         body: [
           "The previous app had features that people genuinely loved, especially the children's games and the interactive map. We decided to protect these elements, polishing them without removing their charm. We redesigned navigation, modernized the interface, improved information architecture, and added thoughtful touches like Apple Wallet passes and simplified day planning tools. It felt like giving the app a new personality without erasing its history.",
+          "Modernized visuals and new features like Apple Wallet integration.",
         ],
         visuals: [
           {
-            image: "/GaiaZoo 2.webp",
+            image: "/Gaiazoo 2.webp",
             alt: "Modernized visuals and new features like Apple Wallet integration.",
           },
           {

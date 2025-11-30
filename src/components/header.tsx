@@ -329,7 +329,7 @@ export function Header({ overlay = false }: HeaderProps) {
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="flex items-center gap-3"
           >
-            <span className="md:!text-white">murashka</span>
+            <span>murashka</span>
             <span className="hidden text-white/50 md:inline">iOS/UI/UX designer</span>
           </motion.span>
         </Link>
