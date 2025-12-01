@@ -15,7 +15,7 @@ export const experience: ExperienceItem[] = [
     company: "Independent",
     start: "February 2020",
     end: "Early 2022",
-    summary: "During those years, I worked on a dozen of iOS applications ranging from VPNs to Meditation applications. I was responsible for the whole design starting with onboarding screen and ending up with App Store graphics, icons and logos. During the fall of 2022, a small team consisting of a developer, an investor, and I created a QR-code scanner application in which I had a stake. As both the UI/UX designer and product manager, I was responsible for the entire product lifecycle from the initial ideation and competitive analysis to later handling things like A/B testing of the finished product. The application, though not financially successful, was later sold to another company.",
+    summary: "Worked on a dozen of iOS applications ranging from VPNs to Meditation applications, responsible for the whole design from onboarding screens to App Store graphics, icons and logos. During the fall of 2022, a small team and I created a QR-code scanner application where I served as both UI/UX designer and product manager, handling the entire product lifecycle from ideation to A/B testing. The application was later sold to another company.",
     image: null,
   },
   {
