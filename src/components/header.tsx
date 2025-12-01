@@ -491,15 +491,23 @@ export function Header({ overlay = false }: HeaderProps) {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.3, delay: 0, ease: "easeOut" }}
+                  transition={{ 
+                    duration: 0.5, 
+                    delay: -1 * 0.1,
+                    ease: [0.4, 0, 0.2, 1]
+                  }}
                   className="w-full text-center"
                 >
                   <Link
                     href="/cv"
                     onClick={() => setMenuOpen(false)}
-                    className="inline-flex items-center justify-center text-[clamp(3.5rem,18vw,8rem)] font-light text-foreground/90 transition-colors hover:text-foreground"
+                    className="block"
                   >
-                    <motion.span whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
+                    <motion.span
+                      className="block text-[clamp(3.5rem,18vw,8rem)] font-light leading-[0.9] text-foreground transition-colors hover:text-white"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
                       cv
                     </motion.span>
                   </Link>
