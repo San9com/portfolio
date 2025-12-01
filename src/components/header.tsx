@@ -335,6 +335,18 @@ export function Header({ overlay = false }: HeaderProps) {
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm font-normal md:flex">
+          <Link
+            href="/cv"
+            className={clsx("text-sm transition-colors", navLinkClasses)}
+          >
+            <motion.span
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            >
+              CV
+            </motion.span>
+          </Link>
           {navigationLinks.map((link) => {
             const characters = Array.from(link.label);
             const handleClick = (e: React.MouseEvent) => {
@@ -475,6 +487,23 @@ export function Header({ overlay = false }: HeaderProps) {
               </motion.button>
 
               <div className="flex h-full flex-col justify-center px-6 py-20">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3, delay: 0, ease: "easeOut" }}
+                  className="w-full text-center"
+                >
+                  <Link
+                    href="/cv"
+                    onClick={() => setMenuOpen(false)}
+                    className="inline-flex items-center justify-center text-[clamp(3.5rem,18vw,8rem)] font-light text-foreground/90 transition-colors hover:text-foreground"
+                  >
+                    <motion.span whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
+                      CV
+                    </motion.span>
+                  </Link>
+                </motion.div>
                 {navigationLinks.map((link, index) => {
                   const handleClick = (e: React.MouseEvent) => {
                     setMenuOpen(false);
