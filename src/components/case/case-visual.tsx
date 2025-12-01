@@ -22,34 +22,11 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
     return { width: 1280, height: 720 };
   });
   const [mounted, setMounted] = useState(false);
+  const [frameVisible, setFrameVisible] = useState(false);
 
   const isDesktop = viewport.width >= 768;
 
-  // On mobile, render completely static - no scroll tracking, no animations, no interference
-  if (!isDesktop) {
-    return (
-      <section
-        className="relative w-full"
-        aria-label="Project visual immersion"
-      >
-        <div className="relative h-[70vh] w-full overflow-hidden">
-          <Image 
-            src={image} 
-            alt={alt} 
-            fill 
-            priority 
-            quality={95}
-            sizes="100vw" 
-            className="object-cover" 
-            style={{ filter: `brightness(${brightness})` }}
-          />
-          <div className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-t from-black via-black/25 to-transparent" />
-        </div>
-      </section>
-    );
-  }
-
-  // Desktop version with scroll tracking and animation
+  // All hooks must be called unconditionally - move them before any early returns
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -145,14 +122,37 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
     "inset(0% 0% 0% 0% round 0px)",
     `inset(0% ${screenSideInset}% ${screenTopInset}% ${screenSideInset}% round 12px)`,
   ]);
-  const frameOpacity = useTransform(scrollYProgress, [0.68, 0.88], [0, 1]);
-
-  const [frameVisible, setFrameVisible] = useState(false);
+  const frameOpacity = useTransform(scrollYProgress, [0.68, 0.88], [0, isDesktop ? 1 : 0]);
 
   useMotionValueEvent(frameOpacity, "change", (value) => {
+    if (!isDesktop) return;
     const nextVisible = value > 0.01;
     setFrameVisible((prev) => (prev === nextVisible ? prev : nextVisible));
   });
+
+  // On mobile, render completely static - no scroll tracking, no animations, no interference
+  if (!isDesktop) {
+    return (
+      <section
+        className="relative w-full"
+        aria-label="Project visual immersion"
+      >
+        <div className="relative h-[70vh] w-full overflow-hidden">
+          <Image 
+            src={image} 
+            alt={alt} 
+            fill 
+            priority 
+            quality={95}
+            sizes="100vw" 
+            className="object-cover" 
+            style={{ filter: `brightness(${brightness})` }}
+          />
+          <div className="pointer-events-none absolute inset-0 z-20 bg-gradient-to-t from-black via-black/25 to-transparent" />
+        </div>
+      </section>
+    );
+  }
 
   // Desktop only - section min height for animation
   const sectionMinHeight = "min-h-[220svh]";
