@@ -496,12 +496,11 @@ export function Header({ overlay = false }: HeaderProps) {
                     delay: -1 * 0.1,
                     ease: [0.4, 0, 0.2, 1]
                   }}
-                  className="w-full text-center"
                 >
                   <Link
                     href="/cv"
                     onClick={() => setMenuOpen(false)}
-                    className="block"
+                    className="block py-6"
                   >
                     <motion.span
                       className="block text-[clamp(3.5rem,18vw,8rem)] font-light leading-[0.9] text-foreground transition-colors hover:text-white"
