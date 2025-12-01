@@ -19,6 +19,15 @@ export const experience: ExperienceItem[] = [
     image: null,
   },
   {
+    id: "fontys",
+    role: "Fontys University of Applied Sciences",
+    company: "Student",
+    start: "2022",
+    end: "Today",
+    summary: "Spent university years learning the core ideas of a user-centered design and what being in the user's shoes even means.",
+    image: null,
+  },
+  {
     id: "stellar",
     role: "UI/UX & Product designer for Stellar Lab (side project)",
     company: "Stellar Lab",
