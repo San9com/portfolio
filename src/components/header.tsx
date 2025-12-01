@@ -344,7 +344,7 @@ export function Header({ overlay = false }: HeaderProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
-              CV
+              cv
             </motion.span>
           </Link>
           {navigationLinks.map((link) => {
@@ -500,7 +500,7 @@ export function Header({ overlay = false }: HeaderProps) {
                     className="inline-flex items-center justify-center text-[clamp(3.5rem,18vw,8rem)] font-light text-foreground/90 transition-colors hover:text-foreground"
                   >
                     <motion.span whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.96 }}>
-                      CV
+                      cv
                     </motion.span>
                   </Link>
                 </motion.div>

@@ -5,10 +5,13 @@ export const metadata: Metadata = {
 };
 
 export default function CVPage() {
+  // URL encode the PDF path to handle spaces and special characters
+  const pdfPath = encodeURI("/cv - alexander murashka@2x.pdf");
+  
   return (
     <div className="fixed inset-0 bg-black">
       <iframe
-        src="/cv - alexander murashka@2x.pdf"
+        src={pdfPath}
         className="h-full w-full"
         title="Alexander Murashka CV"
       />
