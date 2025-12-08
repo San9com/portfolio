@@ -29,7 +29,7 @@
   --shadow-soft: 0 20px 60px rgba(4, 7, 16, 0.6);
   --font-sans-base: "PPNeueMontreal", "Rmneue", "Futura PT", "Avenir Next", "Avenir", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-size-base: 22px;
-  --font-letter-spacing: -0.5px;
+  --font-letter-spacing: 0.01em;
   --body-padding-y: 0px;
   --body-padding-x: 0px;
 }
@@ -282,7 +282,7 @@ section[id="top"] canvas *,
 section[id="top"] > div,
 section[id="top"] > div *,
 section[id="top"] > div canvas {
-  cursor: none !important;
+  /* cursor: none !important; */
   pointer-events: auto;
 }
 
@@ -295,7 +295,7 @@ html.hero-cursor-hidden,
 html.hero-cursor-hidden *,
 body.hero-cursor-hidden canvas,
 html.hero-cursor-hidden canvas {
-  cursor: none !important;
+  /* cursor: none !important; */
 }
 
 /* Show cursor in footer - override hero cursor hiding */

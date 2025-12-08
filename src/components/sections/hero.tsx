@@ -21,23 +21,25 @@ export function HeroSection() {
     if (!section || typeof document === "undefined") return;
 
     const handleMouseEnter = () => {
-      document.body.classList.add("hero-cursor-hidden");
-      document.documentElement.classList.add("hero-cursor-hidden");
-      document.body.style.cursor = "none";
-      document.documentElement.style.cursor = "none";
+      // document.body.classList.add("hero-cursor-hidden");
+      // document.documentElement.classList.add("hero-cursor-hidden");
+      // document.body.style.cursor = "none";
+      // document.documentElement.style.cursor = "none";
     };
 
     const handleMouseLeave = () => {
-      document.body.classList.remove("hero-cursor-hidden");
-      document.documentElement.classList.remove("hero-cursor-hidden");
-      document.body.style.cursor = "";
-      document.documentElement.style.cursor = "";
+      // document.body.classList.remove("hero-cursor-hidden");
+      // document.documentElement.classList.remove("hero-cursor-hidden");
+      // document.body.style.cursor = "";
+      // document.documentElement.style.cursor = "";
     };
+
+    
 
     const handleMouseMove = () => {
       if (section.matches(":hover")) {
-        document.body.style.cursor = "none";
-        document.documentElement.style.cursor = "none";
+        // document.body.style.cursor = "none";
+        // document.documentElement.style.cursor = "none";
       }
     };
 
@@ -74,6 +76,10 @@ export function HeroSection() {
         document.body.style.cursor = "none";
         document.documentElement.style.cursor = "none";
       }}
+      onMouseLeave={() => {
+        document.body.style.cursor = "";
+        document.documentElement.style.cursor = "";
+      }}
     >
       <div className="sr-only">
         <p>{heroCopy.introScript}</p>
@@ -86,8 +92,7 @@ export function HeroSection() {
         initial="initial"
         animate="animate"
         transition={{ delay: 0.2, duration: 0.9, ease: "easeOut" }}
-        className="absolute inset-0 hero-no-cursor"
-        style={{ cursor: "none" }}
+        className="absolute inset-0 "
         onMouseEnter={(e) => {
           e.currentTarget.style.cursor = "none";
           const canvas = e.currentTarget.querySelector("canvas");

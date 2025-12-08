@@ -330,7 +330,7 @@ export function Header({ overlay = false }: HeaderProps) {
           className="flex items-center gap-3"
           >
             <span>murashka</span>
-            <span className="hidden text-white/50 md:inline">iOS/UI/UX designer</span>
+            <span className="hidden text-white/50 md:inline">UI/UX designer</span>
           </motion.span>
         </Link>
 

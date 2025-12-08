@@ -1,5 +1,7 @@
 "use client";
 
+
+
 import { useRef, useEffect, useState } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { MeshTransmissionMaterial } from "@react-three/drei";
@@ -30,6 +32,8 @@ export function GlassLens({
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
   const scrollTarget = useRef(0);
   const scrollCurrent = useRef(0);
+  const mouseTarget = useRef({x: 0, y: 0});
+  const mouseLerp = useRef({x: 0, y: 0});
 
   useEffect(() => {
     if (isMobile) {
@@ -75,7 +79,14 @@ export function GlassLens({
       ref.current.position.copy(worldPosition);
     } else {
       // Desktop: follow cursor
-      const worldPosition = new Vector3(mouse.x * viewport.width / 2, mouse.y * viewport.height / 2, position[2]);
+
+      mouseLerp.current.x = MathUtils.lerp(mouseLerp.current.x , mouse.x * viewport.width / 2, 0.1);
+      mouseLerp.current.y = MathUtils.lerp(mouseLerp.current.y , mouse.y * viewport.width / 2, 0.1);
+      
+      
+
+
+      const worldPosition = new Vector3(mouseLerp.current.x, mouseLerp.current.y, position[2]);
       ref.current.position.copy(worldPosition);
     }
   });

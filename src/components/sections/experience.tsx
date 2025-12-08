@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import clsx from "clsx";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { experience } from "@/data/experience";
 import { GlassExperienceCardCanvas } from "@/components/experience/glass-experience-card";
 import { AnimatedText, AnimatedTextReveal } from "@/components/animated-text";
@@ -74,7 +74,7 @@ export function ExperienceSection() {
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
           <AnimatedText
             as="h2"
-            className="text-[3.5rem] leading-[1.1] tracking-tight text-foreground sm:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem]"
+            className="text-[3.5rem] leading-[1.1] text-foreground sm:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem]"
             delay={0.1}
           >
             Craft Through<br />The Years
@@ -123,6 +123,7 @@ type ExperienceCardProps = {
 function ExperienceCard({ item, index, isActive, cardRef }: ExperienceCardProps) {
   const ref = useRef<HTMLElement>(null);
   const [centerProgress, setCenterProgress] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   // Track scroll position relative to viewport center for smooth animation
   useEffect(() => {
@@ -174,7 +175,6 @@ function ExperienceCard({ item, index, isActive, cardRef }: ExperienceCardProps)
       transition={{ duration: 0.6, delay: index * 0.08 }}
       className={clsx(
         "relative overflow-hidden rounded-xl transition-colors duration-700 ease-out",
-        item.image ? "min-h-[380px]" : "min-h-[340px]",
         isLit ? "bg-white" : "bg-transparent"
       )}
       style={{ perspective: "1200px" }}
@@ -185,7 +185,7 @@ function ExperienceCard({ item, index, isActive, cardRef }: ExperienceCardProps)
       {/* HTML text content - crisp and clean */}
       <div className={clsx(
         "relative z-10 flex flex-col gap-8 p-8 md:p-10 lg:p-12",
-        item.image && "lg:flex-row lg:items-center lg:gap-16"
+        item.image && "lg:flex-row lg:items-start lg:gap-16"
       )}>
         <div className="flex flex-1 flex-col gap-6">
           <motion.div
@@ -206,24 +206,54 @@ function ExperienceCard({ item, index, isActive, cardRef }: ExperienceCardProps)
             <span>{item.end}</span>
           </motion.div>
           <div className="space-y-4">
-            <motion.h3
-              className="text-[1.75rem] leading-tight sm:text-[2rem] lg:text-[2.4rem] transition-colors duration-700"
-              style={{ color: isLit ? "#000000" : "rgba(255, 255, 255, 1)" }}
-            >
-              {item.role}
-            </motion.h3>
+            <div className="flex items-start justify-between gap-4">
+              <motion.h3
+                className="text-[1.75rem] leading-tight sm:text-[2rem] lg:text-[2.4rem] transition-colors duration-700"
+                style={{ color: isLit ? "#000000" : "rgba(255, 255, 255, 1)" }}
+              >
+                {item.role}
+              </motion.h3>
+              <button
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="group mt-2 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full transition-colors duration-300 hover:bg-white/10"
+                style={{ 
+                  color: isLit ? "rgba(0, 0, 0, 0.6)" : "rgba(255, 255, 255, 0.6)",
+                }}
+                aria-label={isExpanded ? "Collapse description" : "Expand description"}
+              >
+                <motion.span
+                  className="block text-2xl font-light leading-none select-none"
+                  animate={{ rotate: isExpanded ? 45 : 0 }}
+                  transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                >
+                  +
+                </motion.span>
+              </button>
+            </div>
             <motion.p
               className="text-base sm:text-lg transition-colors duration-700"
               style={{ color: isLit ? "rgba(0, 0, 0, 0.7)" : "rgba(255, 255, 255, 0.8)" }}
             >
               {item.company}
             </motion.p>
-            <motion.p
-              className="text-base leading-relaxed sm:text-lg sm:leading-relaxed transition-colors duration-700"
-              style={{ color: isLit ? "rgba(0, 0, 0, 0.7)" : "rgba(255, 255, 255, 0.7)" }}
-            >
-              {item.summary}
-            </motion.p>
+            <AnimatePresence initial={false}>
+              {isExpanded && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                  className="overflow-hidden"
+                >
+                  <motion.p
+                    className="text-base leading-relaxed sm:text-lg sm:leading-relaxed transition-colors duration-700 pt-2"
+                    style={{ color: isLit ? "rgba(0, 0, 0, 0.7)" : "rgba(255, 255, 255, 0.7)" }}
+                  >
+                    {item.summary}
+                  </motion.p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 

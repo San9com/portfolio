@@ -246,47 +246,56 @@ export function HeroCanvas(props: HeroCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
     const hideCursor = () => {
-      if (containerRef.current) {
-        const canvas = containerRef.current.querySelector("canvas");
-        if (canvas) {
-          canvas.style.cursor = "none";
-        }
+      const canvas = container.querySelector("canvas");
+      if (canvas) {
+        canvas.style.cursor = "none";
       }
     };
 
     // Hide cursor immediately
     hideCursor();
 
-    // Also hide on any mouse events
-    const handleMouseMove = () => {
+    // Only hide cursor when mouse is inside the hero container
+    const handleMouseEnter = () => {
       hideCursor();
       document.body.style.cursor = "none";
       document.documentElement.style.cursor = "none";
     };
 
-    document.addEventListener("mousemove", handleMouseMove);
+    const handleMouseLeave = () => {
+      document.body.style.cursor = "";
+      document.documentElement.style.cursor = "";
+    };
+
+    container.addEventListener("mouseenter", handleMouseEnter);
+    container.addEventListener("mouseleave", handleMouseLeave);
     
     // Use MutationObserver to catch canvas when it's added
     const observer = new MutationObserver(hideCursor);
-    if (containerRef.current) {
-      observer.observe(containerRef.current, {
-        childList: true,
-        subtree: true,
-      });
-    }
+    observer.observe(container, {
+      childList: true,
+      subtree: true,
+    });
 
     return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
+      container.removeEventListener("mouseenter", handleMouseEnter);
+      container.removeEventListener("mouseleave", handleMouseLeave);
       observer.disconnect();
+      // Restore cursor on cleanup
+      document.body.style.cursor = "";
+      document.documentElement.style.cursor = "";
     };
   }, []);
 
   return (
-    <div ref={containerRef} className="h-full w-full hero-no-cursor" style={{ cursor: "none" }}>
+    <div ref={containerRef} className="h-full w-full hero-no-cursor" >
       <Canvas
         className="h-full w-full hero-no-cursor"
-        style={{ cursor: "none" }}
+        // style={{ cursor: "none" }}
         camera={{ position: [0, 0, 10], fov: 50 }}
         dpr={[1, 2]}
         gl={{ 
