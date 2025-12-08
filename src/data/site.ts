@@ -3,7 +3,7 @@ export const heroCopy = {
   headline: "I design unique user experiences with care.",
   headlineLines: ["I design unique user", "experiences with care."],
   description:
-    "Alexander Murashka is a UI/UX designer shaping immersive, story-driven interfaces that respect the craft and the people who use them.",
+    "Alexander Murashka is a UX/UI designer shaping immersive, story-driven interfaces that respect the craft and the people who use them.",
   ctaLabel: "These projects are my favourites",
 };
 
@@ -19,7 +19,7 @@ export const contact = {
 
 export const profile = {
   name: "Alexander Murashka",
-  title: "UI/UX designer.",
+  title: "UX/UI designer.",
   portrait: "/hero-image-alex-final.png",
 };
 

@@ -24,7 +24,7 @@ const script = Great_Vibes({
 
 const siteName = "alexander murashka";
 const siteDescription =
-  "Portfolio of Alexander Murashka, a UI/UX designer crafting immersive, user-centered digital experiences.";
+  "Portfolio of Alexander Murashka, a UX/UI designer crafting immersive, user-centered digital experiences.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://murashka-portfolio.vercel.app"),
