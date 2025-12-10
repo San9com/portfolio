@@ -74,7 +74,7 @@ export function ExperienceSection() {
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
           <AnimatedText
             as="h2"
-            className="text-[3.5rem] leading-[1.1] text-foreground sm:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem]"
+            className="text-[3.5rem] leading-[1.1] sm:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem] glass-text-reflection"
             delay={0.1}
           >
             Craft Through<br />The Years
