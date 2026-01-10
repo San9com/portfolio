@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display, Great_Vibes } from "next/font/google";
+import { Inter, Playfair_Display, Great_Vibes, Reenie_Beanie } from "next/font/google";
 import clsx from "clsx";
 import { AppProviders } from "@/components/providers/app-providers";
 import "./globals.css";
@@ -22,16 +22,19 @@ const script = Great_Vibes({
   variable: "--font-script-display",
 });
 
-const siteName = "alexander murashka";
+const handwritten = Reenie_Beanie({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-handwritten",
+});
+
+const siteName = "designer";
 const siteDescription =
   "Portfolio of Alexander Murashka, a UX/UI designer crafting immersive, user-centered digital experiences.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://murashka-portfolio.vercel.app"),
-  title: {
-    default: siteName,
-    template: `%s`,
-  },
+  title: siteName,
   description: siteDescription,
   openGraph: {
     title: siteName,
@@ -55,7 +58,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={clsx(sans.variable, serif.variable, script.variable, "antialiased")}>
+        <body className={clsx(sans.variable, serif.variable, script.variable, handwritten.variable, "antialiased")}>
         <AppProviders>{children}</AppProviders>
       </body>
     </html>

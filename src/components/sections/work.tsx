@@ -34,7 +34,7 @@ export function WorkSection() {
     <section
       id="work"
       ref={sectionRef}
-      className="bg-black px-6 pt-16 pb-32 sm:px-10 sm:pb-40 lg:sticky lg:top-0 lg:pt-0"
+      className="bg-black px-8 pt-[12vh] pb-[15vh] sm:px-12 lg:px-16 sm:pb-[15vh] lg:pt-[15vh] lg:pb-[20vh]"
       style={{ zIndex: 2 }}
     >
       <motion.div
@@ -42,21 +42,31 @@ export function WorkSection() {
         style={{ y }}
         className="relative"
       >
-      <div id="work-content" className="mx-auto flex w-full max-w-7xl flex-col gap-12">
-        <div className="flex flex-col items-center gap-2 pb-6 text-center lg:-mt-[99.9vh] lg:pt-[100vh]">
+      <div id="work-content" className="mx-auto flex w-full max-w-7xl flex-col gap-20">
+        <div className="flex flex-col items-center gap-4 pb-16 text-center">
           <AnimatedText
-            as="p"
-            className="flex items-center gap-2 text-sm text-foreground/70"
-            delay={0.1}
+            as="span"
+            className="section-label text-foreground/45"
+            delay={0.05}
           >
-            <span>These projects are my favourites</span>
-            <span aria-hidden="true" className="text-base leading-none">
-              ↓
-            </span>
+            SELECTED WORK
           </AnimatedText>
+          <motion.span
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: 0.15, ease: [0.4, 0, 0.2, 1] }}
+            className="block text-white"
+            style={{ 
+              fontFamily: "var(--font-handwritten), cursive",
+              fontSize: "clamp(2.5rem, 5vw, 4rem)",
+            }}
+          >
+            Projects I'm proud of
+          </motion.span>
         </div>
 
-        <div className="flex flex-col gap-6 lg:h-[48rem] lg:flex-row">
+        <div className="flex flex-col gap-8 lg:h-[48rem] lg:flex-row">
           {projects.map((project, index) => {
             const isActive = activeIndex === index;
 
@@ -200,7 +210,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
       {/* Content with smooth animations */}
       {isDesktop ? (
         <motion.div
-          className="relative z-10 flex flex-col gap-4 p-6"
+          className="relative z-10 flex flex-col gap-3 p-6"
           initial={false}
           animate={{
             y: isActive ? 0 : 10,
@@ -216,17 +226,17 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
             willChange: "transform, opacity",
           }}
         >
-          <motion.div 
-            className="text-xs text-white/80"
+          <motion.span 
+            className="section-label text-white/50"
             initial={false}
             animate={{ opacity: isActive ? 1 : 0 }}
             transition={{ duration: 0.2, delay: isActive ? 0.05 : 0 }}
-                >
+          >
             {project.year}
-          </motion.div>
+          </motion.span>
           
           <motion.h3 
-            className="text-3xl text-foreground lg:text-[2.4rem]"
+            className="section-title text-foreground"
             initial={false}
             animate={{ opacity: isActive ? 1 : 0 }}
             transition={{ duration: 0.25, delay: isActive ? 0.08 : 0 }}
@@ -235,7 +245,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
           </motion.h3>
           
           <motion.p 
-            className="text-sm leading-relaxed text-muted"
+            className="body-text text-white/60 max-w-md"
             initial={false}
             animate={{ 
               opacity: isActive ? 1 : 0,
@@ -251,7 +261,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
           </motion.p>
           
           <motion.span
-            className="pointer-events-none mt-3 inline-flex items-center gap-2 text-sm font-normal text-white"
+            className="pointer-events-none mt-2 inline-flex items-center gap-2 section-label text-white/70"
             initial={false}
             animate={{ 
               opacity: isActive ? 1 : 0,
@@ -262,17 +272,15 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
               x: { duration: 0.2, ease: "easeOut" }
             }}
           >
-            Read case
-            <span aria-hidden="true" className="text-lg">
-              ↗
-                    </span>
+            READ CASE
+            <span aria-hidden="true" className="text-sm">↗</span>
           </motion.span>
         </motion.div>
       ) : (
-        <div className="relative z-10 flex flex-col gap-4 p-6">
+        <div className="relative z-10 flex flex-col gap-3 p-6">
           <AnimatedText
-            as="div"
-            className="text-xs text-white/80"
+            as="span"
+            className="section-label text-white/50"
             delay={0.1 + index * 0.08}
           >
             {project.year}
@@ -280,7 +288,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
           
           <AnimatedText
             as="h3"
-            className="text-3xl text-foreground"
+            className="section-title text-foreground"
             delay={0.15 + index * 0.08}
           >
             {project.title}
@@ -288,7 +296,7 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
           
           <AnimatedText
             as="p"
-            className="text-sm leading-relaxed text-muted"
+            className="body-text text-white/60"
             delay={0.2 + index * 0.08}
           >
             {project.description}
@@ -296,13 +304,11 @@ function ProjectCard({ project, index, isActive, onActivate }: ProjectCardProps)
           
           <AnimatedText
             as="span"
-            className="pointer-events-none mt-3 inline-flex items-center gap-2 text-sm font-normal text-white"
+            className="pointer-events-none mt-2 inline-flex items-center gap-2 section-label text-white/70"
             delay={0.25 + index * 0.08}
-                  >
-                    Read case
-            <span aria-hidden="true" className="text-lg">
-              ↗
-                    </span>
+          >
+            READ CASE
+            <span aria-hidden="true" className="text-sm">↗</span>
           </AnimatedText>
         </div>
       )}

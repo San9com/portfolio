@@ -321,34 +321,37 @@ export function Header({ overlay = false }: HeaderProps) {
     >
       {/* Mobile top gradient dimming */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black/40 to-transparent md:hidden" />
-      <div className="pointer-events-auto relative mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-6 sm:px-10">
-        <Link href="/" className={clsx("text-sm transition-colors", brandTextClasses)}>
+      <div className="pointer-events-auto relative mx-auto flex w-full max-w-7xl items-center justify-between px-8 py-6 sm:px-12 lg:px-16">
+        <Link href="/" className={clsx("transition-colors", brandTextClasses)}>
           <motion.span
-          initial={{ opacity: 0, y: -12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="flex items-center gap-3"
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="flex items-center gap-3 section-label"
           >
-            <span>murashka</span>
-            <span className="hidden text-white/50 md:inline">UX/UI designer</span>
+            <span>MURASHKA</span>
+            <span className="hidden text-white/40 md:inline">UX/UI DESIGNER</span>
           </motion.span>
         </Link>
 
-        <nav className="hidden items-center gap-6 text-sm font-normal md:flex">
+        <nav className="hidden items-center gap-10 font-normal md:flex">
           <Link
             href="/cv"
-            className={clsx("text-sm transition-colors", navLinkClasses)}
+            className={clsx("group relative uppercase header-nav-link tracking-[0.08em] leading-tight transition-colors", navLinkClasses)}
+            onMouseEnter={() => window.dispatchEvent(new CustomEvent("nav-hover", { detail: "cv" }))}
+            onMouseLeave={() => window.dispatchEvent(new CustomEvent("nav-hover", { detail: null }))}
           >
             <motion.span
               initial={{ opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
+              className="inline-block"
             >
-              cv
+              CV
             </motion.span>
+            <span className="absolute bottom-0 left-0 h-px w-0 bg-current transition-all duration-300 ease-out group-hover:w-full" />
           </Link>
-          {navigationLinks.map((link) => {
-            const characters = Array.from(link.label);
+          {navigationLinks.map((link, index) => {
             const handleClick = (e: React.MouseEvent) => {
               if (link.href.startsWith("#")) {
                 e.preventDefault();
@@ -393,44 +396,28 @@ export function Header({ overlay = false }: HeaderProps) {
               ? `/${link.href}` 
               : link.href;
             
+            // Map link labels to shape identifiers
+            const shapeMap: Record<string, string> = {
+              work: "work",
+              experience: "experience", 
+              contact: "contact",
+            };
+            const shapeId = shapeMap[link.label.toLowerCase()] || link.label.toLowerCase();
+            
             return (
               <MotionLink
-              key={link.href}
+                key={link.href}
                 href={linkHref}
                 onClick={handleClick}
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
-                className={clsx("text-sm transition-colors", navLinkClasses)}
+                initial={{ opacity: 0, y: -12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.05, ease: "easeOut" }}
+                className={clsx("group relative uppercase header-nav-link tracking-[0.08em] leading-tight transition-colors", navLinkClasses)}
+                onMouseEnter={() => window.dispatchEvent(new CustomEvent("nav-hover", { detail: shapeId }))}
+                onMouseLeave={() => window.dispatchEvent(new CustomEvent("nav-hover", { detail: null }))}
               >
-                <MotionSpan
-                  initial="rest"
-                  animate="rest"
-                  whileHover="hover"
-                  className="inline-flex"
-                >
-                  {characters.map((char, charIndex) => (
-                    <MotionSpan
-                      key={`${link.href}-${char}-${charIndex}`}
-                      variants={{
-                        rest: { y: 0, rotate: 0, scale: 1 },
-                        hover: {
-                          y: -4,
-                          rotate: charIndex % 2 === 0 ? 3.5 : -3.5,
-                          scale: 1.05,
-                          transition: {
-                            duration: 0.5,
-                            ease: "easeInOut",
-                            delay: charIndex * 0.022,
-                            repeat: 1,
-                            repeatType: "reverse",
-                          },
-                        },
-                      }}
-            >
-                      {char}
-                    </MotionSpan>
-                  ))}
-                </MotionSpan>
+                {link.label.toUpperCase()}
+                <span className="absolute bottom-0 left-0 h-px w-0 bg-current transition-all duration-300 ease-out group-hover:w-full" />
               </MotionLink>
             );
           })}

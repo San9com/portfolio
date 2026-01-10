@@ -8,7 +8,6 @@ import { contact, profile } from "@/data/site";
 import { getLenis } from "@/components/providers/smooth-scroll-provider";
 
 export function Footer() {
-  const skills = ["UI/UX design", "Web design", "Code", "iOS design"];
   const pathname = usePathname();
   const router = useRouter();
   const isCasePage = pathname?.startsWith("/work/");
@@ -30,43 +29,62 @@ export function Footer() {
     <footer
       id="contact"
       ref={footerRef}
-      className={isCasePage ? "relative isolate overflow-hidden border-t border-white/10 bg-black text-white" : "sticky top-0 isolate overflow-hidden border-t border-white/10 bg-black text-white"}
+      className={isCasePage ? "relative isolate overflow-hidden bg-black text-white min-h-screen grain-overlay" : "sticky top-0 isolate overflow-hidden bg-black text-white min-h-screen grain-overlay"}
       style={{ zIndex: 4, cursor: "auto" }}
     >
       <motion.div
         ref={containerRef}
         style={{ y }}
-        className="relative"
+        className="relative flex min-h-screen flex-col justify-between"
       >
       <div className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-32 bg-gradient-to-t from-black to-transparent" />
 
-      <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-12 px-6 py-36 sm:px-20 sm:py-48">
-        <div className="grid gap-14 text-sm text-white/70 sm:grid-cols-3">
-          <div className="space-y-3">
-            <p className="text-white/80">{profile.name}</p>
-            <p className="text-white/60">{profile.title}</p>
-            <p className="text-white/50">{contact.location}</p>
-        </div>
+      <div className="relative mx-auto flex w-full max-w-7xl flex-col gap-16 px-8 pt-32 pb-16 sm:px-12 lg:px-16 sm:pt-40 sm:pb-20">
+        {/* Big name display */}
+        <span 
+          className="block text-white"
+          style={{ 
+            fontFamily: "var(--font-handwritten), cursive",
+            fontSize: "clamp(3.5rem, 10vw, 10rem)",
+            lineHeight: 0.9,
+          }}
+        >
+          {profile.name}
+        </span>
 
-          <div className="space-y-3">
+        <div className="grid gap-12 sm:grid-cols-3">
+          {/* Info Column */}
+          <div className="flex flex-col gap-4">
+            <span className="section-label text-white/40">INFO</span>
             <div className="flex flex-col gap-2">
-            {contact.socials.map((social) => (
-                <motion.a
-                key={social.label}
-                href={social.href}
-                  className="w-fit text-white/70 transition-colors hover:text-white"
-                  whileHover={{ x: 6 }}
-                target={social.href.startsWith("http") ? "_blank" : undefined}
-                rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
-              >
-                {social.label}
-                </motion.a>
-            ))}
+              <p className="body-text text-white/50">{profile.title}</p>
+              <p className="body-text text-white/40">{contact.location}</p>
             </div>
           </div>
 
-          <div className="space-y-3">
-            <div className="flex flex-col gap-2 text-white/70">
+          {/* Connect Column */}
+          <div className="flex flex-col gap-4">
+            <span className="section-label text-white/40">CONTACT</span>
+            <div className="flex flex-col gap-2">
+              {contact.socials.map((social) => (
+                <motion.a
+                  key={social.label}
+                  href={social.href}
+                  className="w-fit body-text text-white/60 transition-colors hover:text-white"
+                  whileHover={{ x: 4 }}
+                  target={social.href.startsWith("http") ? "_blank" : undefined}
+                  rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                >
+                  {social.label}
+                </motion.a>
+              ))}
+            </div>
+          </div>
+
+          {/* Navigate Column */}
+          <div className="flex flex-col gap-4">
+            <span className="section-label text-white/40">NAVIGATE</span>
+            <div className="flex flex-col gap-2">
               {[
                 { href: "#work", label: "Work" },
                 { href: "#experience", label: "Experience" },
@@ -115,44 +133,31 @@ export function Footer() {
                   : item.href;
                 
                 return (
-                  <motion.div key={item.href} whileHover={{ x: 6 }}>
-          <Link
+                  <motion.div key={item.href} whileHover={{ x: 4 }}>
+                    <Link
                       href={linkHref}
                       onClick={handleClick}
-                      className="w-fit transition-colors hover:text-white"
-          >
+                      className="w-fit body-text text-white/60 transition-colors hover:text-white"
+                    >
                       {item.label}
-          </Link>
+                    </Link>
                   </motion.div>
                 );
               })}
             </div>
           </div>
         </div>
-        </div>
-
-      <div className="overflow-hidden border-t border-white/10 bg-black">
-        <div className="flex flex-col items-center gap-8 py-12 sm:gap-10 sm:py-16">
-          <div className="relative w-full overflow-hidden" style={{ minHeight: "200px" }}>
-            <div className="clients-marquee" style={{ willChange: "transform" }}>
-              {[...skills, ...skills, ...skills].map((skill, index) => (
-                <span
-                  key={`${skill}-${index}`}
-                  className="clients-marquee-text px-10 leading-tight sm:px-14 md:px-20"
-                  style={{ 
-                    fontFamily: "SeasonMix, var(--font-sans-base)", 
-                    color: "rgba(255, 255, 255, 0.5)",
-                    whiteSpace: "nowrap",
-                    fontSize: "clamp(200px, 25vw, 500px) !important"
-                  }}
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
+
+      {/* Background strip */}
+      <div 
+        className="relative h-48 overflow-hidden"
+        style={{
+          backgroundImage: "url('/codioful-formerly-gradienta-t-Rt42Wl1RQ-unsplash.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
       </motion.div>
     </footer>
   );

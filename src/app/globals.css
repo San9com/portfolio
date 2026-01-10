@@ -28,7 +28,7 @@
   --border-subtle: rgba(255, 255, 255, 0.08);
   --shadow-soft: 0 20px 60px rgba(4, 7, 16, 0.6);
   --font-sans-base: "PPNeueMontreal", "Rmneue", "Futura PT", "Avenir Next", "Avenir", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-size-base: 22px;
+  --font-size-base: 16pt;
   --font-letter-spacing: 0.01em;
   --body-padding-y: 0px;
   --body-padding-x: 0px;
@@ -165,11 +165,11 @@ footer > div {
 }
 
 [class~="max-w-6xl"] {
-  max-width: min(1100px, 100%) !important;
+  max-width: min(1400px, 100%) !important;
 }
 
 [class~="max-w-7xl"] {
-  max-width: min(1240px, 100%) !important;
+  max-width: min(1600px, 100%) !important;
 }
 
 [class~="max-w-sm"],
@@ -325,27 +325,191 @@ footer *::after {
 /* Glass reflection text effect */
 .glass-text-reflection {
   background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.5) 0%,
-    rgba(255, 255, 255, 0.9) 25%,
-    rgba(255, 255, 255, 1) 40%,
-    rgba(255, 255, 255, 0.7) 55%,
-    rgba(255, 255, 255, 0.5) 70%,
-    rgba(200, 210, 230, 0.6) 85%,
-    rgba(180, 200, 220, 0.5) 100%
+    120deg,
+    rgba(180, 190, 210, 0.7) 0%,
+    rgba(220, 225, 235, 0.85) 15%,
+    rgba(255, 255, 255, 1) 30%,
+    rgba(255, 255, 255, 1) 35%,
+    rgba(220, 230, 245, 0.9) 50%,
+    rgba(190, 200, 220, 0.75) 65%,
+    rgba(160, 175, 200, 0.6) 80%,
+    rgba(140, 160, 190, 0.5) 100%
   );
-  background-size: 200% 200%;
+  background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: glass-shimmer 8s ease-in-out infinite;
+  animation: glass-shimmer 6s ease-in-out infinite;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
 }
 
 @keyframes glass-shimmer {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
+  0% {
     background-position: 100% 50%;
   }
+  50% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Glass card reflection effect */
+.glass-card-reflection {
+  background: 
+    linear-gradient(
+      135deg,
+      rgba(200, 215, 240, 0.4) 0%,
+      rgba(230, 240, 255, 0.6) 15%,
+      rgba(255, 255, 255, 0.95) 30%,
+      rgba(255, 255, 255, 1) 45%,
+      rgba(240, 248, 255, 0.9) 55%,
+      rgba(220, 235, 255, 0.7) 70%,
+      rgba(200, 220, 250, 0.5) 85%,
+      rgba(180, 200, 235, 0.4) 100%
+    );
+  background-size: 200% 200%;
+  animation: glass-card-shimmer 5s ease-in-out infinite;
+  box-shadow: 
+    inset 0 1px 2px rgba(255, 255, 255, 0.9),
+    inset 0 -2px 4px rgba(150, 180, 220, 0.2),
+    0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+@keyframes glass-card-shimmer {
+  0%, 100% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   UNIFIED STYLEGUIDE
+   Based on header navigation style: uppercase, small, wide-tracked
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Core Typography Scale */
+:root {
+  /* Label style - small uppercase tracking (header nav style) */
+  --label-size: 18px;
+  --label-tracking: 0.12em;
+  --label-weight: 400;
+  
+  /* Subtitle style */
+  --subtitle-size: 13px;
+  --subtitle-tracking: 0.08em;
+  
+  /* Section title - clean, not too large */
+  --section-title-size: clamp(1.4rem, 2.5vw, 1.75rem);
+  --section-title-weight: 400;
+  
+  /* Large title - hero/display */
+  --display-title-size: clamp(2.2rem, 4vw, 3.2rem);
+  --display-title-weight: 300;
+  
+  /* Body text */
+  --body-size: 15px;
+  --body-line-height: 1.6;
+  
+  /* Opacity scale for text hierarchy */
+  --text-primary: 1;
+  --text-secondary: 0.7;
+  --text-tertiary: 0.45;
+  --text-muted: 0.3;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   UTILITY CLASSES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Section label - small uppercase (header nav style) */
+.section-label {
+  font-size: var(--label-size) !important;
+  font-weight: var(--label-weight);
+  text-transform: uppercase;
+  letter-spacing: var(--label-tracking);
+  line-height: 1.2;
+}
+
+/* Section title - clean, refined */
+.section-title {
+  font-size: var(--section-title-size);
+  font-weight: var(--section-title-weight);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+/* Display title - for hero/case headers */
+.display-title {
+  font-size: var(--display-title-size);
+  font-weight: var(--display-title-weight);
+  line-height: 1.1;
+}
+
+/* Subtitle text */
+.subtitle-text {
+  font-size: var(--subtitle-size);
+  letter-spacing: var(--subtitle-tracking);
+  line-height: 1.4;
+}
+
+/* Body text */
+.body-text {
+  font-size: var(--body-size);
+  line-height: var(--body-line-height);
+  letter-spacing: 0.01em;
+}
+
+/* Text opacity utilities for consistent hierarchy */
+.text-hierarchy-primary { opacity: var(--text-primary); }
+.text-hierarchy-secondary { opacity: var(--text-secondary); }
+.text-hierarchy-tertiary { opacity: var(--text-tertiary); }
+.text-hierarchy-muted { opacity: var(--text-muted); }
+
+/* Header nav link override */
+.header-nav-link {
+  font-size: var(--label-size) !important;
+  letter-spacing: var(--label-tracking);
+  text-transform: uppercase;
+}
+
+/* Link with underline animation */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.3s ease-out;
+}
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* Divider line */
+.divider-line {
+  height: 1px;
+  background: currentColor;
+  opacity: 0.1;
+}
+
+/* Grain/noise overlay effect */
+.grain-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.15;
+  mix-blend-mode: overlay;
 }

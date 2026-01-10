@@ -531,29 +531,42 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
                 <BackHomeButton />
               </div>
 
-              {/* Hero Section - Matches reference style */}
-              <div className="flex flex-col gap-8 text-foreground lg:flex-row lg:items-start lg:justify-between lg:gap-16">
-                <div className="flex flex-col gap-6 lg:flex-1">
-                  <h1 className="text-[clamp(2.5rem,5vw,4.5rem)] font-light leading-[1.1]">
+              {/* Hero Section */}
+              <div className="flex flex-col gap-6 text-foreground lg:flex-row lg:items-start lg:justify-between lg:gap-16">
+                <div className="flex flex-col gap-4 lg:flex-1">
+                  <span className="section-label text-foreground/40">
+                    CASE STUDY
+                  </span>
+                  <h1 
+                    className="text-white"
+                    style={{
+                      fontFamily: "var(--font-handwritten), cursive",
+                      fontSize: "clamp(3rem, 8vw, 6rem)",
+                      lineHeight: 0.95,
+                    }}
+                  >
                     {project.slug === "stmpd-records" ? "STMPD Records (Martin Garrix)" : project.title}
                   </h1>
                 </div>
-                <span className="text-[clamp(2rem,3.5vw,3rem)] font-light leading-none text-foreground/70 lg:pt-2">
+                <span className="section-label text-foreground/50 lg:pt-8">
                   {project.year}
                 </span>
               </div>
 
               {/* Content Phases */}
-              <div className="flex flex-col gap-24 pt-8 lg:gap-32">
+              <div className="flex flex-col gap-20 pt-8 lg:gap-28">
                 {content.phases.map((phase, phaseIndex) => (
-                  <section key={`${project.slug}-${phase.title}`} className="flex flex-col gap-16">
-                    <div className="space-y-6">
-                      <h2 className="text-[clamp(1.6rem,3vw,2.4rem)] font-light leading-tight text-foreground">
+                  <section key={`${project.slug}-${phase.title}`} className="flex flex-col gap-12">
+                    <div className="flex flex-col gap-5">
+                      <span className="section-label text-foreground/40">
+                        {String(phaseIndex + 1).padStart(2, "0")}
+                      </span>
+                      <h2 className="section-title text-foreground">
                         {phase.title}
                       </h2>
-                      <div className="max-w-3xl space-y-5 text-base leading-[1.7] text-white/60">
+                      <div className="max-w-3xl flex flex-col gap-4">
                         {phase.body.map((paragraph, index) => (
-                          <p key={`${phase.title}-body-${index}`}>{paragraph}</p>
+                          <p key={`${phase.title}-body-${index}`} className="body-text text-white/55">{paragraph}</p>
                         ))}
                       </div>
                     </div>

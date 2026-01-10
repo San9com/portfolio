@@ -1,277 +1,220 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useMemo, useRef } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import Image from "next/image";
-import clsx from "clsx";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { experience } from "@/data/experience";
-import { GlassExperienceCardCanvas } from "@/components/experience/glass-experience-card";
-import { AnimatedText, AnimatedTextReveal } from "@/components/animated-text";
+import { ExperienceGlassItem } from "./experience-glass-canvas";
 
+// Experience section component
 export function ExperienceSection() {
+  const items = useMemo(() => experience, []);
   const sectionRef = useRef<HTMLElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLElement | null)[]>([]);
-  const [activeCardIndex, setActiveCardIndex] = useState<number | null>(null);
-  
+  const imageContainerRef = useRef<HTMLDivElement>(null);
+
+  // Parallax effect for the image
   const { scrollYProgress } = useScroll({
-    target: sectionRef,
+    target: imageContainerRef,
     offset: ["start end", "end start"],
   });
 
-  // Subtle parallax - elegant and simple
-  const y = useTransform(scrollYProgress, [0, 1], [0, 40]);
+  // Smooth spring for parallax - subtle effect
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
+  const imageY = useTransform(smoothProgress, [0, 1], ["0%", "15%"]);
+  const imageScale = useTransform(smoothProgress, [0, 0.5, 1], [1.08, 1.04, 1]);
 
-  // Track which card is closest to center
-  useEffect(() => {
-    const handleScroll = () => {
-      const windowHeight = window.innerHeight;
-      const viewportCenter = windowHeight / 2;
-      
-      let closestIndex: number | null = null;
-      let closestDistance = Infinity;
-
-      cardRefs.current.forEach((cardRef, index) => {
-        if (!cardRef) return;
-        
-        const rect = cardRef.getBoundingClientRect();
-        const cardCenter = rect.top + rect.height / 2;
-        const distanceFromCenter = Math.abs(cardCenter - viewportCenter);
-        
-        // Only consider cards that are visible and reasonably close to center
-        if (rect.bottom > 0 && rect.top < windowHeight && distanceFromCenter < closestDistance) {
-          closestDistance = distanceFromCenter;
-          closestIndex = index;
-        }
-      });
-
-      setActiveCardIndex(closestIndex);
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll, { passive: true });
-    
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
-    };
-  }, []);
+  // Shape types for each experience item
+  const shapes = ["phone", "cap", "star", "logo"] as const;
 
   return (
-    <section 
-      id="experience" 
-      ref={sectionRef}
-      className="sticky top-0 bg-black px-6 pb-32 pt-24 sm:px-10 sm:pb-40 sm:pt-32"
-      style={{ zIndex: 3 }}
-    >
-      <motion.div
-        ref={containerRef}
-        style={{ y }}
-        className="relative"
+    <section ref={sectionRef} id="experience" className="relative bg-black px-8 pb-40 pt-0 sm:px-12 lg:px-16 lg:pt-24" style={{ zIndex: 10 }}>
+      {/* Decorative image - Cinematic reveal with parallax */}
+      <div 
+        ref={imageContainerRef}
+        className="relative -mx-8 sm:-mx-12 lg:-mx-16 mb-24 overflow-hidden"
+        style={{ height: "clamp(200px, 30vw, 400px)" }}
       >
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-20">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
-          <AnimatedText
-            as="h2"
-            className="text-[3.5rem] leading-[1.1] sm:text-[4.5rem] lg:text-[5.5rem] xl:text-[6.5rem] glass-text-reflection"
-            delay={0.1}
-          >
-            Craft Through<br />The Years
-          </AnimatedText>
-          <motion.p
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, delay: 0.2, ease: [0.4, 0, 0.2, 1] }}
-            className="max-w-md text-base leading-relaxed text-muted/90 sm:text-lg lg:max-w-lg"
-          >
-            <AnimatedTextReveal
-              text="From solo product experiments to app agency work. As every chapter brings something new, my love for great design stays."
-              delay={0.2}
-              stagger={0.02}
-            />
-          </motion.p>
-        </div>
-
-        <div className="space-y-10 sm:space-y-12">
-          {experience.map((item, index) => (
-            <ExperienceCard
-              key={item.id}
-              item={item}
-              index={index}
-              isActive={activeCardIndex === index}
-              cardRef={(el) => {
-                cardRefs.current[index] = el;
-              }}
-            />
-          ))}
-        </div>
-      </div>
-      </motion.div>
-    </section>
-  );
-}
-
-type ExperienceCardProps = {
-  item: (typeof experience)[number];
-  index: number;
-  isActive: boolean;
-  cardRef: (el: HTMLElement | null) => void;
-};
-
-function ExperienceCard({ item, index, isActive, cardRef }: ExperienceCardProps) {
-  const ref = useRef<HTMLElement>(null);
-  const [centerProgress, setCenterProgress] = useState(0);
-  const [isExpanded, setIsExpanded] = useState(false);
-
-  // Track scroll position relative to viewport center for smooth animation
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!ref.current) return;
-
-      const rect = ref.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      const cardCenter = rect.top + rect.height / 2;
-      const viewportCenter = windowHeight / 2;
-      
-      // Calculate distance from center
-      const distanceFromCenter = Math.abs(cardCenter - viewportCenter);
-      const maxDistance = windowHeight * 0.5; // Animation range
-      
-      // Calculate progress: 1 when centered, 0 when far away
-      const progress = 1 - Math.min(distanceFromCenter / maxDistance, 1);
-      setCenterProgress(progress);
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll, { passive: true });
-    
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
-    };
-  }, []);
-
-  // Set ref callback
-  useEffect(() => {
-    if (ref.current) {
-      cardRef(ref.current);
-    }
-    return () => {
-      cardRef(null);
-    };
-  }, [cardRef]);
-
-  const isLit = isActive && centerProgress > 0.3;
-
-  return (
-    <motion.article
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-120px" }}
-      transition={{ duration: 0.6, delay: index * 0.08 }}
-      className={clsx(
-        "relative overflow-hidden rounded-xl transition-colors duration-700 ease-out",
-        isLit ? "bg-white" : "bg-transparent"
-      )}
-      style={{ perspective: "1200px" }}
-    >
-      {/* 3D rotating clear glass - hide when lit */}
-      {!isLit && <GlassExperienceCardCanvas cardRef={ref} />}
-
-      {/* HTML text content - crisp and clean */}
-      <div className={clsx(
-        "relative z-10 flex flex-col gap-8 p-8 md:p-10 lg:p-12",
-        item.image && "lg:flex-row lg:items-start lg:gap-16"
-      )}>
-        <div className="flex flex-1 flex-col gap-6">
+        {/* Reveal mask container */}
+        <motion.div
+          className="absolute inset-0 overflow-hidden"
+          initial={{ clipPath: "inset(100% 0 0 0)" }}
+          whileInView={{ clipPath: "inset(0% 0 0 0)" }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ 
+            duration: 1.4, 
+            ease: [0.76, 0, 0.24, 1],
+            delay: 0.1
+          }}
+        >
+          {/* Parallax image wrapper */}
           <motion.div
-            className="flex items-center gap-4 text-sm transition-colors duration-700"
-            style={{ color: isLit ? "rgba(0, 0, 0, 0.6)" : "rgba(255, 255, 255, 0.7)" }}
+            className="absolute inset-[-10%] w-[120%] h-[120%]"
+            style={{ y: imageY, scale: imageScale }}
           >
-            <motion.span
-              style={{ color: isLit ? "rgba(0, 0, 0, 0.9)" : "rgba(255, 255, 255, 0.9)" }}
-              transition={{ duration: 0.7 }}
-            >
-              {item.start}
-            </motion.span>
-            <span
-              className="h-px w-16 transition-colors duration-700"
-              style={{ backgroundColor: isLit ? "rgba(0, 0, 0, 0.2)" : "rgba(255, 255, 255, 0.2)" }}
-              aria-hidden="true"
+            <Image
+              src="/rQVjSWhMpr6dh2f06IgOpTNcQ.jpg.webp"
+              alt="Experience visual"
+              fill
+              className="object-cover grayscale"
+              sizes="100vw"
+              priority
             />
-            <span>{item.end}</span>
           </motion.div>
-          <div className="space-y-4">
-            <div className="flex items-start justify-between gap-4">
-              <motion.h3
-                className="text-[1.75rem] leading-tight sm:text-[2rem] lg:text-[2.4rem] transition-colors duration-700"
-                style={{ color: isLit ? "#000000" : "rgba(255, 255, 255, 1)" }}
+          
+          {/* Animated grain overlay */}
+          <motion.div 
+            className="absolute inset-0 pointer-events-none mix-blend-overlay"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 0.15 }}
+            viewport={{ once: true }}
+            transition={{ duration: 2, delay: 0.8 }}
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+            }}
+          />
+        </motion.div>
+
+        {/* Horizontal reveal lines */}
+        <motion.div
+          className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"
+          initial={{ scaleX: 0, opacity: 0 }}
+          whileInView={{ scaleX: 1, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 0.3 }}
+        />
+        <motion.div
+          className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"
+          initial={{ scaleX: 0, opacity: 0 }}
+          whileInView={{ scaleX: 1, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 0.5 }}
+        />
+
+        {/* Gradient overlays for depth */}
+        <motion.div 
+          className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black pointer-events-none"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.5, delay: 0.6 }}
+          style={{ opacity: 0.6 }}
+        />
+        
+        {/* Side vignette */}
+        <motion.div 
+          className="absolute inset-0 pointer-events-none"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 2, delay: 0.8 }}
+          style={{
+            background: "radial-gradient(ellipse 80% 100% at 50% 50%, transparent 40%, rgba(0,0,0,0.7) 100%)",
+          }}
+        />
+
+        {/* Shimmer effect that sweeps across */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          initial={{ x: "-100%" }}
+          whileInView={{ x: "200%" }}
+          viewport={{ once: true }}
+          transition={{ 
+            duration: 2, 
+            ease: [0.4, 0, 0.2, 1],
+            delay: 0.6
+          }}
+          style={{
+            width: "50%",
+            background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)",
+          }}
+        />
+      </div>
+
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-32">
+        {/* Header */}
+        <div className="flex flex-col gap-6">
+          <span className="section-label text-white/40">
+            EXPERIENCE
+          </span>
+          <h2 
+            className="text-white font-serif"
+            style={{ 
+              fontSize: "clamp(2.5rem, 5vw, 4.5rem)",
+              lineHeight: 1.1,
+              fontWeight: 300,
+            }}
+          >
+            Designing since 2019
+          </h2>
+        </div>
+
+        {/* Experience List - Two Column Layout with Glass Objects */}
+        <div className="flex flex-col gap-40">
+          {items.map((item, idx) => {
+            const isTextRight = idx % 2 === 1;
+            
+            return (
+              <motion.article
+                key={item.id}
+                initial={{ opacity: 0, y: 60 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: [0.4, 0, 0.2, 1] }}
+                className="relative grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[400px]"
               >
-                {item.role}
-              </motion.h3>
-              <button
-                onClick={() => setIsExpanded(!isExpanded)}
-                className="group mt-2 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full transition-colors duration-300 hover:bg-white/10"
-                style={{ 
-                  color: isLit ? "rgba(0, 0, 0, 0.6)" : "rgba(255, 255, 255, 0.6)",
-                }}
-                aria-label={isExpanded ? "Collapse description" : "Expand description"}
-              >
-                <motion.span
-                  className="block text-2xl font-light leading-none select-none"
-                  animate={{ rotate: isExpanded ? 45 : 0 }}
-                  transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                {/* Text Content */}
+                <div 
+                  className={`flex flex-col gap-6 ${isTextRight ? 'lg:order-2 lg:text-right lg:items-end' : 'lg:order-1'}`}
                 >
-                  +
-                </motion.span>
-              </button>
-            </div>
-            <motion.p
-              className="text-base sm:text-lg transition-colors duration-700"
-              style={{ color: isLit ? "rgba(0, 0, 0, 0.7)" : "rgba(255, 255, 255, 0.8)" }}
-            >
-              {item.company}
-            </motion.p>
-            <AnimatePresence initial={false}>
-              {isExpanded && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-                  className="overflow-hidden"
-                >
-                  <motion.p
-                    className="text-base leading-relaxed sm:text-lg sm:leading-relaxed transition-colors duration-700 pt-2"
-                    style={{ color: isLit ? "rgba(0, 0, 0, 0.7)" : "rgba(255, 255, 255, 0.7)" }}
+                  {/* Date as accent */}
+                  <span className="section-label text-white/40">
+                    {item.start} — {item.end}
+                  </span>
+
+                  {/* Company name - big handwritten */}
+                  <h3 
+                    className="text-white"
+                    style={{ 
+                      fontFamily: "var(--font-handwritten), cursive",
+                      fontSize: "clamp(2.5rem, 6vw, 5rem)",
+                      lineHeight: 1.0,
+                    }}
+                  >
+                    {item.company}
+                  </h3>
+
+                  {/* Role */}
+                  <span 
+                    className="section-label text-white/50"
+                    style={{ fontSize: "clamp(14px, 1.2vw, 18px)" }}
+                  >
+                    {item.role.toUpperCase()}
+                  </span>
+
+                  {/* Story/Summary */}
+                  <p 
+                    className="text-white max-w-2xl"
+                    style={{
+                      fontSize: "clamp(1rem, 1.5vw, 1.25rem)",
+                      lineHeight: 1.7,
+                    }}
                   >
                     {item.summary}
-                  </motion.p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
+                  </p>
+                </div>
 
-        {item.image ? (
-          <div className="relative h-48 w-full overflow-hidden rounded-lg sm:h-56 lg:h-48 lg:max-w-md lg:flex-shrink-0">
-            <Image
-              src={item.image}
-              alt={`${item.role} visual`}
-              fill
-              className={clsx(
-                "object-cover object-center transition-transform duration-700 ease-out",
-                "hover:scale-[1.04]"
-              )}
-            />
-          </div>
-        ) : null}
+                {/* Glass Object Container */}
+                <div 
+                  className={`relative h-[300px] lg:h-[400px] hidden lg:flex items-center justify-center ${isTextRight ? 'lg:order-1' : 'lg:order-2'}`}
+                >
+                  <ExperienceGlassItem shapeType={shapes[idx % shapes.length]} />
+                </div>
+              </motion.article>
+            );
+          })}
+        </div>
       </div>
-    </motion.article>
+    </section>
   );
 }
 

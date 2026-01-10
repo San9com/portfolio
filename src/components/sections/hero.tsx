@@ -64,8 +64,11 @@ export function HeroSection() {
     <section
       id="top"
       ref={sectionRef}
-      className="relative isolate flex min-h-[75svh] w-full items-end justify-center overflow-hidden bg-black px-3 pb-32 pt-56 sm:px-10 sm:pb-20 sm:pt-28 lg:pb-24 hero-no-cursor"
-      style={{ zIndex: 1, cursor: "none" }}
+      className="relative isolate flex min-h-[100svh] w-full items-end justify-center overflow-hidden px-8 pb-48 pt-0 sm:px-12 lg:px-16 sm:pb-40 lg:pb-48 hero-no-cursor -mt-[80px] grain-overlay"
+      style={{ 
+        zIndex: 1, 
+        cursor: "none",
+      }}
       onMouseEnter={(e) => {
         e.currentTarget.style.cursor = "none";
         document.body.style.cursor = "none";
@@ -117,6 +120,7 @@ export function HeroSection() {
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300"
         style={{ opacity: 0 }}
       />
+
     </section>
   );
 }

@@ -2,10 +2,8 @@
 
 import { Suspense, useMemo, useEffect, useRef, useState } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
-import { Environment, Float, Lightformer, useTexture } from "@react-three/drei";
-import { EffectComposer, Bloom } from "@react-three/postprocessing";
-import { SRGBColorSpace, CanvasTexture } from "three";
-import { GlassCubeMesh } from "./glass-cube";
+import { useTexture } from "@react-three/drei";
+import { SRGBColorSpace } from "three";
 import { GlassLens } from "./glass-lens";
 
 type HeroCanvasProps = {
@@ -31,6 +29,11 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
+  // Load background texture
+  const backgroundTexture = useTexture("/bgd-test-2.png", (texture) => {
+    texture.colorSpace = SRGBColorSpace;
+  });
+
   // Load SVG title texture
   const titleTexture = useTexture("/title.svg", (texture) => {
     texture.colorSpace = SRGBColorSpace;
@@ -51,53 +54,6 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
     return texture;
   }, [basePortraitTexture]);
 
-  // Grayscale portrait texture for glass cubes
-  const portraitGrayscaleTexture = useMemo(() => {
-    const sourceImage = basePortraitTexture.image as
-      | HTMLImageElement
-      | HTMLCanvasElement
-      | undefined;
-
-    if (
-      !sourceImage ||
-      !("width" in sourceImage) ||
-      !("height" in sourceImage) ||
-      sourceImage.width === 0
-    ) {
-      return basePortraitTexture;
-    }
-
-    const canvas = document.createElement("canvas");
-    canvas.width = sourceImage.width;
-    canvas.height = sourceImage.height;
-
-    const context = canvas.getContext("2d");
-    if (!context) return basePortraitTexture;
-
-    context.drawImage(sourceImage, 0, 0, canvas.width, canvas.height);
-    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-    const { data } = imageData;
-
-    for (let i = 0; i < data.length; i += 4) {
-      const r = data[i];
-      const g = data[i + 1];
-      const b = data[i + 2];
-      const gray = r * 0.299 + g * 0.587 + b * 0.114;
-      data[i] = gray;
-      data[i + 1] = gray;
-      data[i + 2] = gray;
-    }
-
-    context.putImageData(imageData, 0, 0);
-
-    const grayscaleTexture = new CanvasTexture(canvas);
-    grayscaleTexture.anisotropy = basePortraitTexture.anisotropy;
-    grayscaleTexture.colorSpace = basePortraitTexture.colorSpace;
-    grayscaleTexture.flipY = true;
-    grayscaleTexture.needsUpdate = true;
-
-    return grayscaleTexture;
-  }, [basePortraitTexture]);
 
   // Detect mobile vs desktop using actual window width
   const isMobile = windowWidth < 768;
@@ -109,30 +65,30 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
     const portraitAspect = 1;
 
     if (isMobile) {
-      // MOBILE LAYOUT: Image on top, text below, image edge to edge, text with margins
-      const textSideMargin = viewport.width * 0.05; // Small side margins for text only
-      const gap = viewport.height * 0.05; // Vertical gap between image and text
+      // MOBILE LAYOUT: Similar to desktop - side by side, scaled to fit
+      const margin = viewport.width * 0.06; // Smaller margins for mobile
+      const gap = viewport.width * 0.03; // Smaller gap
       
-      // Image: edge to edge (full width)
-      const portraitWidth = viewport.width;
-      const portraitHeight = (portraitWidth / portraitAspect) * 0.6; // 60% height to match mask
+      // Portrait: smaller but still prominent
+      const portraitWidth = viewport.width * 0.38;
+      const portraitHeight = (portraitWidth / portraitAspect) * 0.6;
       
-      // Text: screen wide with small margins
-      const textWidth = viewport.width - textSideMargin * 2;
-      const svgHeight = (textWidth / svgAspect);
-      const svgWidth = textWidth;
+      // Text: scaled to match image height
+      const svgHeight = portraitHeight;
+      const svgWidth = svgHeight * svgAspect;
       
-      // Position: Image on top, text below
-      // In Three.js viewport, (0,0) is center, Y increases upward
-      // Image on top: higher Y value (closer to top of screen)
-      const centerX = 0; // Centered horizontally
-      const portraitY = viewport.height * 0.2; // Image positioned higher (20% from top)
-      const svgY = portraitY - portraitHeight / 2 - gap - svgHeight / 2; // Text below image (lower Y)
+      // Center both elements horizontally
+      const totalWidth = svgWidth + gap + portraitWidth;
+      const svgX = -totalWidth / 2 + svgWidth / 2;
+      const portraitX = svgX + svgWidth / 2 + gap + portraitWidth / 2;
+      
+      // Center vertically - slightly lower for mobile
+      const centerY = -viewport.height * 0.05;
 
       return {
-        svgPosition: [centerX, svgY, -0.2] as [number, number, number],
+        svgPosition: [svgX, centerY, -0.2] as [number, number, number],
         svgSize: [svgWidth, svgHeight] as [number, number],
-        portraitPosition: [centerX, portraitY, -0.2] as [number, number, number],
+        portraitPosition: [portraitX, centerY, -0.2] as [number, number, number],
         portraitSize: [portraitWidth, portraitHeight] as [number, number],
         glassPositions: [] as [number, number, number][],
       };
@@ -156,8 +112,8 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
     const svgX = -totalWidth / 2 + svgWidth / 2;
     const portraitX = svgX + svgWidth / 2 + gap + portraitWidth / 2;
     
-    // Center vertically in viewport, then move 10% higher
-    const centerY = viewport.height * 0.1; // 10% higher than center
+    // Center vertically in viewport
+    const centerY = 0;
     const svgY = centerY;
     const portraitY = centerY;
 
@@ -173,20 +129,21 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
     };
   }, [viewport.width, viewport.height, windowWidth]);
 
+  // Background plane size - cover entire viewport with extra margin
+  const bgSize = useMemo(() => {
+    const scale = 2;
+    return [viewport.width * scale, viewport.height * scale] as [number, number];
+  }, [viewport.width, viewport.height]);
+
   return (
     <>
-      <color attach="background" args={["#000000"]} />
+      {/* Background image plane - behind everything */}
+      <mesh position={[0, 0, -5]}>
+        <planeGeometry args={bgSize} />
+        <meshBasicMaterial map={backgroundTexture} toneMapped={false} />
+      </mesh>
 
-      <ambientLight intensity={0.4} />
-      
-      <spotLight
-        position={[0, 10, 8]}
-        angle={0.4}
-        penumbra={0.3}
-        intensity={3}
-        color="#ffffff"
-        castShadow={false}
-      />
+      <ambientLight intensity={1} />
 
       {/* SVG Title on the left */}
       <mesh position={layout.svgPosition}>
@@ -200,7 +157,7 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
         <meshBasicMaterial map={portraitTexture} toneMapped={false} transparent />
       </mesh>
 
-      {/* Single magnifying glass lens following cursor over text (desktop) or moving slowly (mobile) */}
+      {/* Glass lens following cursor */}
       <GlassLens
         position={[layout.svgPosition[0], layout.svgPosition[1], 0.3]}
         speed={0.15}
@@ -210,34 +167,6 @@ function HeroScene({ portraitSrc }: HeroCanvasProps) {
         travelWidth={layout.svgSize[0]}
         isMobile={isMobile}
       />
-
-      <Environment resolution={256}>
-        <group>
-          <Lightformer
-            intensity={4}
-            color="#ffffff"
-            position={[10, 5, 8]}
-            rotation={[0, -Math.PI / 3, 0]}
-            scale={[8, 8, 1]}
-          />
-          <Lightformer
-            intensity={3}
-            color="#ffffff"
-            position={[-10, 5, 8]}
-            rotation={[0, Math.PI / 3, 0]}
-            scale={[8, 8, 1]}
-          />
-        </group>
-      </Environment>
-
-      <EffectComposer enableNormalPass={false}>
-        <Bloom
-          mipmapBlur
-          intensity={0.2}
-          luminanceThreshold={0.5}
-          luminanceSmoothing={0.7}
-        />
-      </EffectComposer>
     </>
   );
 }
@@ -251,8 +180,8 @@ export function HeroCanvas(props: HeroCanvasProps) {
 
     const hideCursor = () => {
       const canvas = container.querySelector("canvas");
-      if (canvas) {
-        canvas.style.cursor = "none";
+        if (canvas) {
+          canvas.style.cursor = "none";
       }
     };
 
@@ -277,9 +206,9 @@ export function HeroCanvas(props: HeroCanvasProps) {
     // Use MutationObserver to catch canvas when it's added
     const observer = new MutationObserver(hideCursor);
     observer.observe(container, {
-      childList: true,
-      subtree: true,
-    });
+        childList: true,
+        subtree: true,
+      });
 
     return () => {
       container.removeEventListener("mouseenter", handleMouseEnter);
@@ -295,15 +224,16 @@ export function HeroCanvas(props: HeroCanvasProps) {
     <div ref={containerRef} className="h-full w-full hero-no-cursor" >
       <Canvas
         className="h-full w-full hero-no-cursor"
-        // style={{ cursor: "none" }}
         camera={{ position: [0, 0, 10], fov: 50 }}
-        dpr={[1, 2]}
+        dpr={[1, 1.2]}
         gl={{ 
-          antialias: true,
+          antialias: false,
           alpha: true,
           powerPreference: "high-performance",
+          precision: "lowp",
         }}
         frameloop="always"
+        performance={{ min: 0.5 }}
       >
         <Suspense fallback={null}>
           <HeroScene {...props} />
