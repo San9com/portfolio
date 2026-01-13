@@ -28,7 +28,6 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
       // “Awwwards-ish” inertia without feeling laggy
       lerp: 0.08,
       smoothWheel: true,
-      smoothTouch: true,
       duration: 1.35,
       wheelMultiplier: 1,
       touchMultiplier: 1.15,
