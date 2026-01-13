@@ -652,9 +652,11 @@ export function GlassLens({
       
       default:
         return (
-          <RoundedBox ref={meshRef} args={[s, s, s * 0.25]} radius={s * 0.22} smoothness={3}>
-            {glassMaterial}
-          </RoundedBox>
+          <group ref={meshRef}>
+            <RoundedBox args={[s, s, s * 0.25]} radius={s * 0.22} smoothness={3}>
+              {glassMaterial}
+            </RoundedBox>
+          </group>
         );
     }
   };
