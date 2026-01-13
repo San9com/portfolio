@@ -31,7 +31,7 @@ function ApperiumLogo({ material, s }: { material: React.ReactNode; s: number })
   }, [svg, s]);
 
   return (
-    <mesh geometry={geom} rotation={[0, 0, 0]} scale={[s * 0.06, s * 0.06, 1]}>
+    <mesh geometry={geom} rotation={[0, 0, 0]} scale={[0.045, 0.045, 0.045]}>
       {material}
     </mesh>
   );
