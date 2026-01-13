@@ -2,7 +2,7 @@
 
 import { Suspense, useMemo, useEffect, useRef, useState } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
-import { useMask, useTexture, Text } from "@react-three/drei";
+import { useTexture, Text } from "@react-three/drei";
 import { SRGBColorSpace, MathUtils } from "three";
 import { GlassLens } from "./glass-lens";
 
@@ -87,12 +87,6 @@ function HeroScene({
   }, [portraitTexture]);
 
   const isMobile = windowWidth < 768;
-  const titleMask = useMask(1, false);
-  // Text from drei uses an internal material; apply stencil props via material-* prefix
-  const titleMaskMaterialProps = useMemo(() => {
-    const entries = Object.entries(titleMask).map(([k, v]) => [`material-${k}`, v]);
-    return Object.fromEntries(entries) as Record<string, unknown>;
-  }, [titleMask]);
 
   const portraitScale = useMemo(() => {
     // Keep the portrait proportional (no stretching) and sized like a hero “reveal”.
@@ -148,7 +142,6 @@ function HeroScene({
         isMobile={isMobile}
         forcedShape={activeGlassShape}
         scrollProgress={scrollProgress}
-        maskId={1}
       />
 
       {/* Titles as real WebGL text, behind the lens so it refracts them */}
@@ -186,7 +179,6 @@ function HeroScene({
                     transparent
                     opacity={opacity}
                     depthWrite={false}
-                    {...titleMask}
                   />
                 </mesh>
               );
@@ -210,7 +202,6 @@ function HeroScene({
                 material-transparent
                 material-depthWrite={false}
                 material-depthTest={true}
-                {...titleMaskMaterialProps}
               >
                 {t.text}
               </Text>
@@ -304,7 +295,6 @@ export function HeroCanvas(props: HeroCanvasProps) {
         gl={{
           antialias: true,
           alpha: true,
-          stencil: true,
           powerPreference: "high-performance",
           precision: "highp",
         }}
