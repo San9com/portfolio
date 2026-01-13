@@ -4,7 +4,6 @@ import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useMotionValueEvent, useSpring } from "framer-motion";
 import { HeroCanvas } from "@/components/hero/hero-canvas";
 import { heroCopy, profile } from "@/data/site";
-import { getLenis } from "@/components/providers/smooth-scroll-provider";
 
 const SEQUENCE_LENGTH = 5; // Number of title stages
 const SCROLL_MULTIPLIER = 1.2; // How many viewport heights per stage
@@ -78,19 +77,11 @@ export function HeroSection() {
         const maxScroll = section.offsetHeight - window.innerHeight;
         const targetY = heroTop + targetProgress * maxScroll;
 
-        const lenis = getLenis();
         isSnapping = true;
-        if (lenis) {
-          lenis.scrollTo(targetY, { duration: 0.65 });
-          setTimeout(() => {
-            isSnapping = false;
-          }, 700);
-        } else {
-          window.scrollTo({ top: targetY, behavior: "smooth" });
-          setTimeout(() => {
-            isSnapping = false;
-          }, 700);
-        }
+        window.scrollTo({ top: targetY, behavior: "auto" });
+        setTimeout(() => {
+          isSnapping = false;
+        }, 700);
       }, 140);
     };
 

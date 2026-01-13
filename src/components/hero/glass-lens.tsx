@@ -605,14 +605,6 @@ export function GlassLens({
             >
               {glassMaterial}
             </RoundedBox>
-            <RoundedBox
-              args={[s * 1.25, s * 0.85, s * 0.06]}
-              radius={s * 0.12}
-              smoothness={6}
-              position={[s * 0.06, -s * 0.04, s * 0.08]}
-            >
-              {glassMaterial}
-            </RoundedBox>
           </group>
         );
       

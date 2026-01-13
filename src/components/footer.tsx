@@ -5,7 +5,6 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { contact, profile } from "@/data/site";
-import { getLenis } from "@/components/providers/smooth-scroll-provider";
 
 export function Footer() {
   const pathname = usePathname();
@@ -104,21 +103,14 @@ export function Footer() {
                     const element = document.querySelector<HTMLElement>(item.href);
                     if (!element) return;
                     
-                    const lenis = getLenis();
-                    if (lenis) {
-                      // For work section, scroll to show the content (account for sticky positioning)
-                      if (item.href === "#work") {
-                        // Scroll to the section with a small offset to show content
-                        const rect = element.getBoundingClientRect();
-                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                        const targetY = scrollTop + rect.top - 100; // 100px offset from top
-                        lenis.scrollTo(targetY, { duration: 1.2 });
-                      } else {
-                        lenis.scrollTo(element, { offset: 0, duration: 1.2 });
-                      }
+                    // For work section, scroll to show the content (account for sticky positioning)
+                    if (item.href === "#work") {
+                      const rect = element.getBoundingClientRect();
+                      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                      const targetY = scrollTop + rect.top - 100; // 100px offset from top
+                      window.scrollTo({ top: targetY, behavior: "auto" });
                     } else {
-                      // Fallback to native smooth scroll
-                      element.scrollIntoView({ behavior: "smooth", block: "start" });
+                      element.scrollIntoView({ behavior: "auto", block: "start" });
                     }
                     window.history.pushState(null, "", item.href);
                   };

@@ -3,7 +3,6 @@
 import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { getLenis } from "@/components/providers/smooth-scroll-provider";
 
 type CaseVisualShowcaseProps = {
   image: string;
@@ -50,21 +49,12 @@ export function CaseVisualShowcase({ image, alt, brightness = 1 }: CaseVisualSho
     // Scroll to top immediately and only once
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
     
-    const lenis = getLenis();
-    if (lenis) {
-      lenis.scrollTo(0, { immediate: true });
-    }
-    
     // Set mounted state after viewport is set
     const id = requestAnimationFrame(() => {
       setMounted(true);
       
       // Recalculate scroll height after mount
       const recalculateScroll = () => {
-        const lenis = getLenis();
-        if (lenis) {
-          lenis.resize();
-        }
       };
       
       // Single recalculation after a short delay
