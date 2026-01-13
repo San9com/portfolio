@@ -1,36 +1,29 @@
 "use client";
 
 import { useMemo, useRef } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import { experience } from "@/data/experience";
-import { ExperienceGlassItem } from "./experience-glass-canvas";
+import { ExperienceGlassItem, type ShapeType } from "./experience-glass-canvas";
 
 // Experience section component
 export function ExperienceSection() {
   const items = useMemo(() => experience, []);
   const sectionRef = useRef<HTMLElement>(null);
-  const imageContainerRef = useRef<HTMLDivElement>(null);
 
-  // Parallax effect for the image
-  const { scrollYProgress } = useScroll({
-    target: imageContainerRef,
-    offset: ["start end", "end start"],
-  });
-
-  // Smooth spring for parallax - subtle effect
-  const smoothProgress = useSpring(scrollYProgress, { stiffness: 100, damping: 30 });
-  const imageY = useTransform(smoothProgress, [0, 1], ["0%", "15%"]);
-  const imageScale = useTransform(smoothProgress, [0, 0.5, 1], [1.08, 1.04, 1]);
-
-  // Shape types for each experience item
-  const shapes = ["phone", "cap", "star", "logo"] as const;
+  const getShapeForItem = (id: string, company: string): ShapeType => {
+    // Stable mapping by item, not by index.
+    if (id === "freelance-ios" || company === "Independent") return "laptop";
+    if (id === "fontys" || company === "Student") return "cap";
+    if (id === "stellar" || company === "Stellar Lab") return "star";
+    if (id === "apperium" || company === "Apperium") return "logo";
+    return "laptop";
+  };
 
   return (
-    <section ref={sectionRef} id="experience" className="relative bg-black px-8 pb-40 pt-0 sm:px-12 lg:px-16 lg:pt-24" style={{ zIndex: 10 }}>
-      {/* Decorative image - Cinematic reveal with parallax */}
+    <section ref={sectionRef} id="experience" className="relative bg-black px-8 pb-40 pt-[10vh] sm:px-12 lg:px-16 lg:pt-24" style={{ zIndex: 10 }}>
+      {/* Decorative image - Cinematic reveal */}
       <div 
-        ref={imageContainerRef}
         className="relative -mx-8 sm:-mx-12 lg:-mx-16 mb-24 overflow-hidden"
         style={{ height: "clamp(200px, 30vw, 400px)" }}
       >
@@ -46,11 +39,8 @@ export function ExperienceSection() {
             delay: 0.1
           }}
         >
-          {/* Parallax image wrapper */}
-          <motion.div
-            className="absolute inset-[-10%] w-[120%] h-[120%]"
-            style={{ y: imageY, scale: imageScale }}
-          >
+          {/* Image wrapper */}
+          <div className="absolute inset-0">
             <Image
               src="/rQVjSWhMpr6dh2f06IgOpTNcQ.jpg.webp"
               alt="Experience visual"
@@ -59,7 +49,7 @@ export function ExperienceSection() {
               sizes="100vw"
               priority
             />
-          </motion.div>
+          </div>
           
           {/* Animated grain overlay */}
           <motion.div 
@@ -88,28 +78,6 @@ export function ExperienceSection() {
           whileInView={{ scaleX: 1, opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 0.5 }}
-        />
-
-        {/* Gradient overlays for depth */}
-        <motion.div 
-          className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black pointer-events-none"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.5, delay: 0.6 }}
-          style={{ opacity: 0.6 }}
-        />
-        
-        {/* Side vignette */}
-        <motion.div 
-          className="absolute inset-0 pointer-events-none"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 2, delay: 0.8 }}
-          style={{
-            background: "radial-gradient(ellipse 80% 100% at 50% 50%, transparent 40%, rgba(0,0,0,0.7) 100%)",
-          }}
         />
 
         {/* Shimmer effect that sweeps across */}
@@ -207,7 +175,7 @@ export function ExperienceSection() {
                 <div 
                   className={`relative h-[300px] lg:h-[400px] hidden lg:flex items-center justify-center ${isTextRight ? 'lg:order-1' : 'lg:order-2'}`}
                 >
-                  <ExperienceGlassItem shapeType={shapes[idx % shapes.length]} />
+                  <ExperienceGlassItem shapeType={getShapeForItem(item.id, item.company)} />
                 </div>
               </motion.article>
             );

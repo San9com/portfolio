@@ -34,7 +34,7 @@ export function WorkSection() {
     <section
       id="work"
       ref={sectionRef}
-      className="bg-black px-8 pt-[12vh] pb-[15vh] sm:px-12 lg:px-16 sm:pb-[15vh] lg:pt-[15vh] lg:pb-[20vh]"
+      className="bg-black px-8 pt-[12vh] pb-[18vh] sm:px-12 lg:px-16 sm:pb-[18vh] lg:pt-[15vh] lg:pb-[24vh]"
       style={{ zIndex: 2 }}
     >
       <motion.div

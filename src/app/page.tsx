@@ -49,7 +49,7 @@ export default function Home() {
 
   return (
     <div className="relative">
-      <Header />
+      <Header overlay />
       <main className="relative">
         <HeroSection />
         <WorkSection />

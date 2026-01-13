@@ -8,8 +8,8 @@ import clsx from "clsx";
 import { navigationLinks } from "@/data/navigation";
 import { getLenis } from "@/components/providers/smooth-scroll-provider";
 
-const MotionLink = motion(Link);
-const MotionSpan = motion.span;
+// framer-motion v11+: motion(Component) is deprecated -> use motion.create(Component)
+const MotionLink = motion.create(Link);
 
 type HeaderProps = {
   overlay?: boolean;
@@ -72,6 +72,7 @@ function getBackgroundColorAtPoint(x: number, y: number): { r: number; g: number
 
 export function Header({ overlay = false }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  // Default to dark background (light text) - hero section has dark background
   const [isLightBackground, setIsLightBackground] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const pathname = usePathname();
@@ -220,24 +221,25 @@ export function Header({ overlay = false }: HeaderProps) {
         }
       }
       
+      // Force light text at the very top (hero section always has dark background)
+      if (window.scrollY < 200) {
+        setIsLightBackground(false);
+        return;
+      }
+      
       // Use average luminance from all samples
       if (sampleCount > 0) {
         const avgLuminance = totalLuminance / sampleCount;
         setIsLightBackground(avgLuminance > 0.5);
       } else {
-        // Fallback: check if we're over an image at top (usually dark)
-        if (overlay && window.scrollY < 100) {
-          setIsLightBackground(false);
-        } else {
-          // Default: assume dark background
-          setIsLightBackground(false);
-        }
+        // Default: assume dark background
+        setIsLightBackground(false);
       }
     };
 
     // Initial check with delays to ensure DOM is ready
-    let timeout1: NodeJS.Timeout;
-    let timeout2: NodeJS.Timeout;
+    let timeout1: ReturnType<typeof setTimeout> | undefined;
+    let timeout2: ReturnType<typeof setTimeout> | undefined;
     
     const initialCheck = () => {
       timeout1 = setTimeout(checkBackground, 100);
@@ -286,8 +288,8 @@ export function Header({ overlay = false }: HeaderProps) {
     });
 
     return () => {
-      clearTimeout(timeout1);
-      clearTimeout(timeout2);
+      if (timeout1) clearTimeout(timeout1);
+      if (timeout2) clearTimeout(timeout2);
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", checkBackground);
       images.forEach((img) => {
@@ -317,7 +319,7 @@ export function Header({ overlay = false }: HeaderProps) {
   return (
     <header 
       ref={headerRef}
-      className={clsx("z-30 flex w-full justify-center", positionClasses, backgroundClasses)}
+      className={clsx("z-50 flex w-full justify-center", positionClasses, backgroundClasses)}
     >
       {/* Mobile top gradient dimming */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-black/40 to-transparent md:hidden" />

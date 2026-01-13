@@ -58,7 +58,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-        <body className={clsx(sans.variable, serif.variable, script.variable, handwritten.variable, "antialiased")}>
+      <head>
+        <link
+          rel="preload"
+          href="/PPNeueMontreal-Book.woff"
+          as="font"
+          type="font/woff"
+          crossOrigin="anonymous"
+        />
+      </head>
+      <body className={clsx(sans.variable, serif.variable, script.variable, handwritten.variable, "antialiased")}>
         <AppProviders>{children}</AppProviders>
       </body>
     </html>

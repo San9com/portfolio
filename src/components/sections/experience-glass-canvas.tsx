@@ -1,14 +1,40 @@
 "use client";
 
-import { useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
+import { useMemo, useRef } from "react";
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 import { MeshTransmissionMaterial, RoundedBox, Environment } from "@react-three/drei";
-import { Group } from "three";
+import { ExtrudeGeometry, Group } from "three";
+import { SVGLoader } from "three/examples/jsm/loaders/SVGLoader.js";
 
-export type ShapeType = "phone" | "cap" | "star" | "logo";
+export type ShapeType = "laptop" | "cap" | "star" | "logo";
 
 interface GlassObjectProps {
   shapeType: ShapeType;
+}
+
+function ApperiumLogo({ material, s }: { material: React.ReactNode; s: number }) {
+  const svg = useLoader(SVGLoader, "/Apperium-group-standalone-black.svg");
+
+  // Build a single extruded mesh from the SVG paths (accurate logo).
+  const geom = useMemo(() => {
+    const shapes = svg.paths.flatMap((p) => SVGLoader.createShapes(p));
+    const g = new ExtrudeGeometry(shapes, {
+      depth: s * 0.08,
+      steps: 1,
+      bevelEnabled: true,
+      bevelThickness: s * 0.03,
+      bevelSize: s * 0.03,
+      bevelSegments: 4,
+    });
+    g.center();
+    return g;
+  }, [svg, s]);
+
+  return (
+    <mesh geometry={geom} rotation={[0, 0, 0]} scale={[s * 0.06, s * 0.06, 1]}>
+      {material}
+    </mesh>
+  );
 }
 
 function GlassObject({ shapeType }: GlassObjectProps) {
@@ -50,7 +76,7 @@ function GlassObject({ shapeType }: GlassObjectProps) {
   const renderShape = () => {
     switch (shapeType) {
       // MacBook - sleek laptop for Independent (iOS freelance work)
-      case "phone":
+      case "laptop":
         return (
           <group rotation={[0.3, 0.2, 0]}>
             {/* Base - keyboard deck at bottom */}
@@ -134,32 +160,7 @@ function GlassObject({ shapeType }: GlassObjectProps) {
       case "logo":
         return (
           <group rotation={[0.1, 0.1, 0]}>
-            {/* Outer frame */}
-            <RoundedBox args={[s * 0.85, s * 0.85, s * 0.06]} radius={s * 0.08} smoothness={2}>
-              {glassMaterial}
-            </RoundedBox>
-            
-            {/* Top-left rounded square with curve cut */}
-            <RoundedBox args={[s * 0.32, s * 0.32, s * 0.08]} radius={s * 0.04} smoothness={1} position={[-s * 0.18, s * 0.18, s * 0.02]}>
-              {glassMaterial}
-            </RoundedBox>
-            
-            {/* Bottom-right rounded square with curve cut */}
-            <RoundedBox args={[s * 0.32, s * 0.32, s * 0.08]} radius={s * 0.04} smoothness={1} position={[s * 0.18, -s * 0.18, s * 0.02]}>
-              {glassMaterial}
-            </RoundedBox>
-            
-            {/* Diagonal wave - top curve (connects top-left to bottom-right) */}
-            <mesh position={[s * 0.08, s * 0.08, s * 0.04]} rotation={[0, 0, -Math.PI / 4]}>
-              <torusGeometry args={[s * 0.22, s * 0.06, 8, 16, Math.PI]} />
-              {glassMaterial}
-            </mesh>
-            
-            {/* Diagonal wave - bottom curve */}
-            <mesh position={[-s * 0.08, -s * 0.08, s * 0.04]} rotation={[0, 0, Math.PI - Math.PI / 4]}>
-              <torusGeometry args={[s * 0.22, s * 0.06, 8, 16, Math.PI]} />
-              {glassMaterial}
-            </mesh>
+            <ApperiumLogo material={glassMaterial} s={s} />
           </group>
         );
 
