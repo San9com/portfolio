@@ -106,10 +106,6 @@ export function HeroSection() {
     if (!section || typeof document === "undefined") return;
 
     return () => {
-      document.body.classList.remove("hero-cursor-hidden");
-      document.documentElement.classList.remove("hero-cursor-hidden");
-      document.body.style.cursor = "";
-      document.documentElement.style.cursor = "";
     };
   }, []);
 
@@ -127,23 +123,6 @@ export function HeroSection() {
       <div
         ref={stickyRef}
         className="sticky top-0 left-0 flex min-h-[100svh] w-full items-center justify-center overflow-hidden grain-overlay hero-no-cursor"
-        style={{
-          cursor: "none",
-        }}
-        onMouseEnter={(e) => {
-          e.currentTarget.style.cursor = "none";
-          document.body.style.cursor = "none";
-          document.documentElement.style.cursor = "none";
-        }}
-        onMouseMove={(e) => {
-          e.currentTarget.style.cursor = "none";
-          document.body.style.cursor = "none";
-          document.documentElement.style.cursor = "none";
-        }}
-        onMouseLeave={() => {
-          document.body.style.cursor = "";
-          document.documentElement.style.cursor = "";
-        }}
       >
         <div className="sr-only">
           <p>{heroCopy.introScript}</p>
@@ -157,16 +136,6 @@ export function HeroSection() {
           animate="animate"
           transition={{ delay: 0.2, duration: 0.9, ease: "easeOut" }}
           className="absolute inset-0"
-          onMouseEnter={(e) => {
-            e.currentTarget.style.cursor = "none";
-            const canvas = e.currentTarget.querySelector("canvas");
-            if (canvas) canvas.style.cursor = "none";
-          }}
-          onMouseMove={(e) => {
-            e.currentTarget.style.cursor = "none";
-            const canvas = e.currentTarget.querySelector("canvas");
-            if (canvas) canvas.style.cursor = "none";
-          }}
         >
           <HeroCanvas
             headlineLines={headlineLines}

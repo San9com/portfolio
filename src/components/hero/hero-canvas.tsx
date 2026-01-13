@@ -248,41 +248,7 @@ export function HeroCanvas(props: HeroCanvasProps) {
     const container = containerRef.current;
     if (!container) return;
 
-    const hideCursor = () => {
-      const canvas = container.querySelector("canvas");
-      if (canvas) {
-        canvas.style.cursor = "none";
-      }
-    };
-
-    hideCursor();
-
-    const handleMouseEnter = () => {
-      hideCursor();
-      document.body.style.cursor = "none";
-      document.documentElement.style.cursor = "none";
-    };
-
-    const handleMouseLeave = () => {
-      document.body.style.cursor = "";
-      document.documentElement.style.cursor = "";
-    };
-
-    container.addEventListener("mouseenter", handleMouseEnter);
-    container.addEventListener("mouseleave", handleMouseLeave);
-    
-    const observer = new MutationObserver(hideCursor);
-    observer.observe(container, {
-      childList: true,
-      subtree: true,
-    });
-
     return () => {
-      container.removeEventListener("mouseenter", handleMouseEnter);
-      container.removeEventListener("mouseleave", handleMouseLeave);
-      observer.disconnect();
-      document.body.style.cursor = "";
-      document.documentElement.style.cursor = "";
     };
   }, []);
 

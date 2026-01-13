@@ -30,7 +30,7 @@ export function Footer() {
       id="contact"
       ref={footerRef}
       className={isCasePage ? "relative isolate overflow-hidden bg-black text-white min-h-screen grain-overlay" : "sticky top-0 isolate overflow-hidden bg-black text-white min-h-screen grain-overlay"}
-      style={{ zIndex: 4, cursor: "auto" }}
+      style={{ zIndex: 4 }}
     >
       <motion.div
         ref={containerRef}
