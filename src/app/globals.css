@@ -67,6 +67,19 @@ body {
   height: 100%;
 }
 
+/* Mobile-only: add safe side padding via the existing CSS variable system.
+   Desktop stays exactly as-is (var remains 0px there). */
+@media (max-width: 767px) {
+  :root {
+    --body-padding-x: clamp(16px, 5vw, 22px);
+  }
+
+  html,
+  body {
+    overflow-x: hidden;
+  }
+}
+
 html {
   scrollbar-width: none;
 }
