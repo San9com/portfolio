@@ -71,7 +71,7 @@ body {
    Desktop stays exactly as-is (var remains 0px there). */
 @media (max-width: 767px) {
   :root {
-    --body-padding-x: clamp(16px, 5vw, 22px);
+    --body-padding-x: clamp(22px, 7vw, 40px);
   }
 
   html,
