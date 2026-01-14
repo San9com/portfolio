@@ -1,10 +1,9 @@
 "use client";
 
-import { useMemo, useRef } from "react";
-import { Canvas, useFrame, useLoader } from "@react-three/fiber";
-import { MeshTransmissionMaterial, RoundedBox, Environment } from "@react-three/drei";
-import { ExtrudeGeometry, Group } from "three";
-import { SVGLoader } from "three/examples/jsm/loaders/SVGLoader.js";
+import { Suspense, useMemo, useRef } from "react";
+import { Canvas, useFrame } from "@react-three/fiber";
+import { Environment, Html, MeshTransmissionMaterial, RoundedBox, useProgress } from "@react-three/drei";
+import { Group } from "three";
 
 export type ShapeType = "laptop" | "cap" | "star" | "logo";
 
@@ -12,28 +11,18 @@ interface GlassObjectProps {
   shapeType: ShapeType;
 }
 
-function ApperiumLogo({ material, s }: { material: React.ReactNode; s: number }) {
-  const svg = useLoader(SVGLoader, "/Apperium-group-standalone-black.svg");
-
-  // Build a single extruded mesh from the SVG paths (accurate logo).
-  const geom = useMemo(() => {
-    const shapes = svg.paths.flatMap((p) => SVGLoader.createShapes(p));
-    const g = new ExtrudeGeometry(shapes, {
-      depth: s * 0.08,
-      steps: 1,
-      bevelEnabled: true,
-      bevelThickness: s * 0.03,
-      bevelSize: s * 0.03,
-      bevelSegments: 4,
-    });
-    g.center();
-    return g;
-  }, [svg, s]);
-
+function CanvasLoader() {
+  const { active, progress } = useProgress();
+  if (!active) return null;
   return (
-    <mesh geometry={geom} rotation={[0, 0, 0]} scale={[0.018, 0.018, 0.018]}>
-      {material}
-    </mesh>
+    <Html center>
+      <div className="flex flex-col items-center gap-3">
+        <div className="h-10 w-10 rounded-full border border-white/20 border-t-white/60 animate-spin" />
+        <div className="text-[12px] tracking-[0.2em] text-white/50">
+          LOADING {Math.round(progress)}%
+        </div>
+      </div>
+    </Html>
   );
 }
 
@@ -160,7 +149,39 @@ function GlassObject({ shapeType }: GlassObjectProps) {
       case "logo":
         return (
           <group rotation={[0.1, 0.1, 0]}>
-            <ApperiumLogo material={glassMaterial} s={s} />
+            {/* 4 rectangles in "chess order" (simple, no async asset loading) */}
+            <RoundedBox
+              args={[s * 0.34, s * 0.34, s * 0.14]}
+              radius={s * 0.06}
+              smoothness={2}
+              position={[-s * 0.22, s * 0.22, 0]}
+            >
+              {glassMaterial}
+            </RoundedBox>
+            <RoundedBox
+              args={[s * 0.34, s * 0.34, s * 0.14]}
+              radius={s * 0.06}
+              smoothness={2}
+              position={[s * 0.22, -s * 0.22, 0]}
+            >
+              {glassMaterial}
+            </RoundedBox>
+            <RoundedBox
+              args={[s * 0.3, s * 0.3, s * 0.12]}
+              radius={s * 0.06}
+              smoothness={2}
+              position={[s * 0.22, s * 0.22, s * 0.06]}
+            >
+              {glassMaterial}
+            </RoundedBox>
+            <RoundedBox
+              args={[s * 0.3, s * 0.3, s * 0.12]}
+              radius={s * 0.06}
+              smoothness={2}
+              position={[-s * 0.22, -s * 0.22, s * 0.06]}
+            >
+              {glassMaterial}
+            </RoundedBox>
           </group>
         );
 
@@ -241,8 +262,15 @@ export function ExperienceGlassItem({ shapeType }: ExperienceGlassItemProps) {
           powerPreference: isMobile ? "low-power" : "high-performance",
         }}
         style={{ background: "transparent" }}
+        fallback={
+          <div className="w-full h-full grid place-items-center rounded-2xl bg-white/[0.03] ring-1 ring-white/[0.06]">
+            <div className="text-[12px] tracking-[0.2em] text-white/50">3D UNAVAILABLE</div>
+          </div>
+        }
       >
-        <GlassScene shapeType={shapeType} />
+        <Suspense fallback={<CanvasLoader />}>
+          <GlassScene shapeType={shapeType} />
+        </Suspense>
       </Canvas>
     </div>
   );

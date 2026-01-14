@@ -8,13 +8,23 @@ import { ExperienceGlassItem, type ShapeType } from "./experience-glass-canvas";
 
 function LazyExperienceGlass({ shapeType }: { shapeType: ShapeType }) {
   const hostRef = useRef<HTMLDivElement>(null);
-  const [shouldRender, setShouldRender] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const getIsMobile = () => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(max-width: 767px)").matches;
+  };
+
+  // Important: initialize from matchMedia so mobile doesn't briefly mount ALL canvases.
+  const [isMobile, setIsMobile] = useState(getIsMobile);
+  const [shouldRender, setShouldRender] = useState(() => !getIsMobile());
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     const media = window.matchMedia("(max-width: 767px)");
-    const update = () => setIsMobile(media.matches);
+    const update = () => {
+      const mobile = media.matches;
+      setIsMobile(mobile);
+      if (!mobile) setShouldRender(true);
+    };
     update();
 
     if (typeof media.addEventListener === "function") {
@@ -26,23 +36,17 @@ function LazyExperienceGlass({ shapeType }: { shapeType: ShapeType }) {
   }, []);
 
   useEffect(() => {
-    // Desktop/tablet: keep behavior unchanged (render immediately).
-    if (!isMobile) {
-      setShouldRender(true);
-      return;
-    }
+    // Desktop/tablet: render immediately (matches previous behavior).
+    if (!isMobile) return;
     const el = hostRef.current;
     if (!el) return;
 
-    // Mobile: avoid creating multiple WebGL contexts until the section is near view.
+    // Mobile: only keep canvases mounted while near the viewport to avoid WebGL context limits.
     const obs = new IntersectionObserver(
       (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          setShouldRender(true);
-          obs.disconnect();
-        }
+        setShouldRender(entries.some((e) => e.isIntersecting));
       },
-      { rootMargin: "300px 0px", threshold: 0.01 }
+      { rootMargin: "200px 0px", threshold: 0.01 }
     );
 
     obs.observe(el);
@@ -51,7 +55,13 @@ function LazyExperienceGlass({ shapeType }: { shapeType: ShapeType }) {
 
   return (
     <div ref={hostRef} className="w-full h-full">
-      {shouldRender ? <ExperienceGlassItem shapeType={shapeType} /> : null}
+      {shouldRender ? (
+        <ExperienceGlassItem shapeType={shapeType} />
+      ) : (
+        <div className="w-full h-full grid place-items-center rounded-2xl bg-white/[0.03] ring-1 ring-white/[0.06]">
+          <div className="h-10 w-10 rounded-full border border-white/20 border-t-white/60 animate-spin" />
+        </div>
+      )}
     </div>
   );
 }
