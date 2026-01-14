@@ -14,7 +14,7 @@ export const projects: Project[] = [
     year: "2025",
     title: "FiDB Redesign",
     description:
-      "Turning race-week attention into a habit — where data feels calm, not noisy.",
+      "I redesigned FiDB to turn race-week traffic into something people actually return to. Calm data, quick answers.",
     image: "/FiDB - Dark subscreen.png",
     slug: "fidb-redesign",
     accent: "#a8b4ff",
@@ -24,7 +24,7 @@ export const projects: Project[] = [
     year: "2025",
     title: "Elvou App Concept",
     description:
-      "A ritual as interface — products arranged into a routine that feels inevitable.",
+      "A wellness concept built around ritual. The interface guides you without shouting.",
     image: "/Case-Elvou-app-concept.png",
     slug: "elvou-app-concept",
     accent: "#b6c5ff",
@@ -34,7 +34,7 @@ export const projects: Project[] = [
     year: "2024",
     title: "iotSpot",
     description:
-      "A workplace that explains itself — maps and flows that remove hesitation.",
+      "A rethink of the hybrid workplace experience: clearer maps, faster flows, less second-guessing.",
     image: "/images/project-iotspot.png",
     slug: "iotspot-case",
     accent: "#f6c58f",
@@ -44,7 +44,7 @@ export const projects: Project[] = [
     year: "2024",
     title: "GaiaZoo Companion",
     description:
-      "A day at the zoo, guided by curiosity — where navigation becomes care.",
+      "A companion for a day at the zoo. Navigation, storytelling, and small moments that make you care.",
     image: "/images/project-gaiazoo.png",
     slug: "gaiazoo-companion",
     accent: "#9ccdc4",
@@ -54,7 +54,7 @@ export const projects: Project[] = [
     year: "2024",
     title: "Current EV Charging App",
     description:
-      "Charging without friction — clarity in pricing, direction, and next steps.",
+      "An EV charging app that removes friction. Pricing is clearer, choices are simpler, next steps are obvious.",
     image: "/images/project-stellar.png",
     slug: "current-ev-charging-app",
     accent: "#ef92c2",
@@ -64,7 +64,7 @@ export const projects: Project[] = [
     year: "2024",
     title: "MKB Brandstof",
     description:
-      "Operational work, made quiet — fewer steps, fewer mistakes, more control.",
+      "Fuel management, simplified. Less admin, fewer mistakes, more control for the people running the day.",
     image: "/Case-MKB-Brandstof.png",
     slug: "mkb-brandstof",
     accent: "#ffa85c",
@@ -74,7 +74,7 @@ export const projects: Project[] = [
     year: "2025-2026",
     title: "STMPD Records",
     description:
-      "A label’s world in motion — artists first, friction last.",
+      "A redesign for STMPD that puts the artists first and keeps everything else out of the way.",
     image: "/STMPD 1.png",
     slug: "stmpd-records",
     accent: "#8b5cf6",
@@ -84,7 +84,7 @@ export const projects: Project[] = [
     year: "2025",
     title: "Apperium Website Redesign",
     description:
-      "A digital presence that feels like conviction — sharp, liquid, unmistakable.",
+      "A full website redesign for Apperium: sharper story, stronger presence, and a vibe that finally matches the work.",
     image: "/Apperium - website redesign 1.png",
     slug: "apperium-website-redesign",
     accent: "#6b9fff",
