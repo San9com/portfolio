@@ -225,15 +225,20 @@ interface ExperienceGlassItemProps {
 }
 
 export function ExperienceGlassItem({ shapeType }: ExperienceGlassItemProps) {
+  const isMobile = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(max-width: 767px)").matches;
+  }, []);
+
   return (
     <div className="w-full h-full">
       <Canvas
         camera={{ position: [0, 0, 4], fov: 40 }}
-        dpr={[1, 1.5]}
+        dpr={isMobile ? 1 : [1, 1.5]}
         gl={{
-          antialias: true,
+          antialias: !isMobile,
           alpha: true,
-          powerPreference: "high-performance",
+          powerPreference: isMobile ? "low-power" : "high-performance",
         }}
         style={{ background: "transparent" }}
       >

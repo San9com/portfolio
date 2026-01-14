@@ -114,34 +114,34 @@ export function HeroSection() {
       <div
         ref={stickyRef}
         className="sticky top-0 left-0 flex min-h-[100svh] w-full items-center justify-center overflow-hidden grain-overlay hero-no-cursor"
-      >
-        <div className="sr-only">
-          <p>{heroCopy.introScript}</p>
-          <h1>{heroCopy.headline}</h1>
-          <p>{heroCopy.description}</p>
-        </div>
+    >
+      <div className="sr-only">
+        <p>{heroCopy.introScript}</p>
+        <h1>{heroCopy.headline}</h1>
+        <p>{heroCopy.description}</p>
+      </div>
 
-        <motion.div
-          variants={heroMotion.canvas}
-          initial="initial"
-          animate="animate"
-          transition={{ delay: 0.2, duration: 0.9, ease: "easeOut" }}
+      <motion.div
+        variants={heroMotion.canvas}
+        initial="initial"
+        animate="animate"
+        transition={{ delay: 0.2, duration: 0.9, ease: "easeOut" }}
           className="absolute inset-0"
-        >
-          <HeroCanvas
-            headlineLines={headlineLines}
-            description={heroCopy.description}
-            portraitSrc={profile.portrait}
-            introScript={heroCopy.introScript}
+      >
+        <HeroCanvas
+          headlineLines={headlineLines}
+          description={heroCopy.description}
+          portraitSrc={profile.portrait}
+          introScript={heroCopy.introScript}
             scrollProgress={scrollProgress}
-          />
-        </motion.div>
-
-        <motion.div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300"
-          style={{ opacity: 0 }}
         />
+      </motion.div>
+
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300"
+        style={{ opacity: 0 }}
+      />
       </div>
     </section>
   );

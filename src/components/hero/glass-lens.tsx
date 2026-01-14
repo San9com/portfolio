@@ -75,22 +75,13 @@ export function GlassLens({
   }, [navHoverShape, forcedShape]);
 
   useEffect(() => {
-    if (isMobile) {
-      const onScroll = () => {
-        const scrollY = window.scrollY / (window.innerHeight * 2);
-        scrollTarget.current = scrollY % 1;
-      };
-      onScroll();
-      window.addEventListener("scroll", onScroll, { passive: true });
-      return () => window.removeEventListener("scroll", onScroll);
-    } else {
-      const handleMouseMove = (event: MouseEvent) => {
-        mouseRef.current.x = (event.clientX / size.width) * 2 - 1;
-        mouseRef.current.y = -(event.clientY / size.height) * 2 + 1;
-      };
-      window.addEventListener("mousemove", handleMouseMove, { passive: true });
-      return () => window.removeEventListener("mousemove", handleMouseMove);
-    }
+    if (isMobile) return;
+    const handleMouseMove = (event: MouseEvent) => {
+      mouseRef.current.x = (event.clientX / size.width) * 2 - 1;
+      mouseRef.current.y = -(event.clientY / size.height) * 2 + 1;
+    };
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [size, isMobile]);
 
   useFrame((state) => {
@@ -104,12 +95,9 @@ export function GlassLens({
     const maxY = viewport.height / 2 - glassSize;
 
     if (isMobile) {
-      scrollCurrent.current = MathUtils.lerp(scrollCurrent.current, scrollTarget.current, 0.08);
-      const fullTravelWidth = viewport.width * 1.8;
-      const progress = scrollCurrent.current % 1;
-      currentX = -viewport.width / 2 + progress * fullTravelWidth;
-      currentY = position[1];
-      currentX = MathUtils.clamp(currentX, -maxX, maxX);
+      // Mobile: keep lens centered. Scroll should only change the stage/shape, not the lens position.
+      currentX = MathUtils.clamp(position[0], -maxX, maxX);
+      currentY = MathUtils.clamp(position[1], -maxY, maxY);
       ref.current.position.set(currentX, currentY, position[2]);
     } else {
       // When hovering over nav, position glass in center-right of visible area

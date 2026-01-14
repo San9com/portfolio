@@ -173,7 +173,7 @@ export function ExperienceSection() {
 
                 {/* Glass Object Container */}
                 <div 
-                  className={`relative h-[300px] lg:h-[400px] hidden lg:flex items-center justify-center ${isTextRight ? 'lg:order-1' : 'lg:order-2'}`}
+                  className={`relative h-[220px] sm:h-[280px] lg:h-[400px] flex items-center justify-center ${isTextRight ? 'lg:order-1' : 'lg:order-2'}`}
                 >
                   <ExperienceGlassItem shapeType={getShapeForItem(item.id, item.company)} />
                 </div>

@@ -234,6 +234,21 @@ function HeroScene({
 export function HeroCanvas(props: HeroCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentGlassShape, setCurrentGlassShape] = useState("greeting");
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const media = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(media.matches);
+    update();
+    // Safari < 14 uses addListener/removeListener
+    if ("addEventListener" in media) {
+      media.addEventListener("change", update);
+      return () => media.removeEventListener("change", update);
+    }
+    (media as any).addListener?.(update);
+    return () => (media as any).removeListener?.(update);
+  }, []);
 
   // Keep lens shape in sync with scroll-derived stage
   useEffect(() => {
@@ -257,12 +272,12 @@ export function HeroCanvas(props: HeroCanvasProps) {
       <Canvas
         className="h-full w-full hero-no-cursor"
         camera={{ position: [0, 0, 10], fov: 50 }}
-        dpr={[1, 2]}
+        dpr={isMobile ? 1 : [1, 2]}
         gl={{
-          antialias: true,
+          antialias: !isMobile,
           alpha: true,
-          powerPreference: "high-performance",
-          precision: "highp",
+          powerPreference: isMobile ? "low-power" : "high-performance",
+          precision: isMobile ? "mediump" : "highp",
         }}
         frameloop="always"
         performance={{ min: 0.5 }}
