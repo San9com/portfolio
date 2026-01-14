@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display, Great_Vibes, Reenie_Beanie } from "next/font/google";
+import { Inter, Playfair_Display, Great_Vibes } from "next/font/google";
 import clsx from "clsx";
 import { AppProviders } from "@/components/providers/app-providers";
 import "./globals.css";
@@ -20,12 +20,6 @@ const script = Great_Vibes({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-script-display",
-});
-
-const handwritten = Reenie_Beanie({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-handwritten",
 });
 
 const siteName = "designer";
@@ -67,7 +61,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className={clsx(sans.variable, serif.variable, script.variable, handwritten.variable, "antialiased")}>
+      <body className={clsx(sans.variable, serif.variable, script.variable, "antialiased")}>
         <AppProviders>{children}</AppProviders>
       </body>
     </html>

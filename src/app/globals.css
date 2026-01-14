@@ -28,6 +28,7 @@
   --border-subtle: rgba(255, 255, 255, 0.08);
   --shadow-soft: 0 20px 60px rgba(4, 7, 16, 0.6);
   --font-sans-base: "PPNeueMontreal", "Rmneue", "Futura PT", "Avenir Next", "Avenir", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-handwritten: "Murashka";
   --font-size-base: 16pt;
   --font-letter-spacing: 0.01em;
   --body-padding-y: 0px;
