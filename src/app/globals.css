@@ -203,11 +203,16 @@ footer {
   padding-right: var(--body-padding-x);
 }
 
-header > div,
-section > div,
-footer > div {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
+/* Desktop-only: "inner wrapper padding reset" behavior.
+   On mobile we want component paddings (e.g. header px-8, menu px-6) to apply
+   so content isn't flush to the edges. */
+@media (min-width: 768px) {
+  header > div,
+  section > div,
+  footer > div {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
 }
 
 [class~="max-w-6xl"] {

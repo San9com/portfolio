@@ -20,6 +20,7 @@ export function HeroSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const stickyRef = useRef<HTMLDivElement | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Calculate the total scroll height needed for the sequence
   const totalHeight = `${100 + SEQUENCE_LENGTH * SCROLL_MULTIPLIER * 100}vh`;
@@ -39,14 +40,68 @@ export function HeroSection() {
 
   // Update scroll progress state for passing to canvas
   useMotionValueEvent(smoothScrollYProgress, "change", (latest) => {
+    if (isMobile) return;
     // Map scroll progress to 0-1 for the title sequence
     const adjustedProgress = Math.max(0, Math.min(1, latest));
     setScrollProgress(adjustedProgress);
   });
 
+  // Mobile: compute progress manually (more reliable across mobile browsers + sticky layouts)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const media = window.matchMedia("(max-width: 767px)");
+
+    const updateIsMobile = () => setIsMobile(media.matches);
+    updateIsMobile();
+    if (typeof media.addEventListener === "function") {
+      media.addEventListener("change", updateIsMobile);
+    } else {
+      (media as any).addListener?.(updateIsMobile);
+    }
+
+    const section = sectionRef.current;
+    if (!section) return;
+
+    let raf = 0;
+    const updateProgress = () => {
+      raf = 0;
+      if (!media.matches) return;
+      const rect = section.getBoundingClientRect();
+      const maxScroll = section.offsetHeight - window.innerHeight;
+      if (maxScroll <= 0) {
+        setScrollProgress(0);
+        return;
+      }
+      const progressed = Math.max(0, Math.min(1, (-rect.top) / maxScroll));
+      setScrollProgress(progressed);
+    };
+
+    const onScroll = () => {
+      if (!media.matches) return;
+      if (raf) return;
+      raf = window.requestAnimationFrame(updateProgress);
+    };
+
+    updateProgress();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (raf) window.cancelAnimationFrame(raf);
+      if (typeof media.removeEventListener === "function") {
+        media.removeEventListener("change", updateIsMobile);
+      } else {
+        (media as any).removeListener?.(updateIsMobile);
+      }
+    };
+  }, [totalHeight]);
+
   // Snap-to-stage after scroll settles so you don't skip titles awkwardly.
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (isMobile) return;
     const section = sectionRef.current;
     if (!section) return;
 
@@ -90,7 +145,7 @@ export function HeroSection() {
       window.removeEventListener("scroll", onScroll);
       if (snapTimer) clearTimeout(snapTimer);
     };
-  }, [scrollProgress]);
+  }, [scrollProgress, isMobile]);
 
   useEffect(() => {
     const section = sectionRef.current;
