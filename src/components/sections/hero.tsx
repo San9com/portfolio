@@ -20,10 +20,15 @@ export function HeroSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const stickyRef = useRef<HTMLDivElement | null>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+  const getIsMobile = () => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(max-width: 767px)").matches;
+  };
+  // Important: initialize from matchMedia so mobile never runs desktop-only snapping.
+  const [isMobile, setIsMobile] = useState(getIsMobile);
 
   // Calculate the total scroll height needed for the sequence
-  const totalHeight = `${100 + SEQUENCE_LENGTH * SCROLL_MULTIPLIER * 100}vh`;
+  const totalHeightValue = 100 + SEQUENCE_LENGTH * SCROLL_MULTIPLIER * 100;
 
   // Track scroll progress within the hero section
   const { scrollYProgress } = useScroll({
@@ -46,18 +51,24 @@ export function HeroSection() {
     setScrollProgress(adjustedProgress);
   });
 
-  // Mobile: compute progress manually (more reliable across mobile browsers + sticky layouts)
+  // Keep isMobile in sync with matchMedia changes.
   useEffect(() => {
     if (typeof window === "undefined") return;
     const media = window.matchMedia("(max-width: 767px)");
-
-    const updateIsMobile = () => setIsMobile(media.matches);
-    updateIsMobile();
+    const update = () => setIsMobile(media.matches);
+    update();
     if (typeof media.addEventListener === "function") {
-      media.addEventListener("change", updateIsMobile);
-    } else {
-      (media as any).addListener?.(updateIsMobile);
+      media.addEventListener("change", update);
+      return () => media.removeEventListener("change", update);
     }
+    (media as any).addListener?.(update);
+    return () => (media as any).removeListener?.(update);
+  }, []);
+
+  // Mobile scroll progress (avoid Framer's scrollYProgress inconsistencies with sticky + iOS viewport)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!isMobile) return;
 
     const section = sectionRef.current;
     if (!section) return;
@@ -65,9 +76,9 @@ export function HeroSection() {
     let raf = 0;
     const updateProgress = () => {
       raf = 0;
-      if (!media.matches) return;
       const rect = section.getBoundingClientRect();
-      const maxScroll = section.offsetHeight - window.innerHeight;
+      const vh = window.visualViewport?.height ?? window.innerHeight;
+      const maxScroll = section.offsetHeight - vh;
       if (maxScroll <= 0) {
         setScrollProgress(0);
         return;
@@ -77,7 +88,6 @@ export function HeroSection() {
     };
 
     const onScroll = () => {
-      if (!media.matches) return;
       if (raf) return;
       raf = window.requestAnimationFrame(updateProgress);
     };
@@ -85,18 +95,17 @@ export function HeroSection() {
     updateProgress();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll, { passive: true });
+    window.visualViewport?.addEventListener("resize", onScroll, { passive: true } as any);
+    window.visualViewport?.addEventListener("scroll", onScroll, { passive: true } as any);
 
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      window.visualViewport?.removeEventListener("resize", onScroll as any);
+      window.visualViewport?.removeEventListener("scroll", onScroll as any);
       if (raf) window.cancelAnimationFrame(raf);
-      if (typeof media.removeEventListener === "function") {
-        media.removeEventListener("change", updateIsMobile);
-      } else {
-        (media as any).removeListener?.(updateIsMobile);
-      }
     };
-  }, [totalHeight]);
+  }, [isMobile]);
 
   // Snap-to-stage after scroll settles so you don't skip titles awkwardly.
   useEffect(() => {
@@ -161,7 +170,7 @@ export function HeroSection() {
       ref={sectionRef}
       className="relative isolate w-full"
       style={{
-        height: totalHeight,
+        height: `${totalHeightValue}${isMobile ? "svh" : "vh"}`,
         zIndex: 1,
       }}
     >
