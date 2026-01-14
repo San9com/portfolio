@@ -13,7 +13,7 @@ export function ExperienceSection() {
 
   const getShapeForItem = (id: string, company: string): ShapeType => {
     // Stable mapping by item, not by index.
-    if (id === "freelance-ios" || company === "Independent") return "laptop";
+    if (id === "freelance-ios" || company === "Freelance") return "laptop";
     if (id === "fontys" || company === "Student") return "cap";
     if (id === "stellar" || company === "Stellar Lab") return "star";
     if (id === "apperium" || company === "Apperium") return "logo";

@@ -12,7 +12,7 @@ export const experience: ExperienceItem[] = [
   {
     id: "freelance-ios",
     role: "Freelance UI/UX designer (iOS)",
-    company: "Independent",
+    company: "Freelance",
     start: "February 2020",
     end: "Early 2022",
     summary: "Worked on a dozen of iOS applications ranging from VPNs to Meditation applications, responsible for the whole design from onboarding screens to App Store graphics, icons and logos. During the fall of 2022, a small team and I created a QR-code scanner application where I served as both UI/UX designer and product manager, handling the entire product lifecycle from ideation to A/B testing. The application was later sold to another company.",
