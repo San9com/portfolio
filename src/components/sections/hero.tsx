@@ -76,14 +76,15 @@ export function HeroSection() {
     let raf = 0;
     const updateProgress = () => {
       raf = 0;
-      const rect = section.getBoundingClientRect();
       const vh = window.visualViewport?.height ?? window.innerHeight;
+      const heroTop = section.offsetTop;
       const maxScroll = section.offsetHeight - vh;
       if (maxScroll <= 0) {
         setScrollProgress(0);
         return;
       }
-      const progressed = Math.max(0, Math.min(1, (-rect.top) / maxScroll));
+      const y = window.scrollY - heroTop;
+      const progressed = Math.max(0, Math.min(1, y / maxScroll));
       setScrollProgress(progressed);
     };
 
@@ -170,7 +171,7 @@ export function HeroSection() {
       ref={sectionRef}
       className="relative isolate w-full"
       style={{
-        height: `${totalHeightValue}${isMobile ? "svh" : "vh"}`,
+        height: `${totalHeightValue}svh`,
         zIndex: 1,
       }}
     >
