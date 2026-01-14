@@ -541,7 +541,7 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
                     className="text-white"
                     style={{
                       fontFamily: "var(--font-handwritten), cursive",
-                      fontSize: "clamp(3rem, 8vw, 6rem)",
+                      fontSize: "calc(clamp(3rem, 8vw, 6rem) * 1.3)",
                       lineHeight: 0.95,
                     }}
                   >

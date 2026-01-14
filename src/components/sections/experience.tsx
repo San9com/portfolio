@@ -144,7 +144,7 @@ export function ExperienceSection() {
                     className="text-white"
                     style={{ 
                       fontFamily: "var(--font-handwritten), cursive",
-                      fontSize: "clamp(2.5rem, 6vw, 5rem)",
+                      fontSize: "calc(clamp(2.5rem, 6vw, 5rem) * 1.3)",
                       lineHeight: 1.0,
                     }}
                   >

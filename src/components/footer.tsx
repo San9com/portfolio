@@ -44,7 +44,7 @@ export function Footer() {
           className="block text-white"
           style={{ 
             fontFamily: "var(--font-handwritten), cursive",
-            fontSize: "clamp(3.5rem, 10vw, 10rem)",
+            fontSize: "calc(clamp(3.5rem, 10vw, 10rem) * 1.3)",
             lineHeight: 0.9,
           }}
         >

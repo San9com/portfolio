@@ -59,7 +59,7 @@ export function WorkSection() {
             className="block text-white"
             style={{ 
               fontFamily: "var(--font-handwritten), cursive",
-              fontSize: "clamp(2.5rem, 5vw, 4rem)",
+              fontSize: "calc(clamp(2.5rem, 5vw, 4rem) * 1.3)",
             }}
           >
             Projects I'm proud of
