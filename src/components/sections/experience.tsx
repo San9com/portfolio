@@ -1,10 +1,60 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { experience } from "@/data/experience";
 import { ExperienceGlassItem, type ShapeType } from "./experience-glass-canvas";
+
+function LazyExperienceGlass({ shapeType }: { shapeType: ShapeType }) {
+  const hostRef = useRef<HTMLDivElement>(null);
+  const [shouldRender, setShouldRender] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const media = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(media.matches);
+    update();
+
+    if (typeof media.addEventListener === "function") {
+      media.addEventListener("change", update);
+      return () => media.removeEventListener("change", update);
+    }
+    (media as any).addListener?.(update);
+    return () => (media as any).removeListener?.(update);
+  }, []);
+
+  useEffect(() => {
+    // Desktop/tablet: keep behavior unchanged (render immediately).
+    if (!isMobile) {
+      setShouldRender(true);
+      return;
+    }
+    const el = hostRef.current;
+    if (!el) return;
+
+    // Mobile: avoid creating multiple WebGL contexts until the section is near view.
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setShouldRender(true);
+          obs.disconnect();
+        }
+      },
+      { rootMargin: "300px 0px", threshold: 0.01 }
+    );
+
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [isMobile]);
+
+  return (
+    <div ref={hostRef} className="w-full h-full">
+      {shouldRender ? <ExperienceGlassItem shapeType={shapeType} /> : null}
+    </div>
+  );
+}
 
 // Experience section component
 export function ExperienceSection() {
@@ -175,7 +225,7 @@ export function ExperienceSection() {
                 <div 
                   className={`relative h-[220px] sm:h-[280px] lg:h-[400px] flex items-center justify-center ${isTextRight ? 'lg:order-1' : 'lg:order-2'}`}
                 >
-                  <ExperienceGlassItem shapeType={getShapeForItem(item.id, item.company)} />
+                  <LazyExperienceGlass shapeType={getShapeForItem(item.id, item.company)} />
                 </div>
               </motion.article>
             );

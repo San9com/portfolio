@@ -168,8 +168,11 @@ export function HeroSection() {
       {/* Sticky container that stays in view during scroll */}
       <div
         ref={stickyRef}
-        className="sticky top-0 left-0 flex min-h-[100svh] w-full items-center justify-center overflow-hidden grain-overlay hero-no-cursor"
+        className="sticky top-0 left-0 relative flex min-h-[100svh] w-full items-center justify-center overflow-hidden grain-overlay hero-no-cursor"
     >
+        {/* Mobile safety: ensure we never flash default canvas gray while WebGL assets load */}
+        <div className="pointer-events-none absolute inset-0 bg-[url('/bgd-test-2.png')] bg-cover bg-center md:hidden" />
+
       <div className="sr-only">
         <p>{heroCopy.introScript}</p>
         <h1>{heroCopy.headline}</h1>

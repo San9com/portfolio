@@ -282,6 +282,8 @@ export function HeroCanvas(props: HeroCanvasProps) {
         frameloop="always"
         performance={{ min: 0.5 }}
       >
+        {/* Prevent default gray clear color on devices where WebGL is slow to initialize */}
+        <color attach="background" args={["#000000"]} />
         <Suspense fallback={null}>
           <HeroScene 
             scrollProgress={props.scrollProgress || 0} 
