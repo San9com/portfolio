@@ -564,7 +564,7 @@ export default async function WorkCasePage({ params }: WorkPageProps) {
                       <h2 className="section-title text-foreground">
                         {phase.title}
                       </h2>
-                      <div className="max-w-3xl flex flex-col gap-4">
+                      <div className="w-full max-w-none flex flex-col gap-4">
                         {phase.body.map((paragraph, index) => (
                           <p key={`${phase.title}-body-${index}`} className="body-text text-white/55">{paragraph}</p>
                         ))}
