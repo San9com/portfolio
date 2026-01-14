@@ -180,7 +180,7 @@ export function HeroSection() {
         className="sticky top-0 left-0 relative flex min-h-[100svh] w-full items-center justify-center overflow-hidden grain-overlay hero-no-cursor"
     >
         {/* Mobile safety: ensure we never flash default canvas gray while WebGL assets load */}
-        <div className="pointer-events-none absolute inset-0 bg-[url('/bgd-test-2.png')] bg-cover bg-center md:hidden" />
+        <div className="pointer-events-none absolute inset-0 z-0 bg-[url('/bgd-test-2.png')] bg-cover bg-center md:hidden" />
 
       <div className="sr-only">
         <p>{heroCopy.introScript}</p>
@@ -189,11 +189,11 @@ export function HeroSection() {
       </div>
 
       <motion.div
-        variants={heroMotion.canvas}
-        initial="initial"
-        animate="animate"
-        transition={{ delay: 0.2, duration: 0.9, ease: "easeOut" }}
-          className="absolute inset-0"
+        variants={isMobile ? undefined : heroMotion.canvas}
+        initial={isMobile ? false : "initial"}
+        animate={isMobile ? undefined : "animate"}
+        transition={isMobile ? undefined : { delay: 0.2, duration: 0.9, ease: "easeOut" }}
+          className="absolute inset-0 z-10"
       >
         <HeroCanvas
           headlineLines={headlineLines}
