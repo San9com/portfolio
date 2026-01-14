@@ -60,6 +60,13 @@ export default function RootLayout({
           type="font/woff"
           crossOrigin="anonymous"
         />
+        <link
+          rel="preload"
+          href="/Murashka.woff"
+          as="font"
+          type="font/woff"
+          crossOrigin="anonymous"
+        />
       </head>
       <body className={clsx(sans.variable, serif.variable, script.variable, "antialiased")}>
         <AppProviders>{children}</AppProviders>
